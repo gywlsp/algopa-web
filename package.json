@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "pretty": "prettier --write \"src/**/*.(ts|tsx)\"",
+    "tsc": "tsc",
+    "test": "yarn lint && yarn pretty && yarn tsc"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.12.0",
