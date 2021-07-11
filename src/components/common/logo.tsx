@@ -16,11 +16,11 @@ export default function Logo() {
 
 const A = styled.a`
   text-decoration: none;
+  cursor: pointer;
 `;
 
 const LogoText = styled.p`
   font-family: 'Comfortaa';
   font-size: 2.8rem;
   color: ${BLUE_GREEN[500]};
-  text-decoration: none;
 `;
