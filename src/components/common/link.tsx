@@ -1,16 +1,17 @@
-import React, { ReactNode, ReactNodeArray } from 'react';
+import React, { ReactNode, ReactNodeArray, CSSProperties } from 'react';
 import { default as _Link } from 'next/link';
 import styled from 'styled-components';
 
 export type LinkProps = {
   href: string;
   children: ReactNode | ReactNodeArray;
+  wrapperStyle?: CSSProperties;
 };
 
-export default function Link({ href, children }: LinkProps) {
+export default function Link({ href, children, wrapperStyle }: LinkProps) {
   return (
     <_Link href={href}>
-      <A>{children}</A>
+      <A style={wrapperStyle}>{children}</A>
     </_Link>
   );
 }
