@@ -31,5 +31,5 @@ const Title = styled.p`
   font-size: 2.4rem;
   font-weight: 500;
   color: ${GREY[800]};
-  margin: 0 auto 1.2rem 0;
+  margin-bottom: 2rem;
 `;
