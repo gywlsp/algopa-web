@@ -16,6 +16,7 @@
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-google-login": "^5.2.2",
     "react-graph-vis": "^1.0.7",
     "styled-components": "^5.3.0",
     "styled-normalize": "^8.0.7",
