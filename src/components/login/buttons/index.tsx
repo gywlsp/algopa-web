@@ -37,7 +37,7 @@ const Wrapper = styled.a`
   &:hover {
     border: 1px solid ${GREY[500]};
   }
-  margin-bottom: 2rem;
+  margin-bottom: 2.4rem;
   text-decoration: none;
 `;
 
