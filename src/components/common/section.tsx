@@ -6,16 +6,12 @@ import { GREY } from 'src/constants/colors';
 export type SectionProps = {
   title: string;
   children: ReactNode | ReactNodeArray;
-  wrapperStyle?: CSSProperties;
+  className?: string;
 };
 
-export default function Section({
-  title,
-  children,
-  wrapperStyle,
-}: SectionProps) {
+export default function Section({ title, children, className }: SectionProps) {
   return (
-    <Wrapper style={wrapperStyle}>
+    <Wrapper className={className}>
       <Title>{title}</Title>
       {children}
     </Wrapper>

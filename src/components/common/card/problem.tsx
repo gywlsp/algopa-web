@@ -1,20 +1,22 @@
 import React from 'react';
+import Link from '../link';
+import styled from 'styled-components';
+
 import { BLUE_GREEN } from 'src/constants/colors';
-import styled, { CSSProperties } from 'styled-components';
 
 export type ProblemCardProps = {
-  wrapperStyle?: CSSProperties;
   id?: number;
   title?: string;
+  className?: string;
 };
 
 export default function ProblemCard({
-  wrapperStyle,
+  className,
   id = 1260,
   title = '문제 제목',
 }: ProblemCardProps) {
   return (
-    <Wrapper style={wrapperStyle}>
+    <Wrapper href={`/problems/${id}`} className={className}>
       <Level>난이도</Level>
       <P>{id}</P>
       <P>{title}</P>
@@ -22,7 +24,7 @@ export default function ProblemCard({
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled(Link)`
   display: flex;
   flex-direction: column;
   flex: 1;

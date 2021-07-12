@@ -1,7 +1,7 @@
 import React, { ReactNode, ReactNodeArray } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 
+import Link from './link';
 import { BLUE_GREEN, WHITE } from 'src/constants/colors';
 
 type ButtonType = 'primary' | 'secondary' | 'text';
@@ -12,7 +12,7 @@ export type ButtonProps = {
   href?: string;
   onClick?: () => void;
   RightIcon?: ReactNode | ReactNodeArray;
-  wrapperStyle?: React.CSSProperties;
+  className?: string;
   hasPadding?: boolean;
 };
 
@@ -22,24 +22,27 @@ export default function Button({
   href,
   onClick,
   RightIcon,
-  wrapperStyle = {},
+  className,
   hasPadding,
 }: ButtonProps) {
   const _hasPadding = hasPadding || type !== 'text';
 
   if (href) {
     return (
-      <Link href={href}>
-        <A hasPadding={_hasPadding} onClick={onClick} style={wrapperStyle}>
-          {title}
-          {RightIcon}
-        </A>
-      </Link>
+      <StyledLink
+        href={href}
+        onClick={onClick}
+        hasPadding={_hasPadding}
+        className={className}
+      >
+        {title}
+        {RightIcon}
+      </StyledLink>
     );
   }
 
   return (
-    <Wrapper hasPadding={_hasPadding} onClick={onClick} style={wrapperStyle}>
+    <Wrapper hasPadding={_hasPadding} onClick={onClick} className={className}>
       {title}
       {RightIcon}
     </Wrapper>
@@ -63,7 +66,7 @@ const Wrapper = styled.button<{ hasPadding: boolean }>`
   }
 `;
 
-const A = styled.a<{ hasPadding: boolean }>`
+const StyledLink = styled(Link)<{ hasPadding: boolean }>`
   display: flex;
   align-items: center;
   margin: 0;
@@ -72,11 +75,8 @@ const A = styled.a<{ hasPadding: boolean }>`
   font-weight: 400;
   color: ${BLUE_GREEN[500]};
   background-color: ${WHITE};
-  border: none;
-  cursor: pointer;
   transition: all 0.3s;
   &:hover {
     color: ${BLUE_GREEN[900]};
   }
-  text-decoration: none;
 `;
