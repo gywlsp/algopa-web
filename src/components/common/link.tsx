@@ -18,4 +18,5 @@ export default function Link({ href, children, wrapperStyle }: LinkProps) {
 
 const A = styled.a`
   text-decoration: none;
+  cursor: pointer;
 `;
