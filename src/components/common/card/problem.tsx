@@ -7,12 +7,14 @@ import { BLUE_GREEN } from 'src/constants/colors';
 export type ProblemCardProps = {
   id?: number | string;
   title?: string;
+  level?: string;
   className?: string;
 };
 
 export default function ProblemCard({
   className,
   id = 1260,
+  level,
   title = '문제 제목',
 }: ProblemCardProps) {
   return (
