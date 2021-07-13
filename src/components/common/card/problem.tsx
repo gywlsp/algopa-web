@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { BLUE_GREEN } from 'src/constants/colors';
 
 export type ProblemCardProps = {
-  id?: number;
+  id?: number | string;
   title?: string;
   className?: string;
 };
