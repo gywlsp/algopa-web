@@ -18,8 +18,13 @@ export default function LoginButton({
 }: LoginButtonProps) {
   return (
     <Wrapper href={href}>
-      <Logo src={serviceImgSrc} alt={serviceName} width="4rem" height="4rem" />
-      <StyledP level={2} textAlign="center">
+      <Logo
+        src={serviceImgSrc}
+        alt={serviceName}
+        width="4.8rem"
+        height="4.8rem"
+      />
+      <StyledP level={3} textAlign="center">
         {serviceName} 계정으로 로그인
       </StyledP>
     </Wrapper>
@@ -39,6 +44,7 @@ const Wrapper = styled.a`
   }
   margin-bottom: 2.4rem;
   text-decoration: none;
+  border-radius: 0.2rem;
 `;
 
 const Logo = styled(Img)`
