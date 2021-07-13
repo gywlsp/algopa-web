@@ -5,40 +5,80 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
   ssr: false,
 });
 
-import { GRAPH_DATA } from 'src/data/roadmap';
-import { GREY } from 'src/constants/colors';
+import RoadmapProblemModal from './problem-modal';
+import { BLUE_GREEN, WHITE } from 'src/constants/colors';
 
-const EVENTS = {
-  select: (e) => {
-    const { nodes, edges } = e;
-    alert(edges);
-  },
-};
+import { GRAPH_DATA, PROBLEM_NODES } from 'src/data/roadmap';
 
 //@TO_BE_IMPROVED
 export default function Roadmap() {
-  const [innerWidth, setInnerWidth] = useState(1920);
-  const [innerHeight, setInnerHeight] = useState(1080);
+  const [network, setNetwork] = useState(null);
+  const [selectedNodeID, setSelectedNodeID] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    setInnerWidth(window.innerWidth);
-    setInnerHeight(window.innerHeight);
-  });
+  const selectedProblemNode = PROBLEM_NODES.find(
+    ({ id }) => id === selectedNodeID
+  );
+  const isProblemNodeSelected = !!selectedProblemNode;
 
-  const GRAPH_OPTIONS = {
+  const getNetwork = (_network) => {
+    _network.moveTo({ scale: 0.7 });
+    setNetwork(_network);
+  };
+
+  const handleNodeClick = ({
+    pointer: {
+      canvas: { x, y },
+    },
+    nodes,
+  }) => {
+    setSelectedNodeID(nodes[0]);
+    network.moveTo({
+      position: { x, y },
+      scale: 1,
+      offset: { x: 0, y: 0 },
+      animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
+    });
+  };
+
+  const handleNodeDoubleClick = () => {
+    isProblemNodeSelected && setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const graphOptions = {
     layout: {
       hierarchical: false,
     },
     edges: {
       color: '#000',
     },
-    height: innerHeight,
+  };
+
+  const events = {
+    selectNode: handleNodeClick,
+    doubleClick: handleNodeDoubleClick,
   };
 
   return (
-    <Wrapper>
-      <Graph graph={GRAPH_DATA} options={GRAPH_OPTIONS} events={EVENTS} />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Graph
+          graph={GRAPH_DATA}
+          options={graphOptions}
+          events={events}
+          getNetwork={getNetwork}
+        />
+      </Wrapper>
+      <RoadmapProblemModal
+        {...selectedProblemNode}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
+    </>
   );
 }
 
