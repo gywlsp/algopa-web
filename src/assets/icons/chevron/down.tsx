@@ -1,9 +1,9 @@
 import { IconProps } from '../../icons';
-import { BLACK } from 'src/constants/colors';
+import { GREY } from 'src/constants/colors';
 
 export default function ChevronDownIcon({
   style = {},
-  fill = BLACK,
+  fill = GREY[900],
 }: IconProps) {
   return (
     <svg

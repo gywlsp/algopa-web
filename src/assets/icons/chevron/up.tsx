@@ -1,7 +1,10 @@
 import { IconProps } from '..';
-import { BLACK } from 'src/constants/colors';
+import { GREY } from 'src/constants/colors';
 
-export default function ChevronUpIcon({ style = {}, fill = BLACK }: IconProps) {
+export default function ChevronUpIcon({
+  style = {},
+  fill = GREY[900],
+}: IconProps) {
   return (
     <svg
       style={{ width: '2rem', height: '2rem', ...style }}
