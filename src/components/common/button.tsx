@@ -10,7 +10,7 @@ export type ButtonProps = {
   type?: ButtonType;
   title: string;
   href?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   RightIcon?: ReactNode | ReactNodeArray;
   className?: string;
   hasPadding?: boolean;
