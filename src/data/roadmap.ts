@@ -1,3 +1,5 @@
+import { BLUE_GREEN } from 'src/constants/colors';
+
 const ALGORITHM_CATEGORIES = [
   '구현',
   '재귀',
@@ -25,8 +27,9 @@ const ALGORITHM_CATEGORIES = [
 
 const CATEGORY_NODES = ALGORITHM_CATEGORIES.map((category, i) => ({
   id: String(i),
-  label: category,
-  title: `${category} tooltip text`,
+  label: `[${i + 1}] ${category}`,
+  color: BLUE_GREEN[300],
+  shape: 'circle',
 }));
 
 const CATEGORY_EDGES = ALGORITHM_CATEGORIES.slice(1).map((_, i) => ({
@@ -34,12 +37,17 @@ const CATEGORY_EDGES = ALGORITHM_CATEGORIES.slice(1).map((_, i) => ({
   to: String(i + 1),
 }));
 
-const PROBLEM_NODES = CATEGORY_NODES.reduce((acc, { id: _id }) => {
+export const PROBLEM_NODES = CATEGORY_NODES.reduce((acc, { id: _id }) => {
   const problems = [];
   for (let i = 0; i < 3; i++) {
     const id = _id + '-' + i;
     const label = `문제 ${id}`;
-    problems.push({ id, label, title: `${label} tooltip text` });
+    problems.push({
+      id,
+      label,
+      color: BLUE_GREEN[100],
+      shape: 'circle',
+    });
   }
   return acc.concat(problems);
 }, []);
