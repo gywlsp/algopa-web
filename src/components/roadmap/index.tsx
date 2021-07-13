@@ -44,5 +44,7 @@ export default function Roadmap() {
 
 const Wrapper = styled.div`
   width: 100%;
-  border: 1px solid ${GREY[700]};
+  height: 100vh;
+  border: 1px solid ${BLUE_GREEN[500]};
+  background-color: ${WHITE};
 `;
