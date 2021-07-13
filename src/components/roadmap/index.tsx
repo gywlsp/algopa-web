@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import Graph from 'react-graph-vis';
+const Graph: any = dynamic(() => import('react-graph-vis'), {
+  ssr: false,
+});
 
 import { GRAPH_DATA } from 'src/data/roadmap';
 import { GREY } from 'src/constants/colors';
