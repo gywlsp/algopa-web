@@ -31,7 +31,7 @@ export default function Modal({
 
   return (
     <Overlay isOpen={isOpen} onClick={onClose}>
-      <Wrapper onClick={handleWrapperClick}>
+      <Wrapper isOpen={isOpen} onClick={handleWrapperClick}>
         <Header>
           <P level={5} fontWeight={500}>
             문제 상세
@@ -56,21 +56,26 @@ export default function Modal({
 }
 
 const Overlay = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   position: fixed;
   top: 0;
   left: 0;
   z-index: 500;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1 0 auto;
   width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  ${({ isOpen }) =>
+    isOpen
+      ? 'height: 100vh; background-color: rgba(0, 0, 0, 0.3)'
+      : 'height: auto; background-color: rgba(0, 0, 0, 0)'};
+  transition: background-color 0.3s;
+  transition: all 0.3s;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isOpen: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   width: 480px;
   z-index: 700;
   background-color: ${WHITE};
