@@ -19,7 +19,6 @@ export default function Roadmap() {
   const selectedProblemNode = PROBLEM_NODES.find(
     ({ id }) => id === selectedNodeID
   );
-  const isProblemNodeSelected = !!selectedProblemNode;
 
   const getNetwork = (_network) => {
     _network.moveTo({ scale: 0.7 });
@@ -41,8 +40,14 @@ export default function Roadmap() {
     });
   };
 
-  const handleNodeDoubleClick = () => {
-    isProblemNodeSelected && setModalOpen(true);
+  const handleNodeDoubleClick = ({ nodes }) => {
+    if (!selectedProblemNode || !nodes?.length) {
+      return;
+    }
+    if (selectedNodeID !== nodes[0]) {
+      setSelectedNodeID(nodes[0]);
+    }
+    setModalOpen(true);
   };
 
   const closeModal = () => {
