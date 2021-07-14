@@ -48,7 +48,7 @@ const Wrapper = styled.a`
 `;
 
 const Logo = styled(Img)`
-  padding: 0.4rem;
+  padding: 0.8rem;
   border-right: 1px solid ${GREY[400]};
   transition: all 0.3s;
   ${Wrapper}:hover & {
