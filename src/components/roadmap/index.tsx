@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 const Graph: any = dynamic(() => import('react-graph-vis'), {
@@ -6,7 +6,7 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
 });
 
 import RoadmapProblemModal from './problem-modal';
-import { BLUE_GREEN, WHITE } from 'src/constants/colors';
+import { GREY, WHITE } from 'src/constants/colors';
 
 import { GRAPH_DATA, PROBLEM_NODES } from 'src/data/roadmap';
 
@@ -90,6 +90,6 @@ export default function Roadmap() {
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  border: 1px solid ${BLUE_GREEN[500]};
+  border: 1px solid ${GREY[400]};
   background-color: ${WHITE};
 `;

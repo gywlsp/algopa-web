@@ -7,7 +7,7 @@ import Section from 'src/components/common/section';
 import Link from 'src/components/common/link';
 import ProblemCard from 'src/components/common/card/problem';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
-import { BLUE_GREEN, WHITE } from 'src/constants/colors';
+import { GREY, WHITE } from 'src/constants/colors';
 
 export default function Home() {
   return (
@@ -57,6 +57,6 @@ const MoreLink = styled(Link)`
   justify-content: center;
   flex: 1;
   padding: 2rem;
-  border: 1px solid ${BLUE_GREEN[500]};
+  border: 1px solid ${GREY[400]};
   background-color: rgba(0, 0, 0, 0.4);
 `;
