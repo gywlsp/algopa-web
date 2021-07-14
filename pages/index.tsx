@@ -17,7 +17,7 @@ export default function Home() {
           {[...Array(4)].map((_, i) => (
             <ProblemCard key={i} />
           ))}
-          <MoreLink href="/recommended-problems">
+          <MoreLink href="/recommendation">
             <ChevronRightIcon
               style={{ width: '2rem', height: '2rem', margin: '1.2rem 0' }}
               fill={WHITE}
