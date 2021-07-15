@@ -27,6 +27,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 export default MyApp;
 
 const Main = styled.main`
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   min-height: 100vh;
 `;
