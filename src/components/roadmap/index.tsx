@@ -13,11 +13,11 @@ import { GRAPH_DATA, PROBLEM_NODES } from 'src/data/roadmap';
 //@TO_BE_IMPROVED
 export default function Roadmap() {
   const [network, setNetwork] = useState(null);
-  const [selectedNodeID, setSelectedNodeID] = useState(null);
+  const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
   const selectedProblemNode = PROBLEM_NODES.find(
-    ({ id }) => id === selectedNodeID
+    ({ id }) => id === selectedNodeId
   );
 
   const getNetwork = (_network) => {
@@ -31,7 +31,7 @@ export default function Roadmap() {
     },
     nodes,
   }) => {
-    setSelectedNodeID(nodes[0]);
+    setSelectedNodeId(nodes[0]);
     network.moveTo({
       position: { x, y },
       scale: 1,
@@ -44,8 +44,8 @@ export default function Roadmap() {
     if (!selectedProblemNode || !nodes?.length) {
       return;
     }
-    if (selectedNodeID !== nodes[0]) {
-      setSelectedNodeID(nodes[0]);
+    if (selectedNodeId !== nodes[0]) {
+      setSelectedNodeId(nodes[0]);
     }
     setModalOpen(true);
   };
