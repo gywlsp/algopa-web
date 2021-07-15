@@ -3,7 +3,7 @@ import { GREY } from 'src/constants/colors';
 
 export default function ChevronDownIcon({
   style = {},
-  fill = GREY[900],
+  fill = GREY[800],
 }: IconProps) {
   return (
     <svg

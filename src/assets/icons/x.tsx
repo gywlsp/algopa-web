@@ -1,7 +1,7 @@
 import { IconProps } from '../icons';
 import { GREY } from 'src/constants/colors';
 
-export default function XIcon({ style = {}, fill = GREY[900] }: IconProps) {
+export default function XIcon({ style = {}, fill = GREY[800] }: IconProps) {
   return (
     <svg
       style={{ width: '2rem', height: '2rem', ...style }}

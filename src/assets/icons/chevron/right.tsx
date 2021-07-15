@@ -3,7 +3,7 @@ import { IconProps } from '..';
 
 export default function ChevronRightIcon({
   style = {},
-  fill = GREY[900],
+  fill = GREY[800],
 }: IconProps) {
   return (
     <svg
