@@ -14,7 +14,6 @@ export default function GlobalHeader() {
 }
 
 const Wrapper = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   padding: 1.2rem 4rem;
