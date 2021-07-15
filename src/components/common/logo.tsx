@@ -1,14 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
-
-import { BLUE_GREEN } from 'src/constants/colors';
 import styled from 'styled-components';
 
-export default function Logo() {
+import P from './p';
+import { BLUE_GREEN } from 'src/constants/colors';
+
+export type LogoSize = 'large' | 'medium';
+
+export type LogoProps = {
+  size?: LogoSize;
+  className?: string;
+};
+
+export default function Logo({ size = 'medium', className }: LogoProps) {
   return (
     <Link href="/">
-      <A>
-        <LogoText>algopa</LogoText>
+      <A className={className}>
+        <LogoText level={size === 'large' ? 25 : 9} color={BLUE_GREEN[500]}>
+          algopa
+        </LogoText>
       </A>
     </Link>
   );
@@ -19,8 +29,6 @@ const A = styled.a`
   cursor: pointer;
 `;
 
-const LogoText = styled.p`
+const LogoText = styled(P)`
   font-family: 'Comfortaa';
-  font-size: 2.8rem;
-  color: ${BLUE_GREEN[500]};
 `;
