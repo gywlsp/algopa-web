@@ -1,21 +1,30 @@
-import CryptoAES from 'crypto-js/aes';
-import CryptoENC from 'crypto-js/enc-utf8';
+import CryptoJS from 'crypto-js';
 
 export const getEncryptedString = (str: string) => {
   if (!str) {
     return str;
   }
-  const encrypted = CryptoAES.encrypt(str, process.env.NEXT_PUBLIC_CRYPTO_KEY);
-  return encrypted.toString();
+  const encJson = CryptoJS.AES.encrypt(
+    JSON.stringify(str),
+    process.env.NEXT_PUBLIC_CRYPTO_KEY
+  ).toString();
+  const encStr = CryptoJS.enc.Base64.stringify(
+    CryptoJS.enc.Utf8.parse(encJson)
+  );
+  return encStr;
 };
 
 export const getDecryptedString = (encryptedStr: string) => {
   if (!encryptedStr) {
     return encryptedStr;
   }
-  const decrypted = CryptoAES.decrypt(
-    encryptedStr,
-    process.env.NEXT_PUBLIC_CRYPTO_KEY
+  const decData = CryptoJS.enc.Base64.parse(encryptedStr).toString(
+    CryptoJS.enc.Utf8
   );
-  return decrypted.toString(CryptoENC);
+  const bytes = CryptoJS.AES.decrypt(
+    decData,
+    process.env.NEXT_PUBLIC_CRYPTO_KEY
+  ).toString(CryptoJS.enc.Utf8);
+  const decStr = JSON.parse(bytes);
+  return decStr;
 };
