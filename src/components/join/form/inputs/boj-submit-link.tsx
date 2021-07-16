@@ -89,7 +89,8 @@ const Row = styled.div`
 `;
 
 const GuideImg = styled(Img).attrs({
-  width: '2.4rem',
-  height: '2.4rem',
+  width: '49%',
+  height: '24rem',
   border: true,
+  cover: true,
 })``;
