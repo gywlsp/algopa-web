@@ -2,7 +2,7 @@ import React, { ReactNode, ReactNodeArray } from 'react';
 import styled from 'styled-components';
 
 import Link from './link';
-import { BLUE_GREEN, WHITE } from 'src/constants/colors';
+import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
 export type ButtonSize = 'large' | 'medium';
 export type ButtonType = 'primary' | 'secondary' | 'text';
@@ -13,6 +13,7 @@ export type ButtonProps = {
   title: string;
   href?: string;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  disabled?: boolean;
   RightIcon?: ReactNode | ReactNodeArray;
   className?: string;
   block?: boolean;
@@ -25,6 +26,7 @@ export default function Button({
   title,
   href,
   onClick,
+  disabled = false,
   RightIcon,
   className,
   block = false,
@@ -39,6 +41,7 @@ export default function Button({
         buttonType={type}
         href={href}
         onClick={onClick}
+        disabled={disabled}
         className={className}
         block={block}
         hasPadding={_hasPadding}
@@ -54,6 +57,7 @@ export default function Button({
       size={size}
       buttonType={type}
       onClick={onClick}
+      disabled={disabled}
       className={className}
       block={block}
       hasPadding={_hasPadding}
@@ -64,8 +68,10 @@ export default function Button({
   );
 }
 
+//@TO_BE_IMPROVED
 const Wrapper = styled.button<{
   size: ButtonSize;
+  disabled: boolean;
   buttonType: ButtonType;
   block: boolean;
   hasPadding: boolean;
@@ -75,14 +81,17 @@ const Wrapper = styled.button<{
   align-items: center;
   width: ${({ block }) => (block ? '100%' : 'fit-content')};
   ${({ size }) =>
-    size === 'medium'
-      ? 'height: 4rem; font-size: 1.6rem; font-weight: 400;'
-      : 'height: 5.2rem; font-size: 1.8rem; font-weight: 500;'}
+    size === 'large'
+      ? 'height: 5.2rem; font-size: 1.8rem; font-weight: 500;'
+      : 'height: 4rem; font-size: 1.6rem; font-weight: 400;'}
   margin: 0;
   padding: ${({ hasPadding }) => (hasPadding ? '1rem 1.6rem' : 0)};
-  cursor: pointer;
-  ${({ buttonType }) =>
-    buttonType === 'primary'
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  ${({ buttonType, disabled }) =>
+    disabled
+      ? `color: ${GREY[500]};
+    background-color: ${GREY[300]};`
+      : buttonType === 'primary'
       ? `color: ${WHITE};
     background-color: ${BLUE_GREEN[500]};
     &:hover {
@@ -93,8 +102,10 @@ const Wrapper = styled.button<{
     &:hover {
       color: ${BLUE_GREEN[700]}
     }`};
-  border: ${({ buttonType }) =>
-    buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`};
+  border: ${({ buttonType, disabled }) =>
+    disabled || buttonType === 'text'
+      ? 'none'
+      : `1px solid ${BLUE_GREEN[500]}`};
   border-radius: 0.2rem;
   &:hover {
     border-color: ${BLUE_GREEN[700]};
@@ -104,6 +115,7 @@ const Wrapper = styled.button<{
 
 const StyledLink = styled(Link)<{
   size: ButtonSize;
+  disabled: boolean;
   buttonType: ButtonType;
   block: boolean;
   hasPadding: boolean;
