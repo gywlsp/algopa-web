@@ -5,3 +5,8 @@ export interface IUser {
   nickname: string;
   bojId?: string;
 }
+
+export type IUserInputDTO = Pick<
+  IUser,
+  'email' | 'provider' | 'nickname' | 'bojId'
+>;
