@@ -32,7 +32,7 @@ export default function JoinForm() {
     try {
       await AuthService.validateNickname(nickname);
     } catch (err) {
-      if (err.response.data?.errCode === 'ALREADY_EXISTS_NAME') {
+      if (err.response.data?.code === 'ALREADY_NICKNAME_EXISTS') {
         setNicknameDuplicated(true);
         alert('닉네임이 이미 존재합니다.');
         return false;

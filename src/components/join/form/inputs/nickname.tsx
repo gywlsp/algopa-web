@@ -41,7 +41,7 @@ export default function NicknameInput({
       await AuthService.validateNickname(nickname);
       setNicknameDuplicated(false);
     } catch (err) {
-      if (err.response.data?.errCode === 'ALREADY_EXISTS_NAME') {
+      if (err.response.data?.code === 'ALREADY_NICKNAME_EXISTS') {
         setNicknameDuplicated(true);
       }
     }
