@@ -9,11 +9,11 @@ export default function LoginRedirectPage() {
 
   useEffect(() => {
     const login = async () => {
-      if (!(router?.query?.code && router?.query?.scope)) {
+      if (!router?.query?.code) {
         return;
       }
       const { code, scope } = router.query;
-      const provider = scope.includes('google') ? 'google' : 'github';
+      const provider = scope?.includes('google') ? 'google' : 'github';
       try {
         await AuthService.login(provider, code as string);
         alert('로그인 성공!');
