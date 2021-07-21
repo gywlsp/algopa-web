@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
+import { useRecoilState } from 'recoil';
 
 import { getEncryptedString } from 'src/lib/utils/crypto';
 import AuthService from 'src/services/api/auth';
 
+import { userState } from 'src/atoms/user';
+
 export default function LoginRedirectPage() {
   const router = useRouter();
+  const [_, setUser] = useRecoilState(userState);
 
   useEffect(() => {
     const login = async () => {
@@ -15,11 +19,12 @@ export default function LoginRedirectPage() {
       const { code, scope } = router.query;
       const provider = scope?.includes('google') ? 'google' : 'github';
       try {
-        await AuthService.login(provider, code as string);
+        const userData = await AuthService.login(provider, code as string);
+        setUser(userData);
         alert('로그인 성공!');
         router.push('/');
       } catch (err) {
-        switch (err.response.status) {
+        switch (err?.response?.status) {
           // case 401:
           //   @401 메세지 필요시 추가
           case 404:
