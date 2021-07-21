@@ -8,12 +8,12 @@ import {
   joinConfig,
 } from './config';
 import { Provider } from 'src/types/user';
-import { IUser, IUserInputDTO } from 'src/interfaces/user/IUser';
+import { IUserInputDTO, IUserReadDTO } from 'src/interfaces/user/IUser';
 
 const login = async (
   provider: Provider,
   token: string
-): Promise<Pick<IUser, 'email' | 'nickname'>> =>
+): Promise<IUserReadDTO> =>
   axios(loginConfig(provider, token)).then((res) => {
     return res.data;
   });
