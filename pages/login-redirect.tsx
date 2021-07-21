@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { useRecoilState } from 'recoil';
 
+import { setCookie } from 'src/lib/utils/cookie';
 import { getEncryptedString } from 'src/lib/utils/crypto';
 import AuthService from 'src/services/api/auth';
-
 import { userState } from 'src/atoms/user';
 
 export default function LoginRedirectPage() {
@@ -19,7 +19,10 @@ export default function LoginRedirectPage() {
       const { code, scope } = router.query;
       const provider = scope?.includes('google') ? 'google' : 'github';
       try {
-        const userData = await AuthService.login(provider, code as string);
+        const { accessToken, refreshToken, ...userData } =
+          await AuthService.login(provider, code as string);
+        setCookie('ACCESS_TOKEN', accessToken);
+        setCookie('REFRESH_TOKEN', refreshToken);
         setUser(userData);
         alert('로그인 성공!');
         router.push('/');
