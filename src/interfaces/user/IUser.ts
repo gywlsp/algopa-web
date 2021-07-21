@@ -1,7 +1,7 @@
 export interface IUser {
-  id: number;
+  id?: number;
   email: string;
-  provider: string;
+  provider?: string;
   nickname: string;
   bojId?: string;
   accessToken: string;
