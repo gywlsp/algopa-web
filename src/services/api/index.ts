@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosRequestConfig, Method } from 'axios';
 import { IncomingMessage } from 'http';
+import { getCookie } from 'src/lib/utils/cookie';
 
 class RequestConfig {
   public baseURL: string;
@@ -68,10 +69,8 @@ export const baseConfig = (
   const requestConfig = new RequestConfig(process.env.NEXT_PUBLIC_API_HOST);
   if (token) {
     requestConfig.setToken(token);
+  } else if (auth) {
+    requestConfig.setToken(getCookie('ACCESS_TOKEN', req));
   }
-  // @TODO: ACCESS_TOKEN 설정 로직 필요할 시 추가
-  //   if (auth) {
-  //     requestConfig.setToken(getCookie('accessToken', req));
-  //     }
   return requestConfig;
 };
