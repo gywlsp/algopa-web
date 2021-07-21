@@ -22,7 +22,8 @@
     "recoil": "^0.3.1",
     "styled-components": "^5.3.0",
     "styled-normalize": "^8.0.7",
-    "styled-reset": "^4.3.4"
+    "styled-reset": "^4.3.4",
+    "swr": "^0.5.6"
   },
   "devDependencies": {
     "@types/node": "^15.12.5",
