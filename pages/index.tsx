@@ -8,15 +8,19 @@ import Link from 'src/components/common/link';
 import ProblemCard from 'src/components/common/card/problem';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { GREY, WHITE } from 'src/constants/colors';
+import { useProblemList } from 'src/hooks/api/problem';
 
 export default function Home() {
+  const { data: recommendedProblems } = useProblemList({ limit: 4 });
   return (
     <GlobalLayout>
       <StyledSection title="박효진님을 위한 추천 문제">
         <CardsWrapper>
-          {[...Array(4)].map((_, i) => (
-            <ProblemCard key={i} />
+          {recommendedProblems?.map((problem, i) => (
+            <ProblemCard key={i} {...problem} />
           ))}
+          {!recommendedProblems &&
+            [...Array(4)].map((_, i) => <ProblemCard key={i} />)}
           <MoreLink href="/recommendation">
             <ChevronRightIcon
               style={{ width: '2rem', height: '2rem', margin: '1.2rem 0' }}
