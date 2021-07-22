@@ -17,33 +17,33 @@ export type ProblemCardProps = {
 export default function ProblemCard(props: ProblemCardProps) {
   const { index, number = 1260, levelImgLink, title = '문제 제목' } = props;
 
-    return (
+  return (
     <ContentWrapper {...props}>
-        {typeof index === 'number' && (
-          <IndexLabel>
-            <P level={3} fontWeight={500} color={WHITE}>
-              {index}
-            </P>
-          </IndexLabel>
-        )}
+      {typeof index === 'number' && (
+        <IndexLabel>
+          <P level={3} fontWeight={500} color={WHITE}>
+            {index}
+          </P>
+        </IndexLabel>
+      )}
       <LevelImg src={levelImgLink} alt={title} />
-        <StyledP>{number}</StyledP>
-        <StyledP>{title}</StyledP>
+      <StyledP>{number}</StyledP>
+      <StyledP>{title}</StyledP>
     </ContentWrapper>
-    );
-  }
+  );
+}
 
 const ContentWrapper = (
   props: ProblemCardProps & { children: ReactNode | ReactNodeArray }
 ) => {
   const { isRouting = true, className, id, children } = props;
   if (isRouting) {
-  return (
+    return (
       <StyledLink href={`/problems/${id}`} className={className}>
         {children}
       </StyledLink>
-  );
-}
+    );
+  }
   return <Wrapper className={className}>{children}</Wrapper>;
 };
 
@@ -52,8 +52,10 @@ const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 22.4rem;
+  height: 26.4rem;
   margin-right: 1.2rem;
-  padding: 2rem;
+  padding: 2rem 2rem 0.8rem;
   border: 1px solid ${GREY[400]};
 `;
 
@@ -65,6 +67,15 @@ const Wrapper = styled.div`
   margin-right: 1.2rem;
   padding: 2rem;
   border: 1px solid ${GREY[400]};
+`;
+
+const LevelImg = styled(Img).attrs({
+  width: '100%',
+  height: '14rem',
+  cover: true,
+  border: true,
+})`
+  margin-bottom: 1.2rem;
 `;
 
 const IndexLabel = styled.div`
@@ -79,6 +90,6 @@ const IndexLabel = styled.div`
   background-color: ${BLUE_GREEN[500]};
 `;
 
-const StyledP = styled(P).attrs({ level: 4 })`
+const StyledP = styled(P).attrs({ level: 4, width: '100%', ellipsis: true })`
   margin-bottom: 1.2rem;
 `;
