@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode, ReactNodeArray } from 'react';
 import Link from '../link';
 import styled from 'styled-components';
 
@@ -14,18 +14,11 @@ export type ProblemCardProps = {
   className?: string;
 } & Partial<IProblem>;
 
-export default function ProblemCard({
-  index,
-  className,
-  id,
-  number = 1260,
-  levelImgLink,
-  isRouting = true,
-  title = '문제 제목',
-}: ProblemCardProps) {
-  if (isRouting) {
+export default function ProblemCard(props: ProblemCardProps) {
+  const { index, number = 1260, levelImgLink, title = '문제 제목' } = props;
+
     return (
-      <StyledLink href={`/problems/${id}`} className={className}>
+    <ContentWrapper {...props}>
         {typeof index === 'number' && (
           <IndexLabel>
             <P level={3} fontWeight={500} color={WHITE}>
@@ -33,28 +26,26 @@ export default function ProblemCard({
             </P>
           </IndexLabel>
         )}
-        <Img width="100%" height="auto" src={levelImgLink} alt={title} cover />
+      <LevelImg src={levelImgLink} alt={title} />
         <StyledP>{number}</StyledP>
         <StyledP>{title}</StyledP>
-      </StyledLink>
+    </ContentWrapper>
     );
   }
 
+const ContentWrapper = (
+  props: ProblemCardProps & { children: ReactNode | ReactNodeArray }
+) => {
+  const { isRouting = true, className, id, children } = props;
+  if (isRouting) {
   return (
-    <Wrapper className={className}>
-      {typeof index === 'number' && (
-        <IndexLabel>
-          <P level={3} fontWeight={500} color={WHITE}>
-            {index}
-          </P>
-        </IndexLabel>
-      )}
-      <Img width="100%" height="auto" src={levelImgLink} alt={title} cover />
-      <P>{number}</P>
-      <P>{title}</P>
-    </Wrapper>
+      <StyledLink href={`/problems/${id}`} className={className}>
+        {children}
+      </StyledLink>
   );
 }
+  return <Wrapper className={className}>{children}</Wrapper>;
+};
 
 const StyledLink = styled(Link)`
   position: relative;
