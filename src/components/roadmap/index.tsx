@@ -23,11 +23,11 @@ export default function Roadmap() {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const categoryNodes =
-    roadmapData?.categories.map((category) => ({
+    roadmapData?.categories.map((category, index) => ({
       ...category,
       categoryId: category.id,
       id: category.nodeId,
-      label: category.name,
+      label: `[${index + 1}] ${category.name}`,
       color: BLUE_GREEN[300],
       shape: 'circle',
     })) || CATEGORY_NODES;
