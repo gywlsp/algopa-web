@@ -53,7 +53,7 @@ const StyledLink = styled(Link)`
   flex-direction: column;
   flex: 1;
   min-width: 22.4rem;
-  height: 26.4rem;
+  height: 27.2rem;
   margin-right: 1.2rem;
   padding: 2rem 2rem 0.8rem;
   border: 1px solid ${GREY[400]};
@@ -75,7 +75,7 @@ const LevelImg = styled(Img).attrs({
   cover: true,
   border: true,
 })`
-  margin-bottom: 1.2rem;
+  margin-bottom: 2rem;
 `;
 
 const IndexLabel = styled.div`

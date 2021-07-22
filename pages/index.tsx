@@ -50,7 +50,7 @@ const CardsWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  height: 26.4rem;
+  height: 27.2rem;
   overflow-y: hidden;
 `;
 
@@ -67,7 +67,7 @@ const MoreLink = styled(Link)`
   justify-content: center;
   flex: 1;
   min-width: 24rem;
-  height: 26.4rem;
+  height: 27.2rem;
   padding: 2rem;
   border: 1px solid ${GREY[400]};
   background-color: rgba(0, 0, 0, 0.4);
