@@ -6,17 +6,45 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
 });
 
 import RoadmapProblemModal from './problem-modal';
-import { GREY, WHITE } from 'src/constants/colors';
+import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
-import { GRAPH_DATA, PROBLEM_NODES } from 'src/data/roadmap';
+import {
+  GRAPH_OPTIONS,
+  CATEGORY_NODES,
+  EDGES,
+  PROBLEM_NODES,
+} from 'src/data/roadmap';
+import { useRoadmap } from 'src/hooks/api/roadmap';
 
-//@TO_BE_IMPROVED
 export default function Roadmap() {
+  const { data: roadmapData } = useRoadmap();
   const [network, setNetwork] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const selectedProblemNode = PROBLEM_NODES.find(
+  const categoryNodes =
+    roadmapData?.categories.map((category) => ({
+      ...category,
+      categoryId: category.id,
+      id: category.nodeId,
+      label: category.name,
+      color: BLUE_GREEN[300],
+      shape: 'circle',
+    })) || CATEGORY_NODES;
+  const problemNodes =
+    roadmapData?.problems.map((problem) => ({
+      ...problem,
+      problemId: problem.id,
+      id: problem.nodeId,
+      label: problem.title,
+      color: BLUE_GREEN[100],
+      shape: 'circle',
+    })) || PROBLEM_NODES;
+
+  const nodes = categoryNodes.concat(problemNodes);
+  const edges = roadmapData?.edges || EDGES;
+
+  const selectedProblemNode = problemNodes.find(
     ({ id }) => id === selectedNodeId
   );
 
@@ -54,13 +82,9 @@ export default function Roadmap() {
     setModalOpen(false);
   };
 
-  const graphOptions = {
-    layout: {
-      hierarchical: false,
-    },
-    edges: {
-      color: '#000',
-    },
+  const graphData = {
+    nodes,
+    edges,
   };
 
   const events = {
@@ -72,9 +96,9 @@ export default function Roadmap() {
     <>
       <Wrapper>
         <Graph
-          graph={GRAPH_DATA}
-          options={graphOptions}
+          graph={graphData}
           events={events}
+          options={GRAPH_OPTIONS}
           getNetwork={getNetwork}
         />
       </Wrapper>

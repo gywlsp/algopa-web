@@ -4,35 +4,27 @@ import styled from 'styled-components';
 import ProblemCard from '../common/card/problem';
 import Modal from '../common/modal';
 
+import { RoadmapProblemNode } from 'src/types/roadmap';
+
 export type RoadmapProblemModalProps = {
-  id: string;
-  level?: string;
-  label: string;
   isOpen: boolean;
   onClose: () => void;
-};
+} & RoadmapProblemNode;
 
 export default function RoadmapProblemModal({
-  id,
-  level,
-  label,
   isOpen,
   onClose,
+  ...problemNodeData
 }: RoadmapProblemModalProps) {
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       okText="문제 풀기"
-      okHref={`/problems/${id}`}
+      okHref={`/problems/${problemNodeData.id}`}
       contentWrapperStyle={{ padding: '2rem 2rem 0.8rem' }}
     >
-      <StyledProblemCard
-        id={id}
-        title={label}
-        level={level}
-        isRouting={false}
-      />
+      <StyledProblemCard {...problemNodeData} isRouting={false} />
     </Modal>
   );
 }
