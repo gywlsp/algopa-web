@@ -36,7 +36,10 @@ export default function Roadmap() {
       ...problem,
       problemId: problem.id,
       id: problem.nodeId,
-      label: problem.title,
+      label:
+        problem.title.length > 10
+          ? problem.title.slice(0, 8) + '..'
+          : problem.title,
       color: BLUE_GREEN[100],
       shape: 'circle',
     })) || PROBLEM_NODES;
