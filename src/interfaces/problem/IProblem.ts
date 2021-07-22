@@ -1,4 +1,4 @@
-import { PersonalProblemInfo } from 'src/types/user';
+import { UserProblemInfo } from 'src/types/user';
 
 export interface IProblem {
   id: number;
@@ -8,4 +8,4 @@ export interface IProblem {
   title: string;
 }
 
-export type IProblemReadDTO = IProblem & PersonalProblemInfo;
+export type IProblemReadDTO = IProblem & UserProblemInfo;
