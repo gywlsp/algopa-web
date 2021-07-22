@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { setCookie } from 'src/lib/utils/cookie';
 import { getEncryptedString } from 'src/lib/utils/crypto';
@@ -9,7 +9,7 @@ import { userState } from 'src/atoms/user';
 
 export default function LoginRedirectPage() {
   const router = useRouter();
-  const [_, setUser] = useRecoilState(userState);
+  const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
     const login = async () => {
