@@ -8,6 +8,7 @@ import Link from 'src/components/common/link';
 import ProblemCard from 'src/components/common/card/problem';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { GREY, WHITE } from 'src/constants/colors';
+
 import { useProblemList } from 'src/hooks/api/problem';
 
 export default function Home() {
@@ -16,11 +17,6 @@ export default function Home() {
     <GlobalLayout>
       <StyledSection title="박효진님을 위한 추천 문제">
         <CardsWrapper>
-          {recommendedProblems?.map((problem, i) => (
-            <ProblemCard key={i} {...problem} />
-          ))}
-          {!recommendedProblems &&
-            [...Array(4)].map((_, i) => <ProblemCard key={i} />)}
           <MoreLink href="/recommendation">
             <ChevronRightIcon
               style={{ width: '2rem', height: '2rem', margin: '1.2rem 0' }}
@@ -28,6 +24,13 @@ export default function Home() {
             />
             <P>더 보기</P>
           </MoreLink>
+          {recommendedProblems?.reverse().map((problem, i) => (
+            <ProblemCard key={i} {...problem} />
+          ))}
+          {
+            /* @TO_BE_IMPROVED: dummy 데이터 */ !recommendedProblems &&
+              [...Array(4)].map((_, i) => <ProblemCard key={i} />)
+          }
         </CardsWrapper>
       </StyledSection>
       <Section title="취업으로 가는 코딩 테스트 준비 로드맵 🚀">
@@ -43,9 +46,12 @@ const StyledSection = styled(Section)`
 
 const CardsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
+  height: 26.4rem;
+  overflow-y: hidden;
 `;
 
 const P = styled.p`
@@ -60,6 +66,8 @@ const MoreLink = styled(Link)`
   align-items: center;
   justify-content: center;
   flex: 1;
+  min-width: 24rem;
+  height: 26.4rem;
   padding: 2rem;
   border: 1px solid ${GREY[400]};
   background-color: rgba(0, 0, 0, 0.4);
