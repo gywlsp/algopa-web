@@ -30,6 +30,7 @@ export default function Roadmap() {
       label: `[${index + 1}] ${category.name}`,
       color: BLUE_GREEN[300],
       shape: 'circle',
+      font: { size: 18 },
     })) || CATEGORY_NODES;
   const problemNodes =
     roadmapData?.problems.map((problem) => ({
@@ -42,6 +43,7 @@ export default function Roadmap() {
           : problem.title,
       color: BLUE_GREEN[100],
       shape: 'circle',
+      font: { size: 16 },
     })) || PROBLEM_NODES;
 
   const nodes = categoryNodes.concat(problemNodes);
