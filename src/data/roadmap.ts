@@ -1,4 +1,4 @@
-import { BLUE_GREEN } from 'src/constants/colors';
+import { BLACK, BLUE_GREEN } from 'src/constants/colors';
 
 const ALGORITHM_CATEGORIES = [
   '구현',
@@ -25,14 +25,14 @@ const ALGORITHM_CATEGORIES = [
   '위상정렬',
 ];
 
-const CATEGORY_NODES = ALGORITHM_CATEGORIES.map((category, i) => ({
+export const CATEGORY_NODES = ALGORITHM_CATEGORIES.map((category, i) => ({
   id: String(i),
   label: `[${i + 1}] ${category}`,
   color: BLUE_GREEN[300],
   shape: 'circle',
 }));
 
-const CATEGORY_EDGES = ALGORITHM_CATEGORIES.slice(1).map((_, i) => ({
+export const CATEGORY_EDGES = ALGORITHM_CATEGORIES.slice(1).map((_, i) => ({
   from: String(i),
   to: String(i + 1),
 }));
@@ -52,12 +52,24 @@ export const PROBLEM_NODES = CATEGORY_NODES.reduce((acc, { id: _id }) => {
   return acc.concat(problems);
 }, []);
 
-const PROBLEM_EDGES = PROBLEM_NODES.map(({ id }) => {
+export const PROBLEM_EDGES = PROBLEM_NODES.map(({ id }) => {
   const categoryId = id.slice(0, id.indexOf('-'));
   return { from: id, to: categoryId };
 });
 
+export const NODES = CATEGORY_NODES.concat(PROBLEM_NODES);
+export const EDGES = CATEGORY_EDGES.concat(PROBLEM_EDGES);
+
 export const GRAPH_DATA = {
-  nodes: CATEGORY_NODES.concat(PROBLEM_NODES),
-  edges: CATEGORY_EDGES.concat(PROBLEM_EDGES),
+  nodes: NODES,
+  edges: EDGES,
+};
+
+export const GRAPH_OPTIONS = {
+  layout: {
+    hierarchical: false,
+  },
+  edges: {
+    color: BLACK,
+  },
 };
