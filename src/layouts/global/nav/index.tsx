@@ -53,7 +53,7 @@ export default function GlobalNav() {
         )}
         {!userData && (
           <Li>
-            <Button title="로그인" href="/sign-in" />
+            <Button title="로그인" href="/login" />
           </Li>
         )}
       </Ul>
