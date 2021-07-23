@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import GlobalNavDropdown from './dropdown';
 import Button from 'src/components/common/button';
@@ -7,10 +8,11 @@ import ChevronDownIcon from 'src/assets/icons/chevron/down';
 import ChevronUpIcon from 'src/assets/icons/chevron/up';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-//@TO_BE_IMPROVED: dummy 데이터
-const userData = { id: 1, name: '박효진' };
+import { userState } from 'src/atoms/user';
 
 export default function GlobalNav() {
+  const userData = useRecoilValue(userState);
+
   const [isDropdownOpened, setDropdownOpened] = useState(false);
 
   const ChevronIcon = isDropdownOpened ? ChevronUpIcon : ChevronDownIcon;
