@@ -4,6 +4,5 @@ export type IconProps = {
   fillIn?: string;
   fillOut?: string;
   fillDot?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: any;
+  onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };

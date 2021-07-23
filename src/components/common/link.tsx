@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export type LinkProps = {
   href: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   children: ReactNode | ReactNodeArray;
   className?: string;
 };
