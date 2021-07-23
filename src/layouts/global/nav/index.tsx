@@ -34,7 +34,7 @@ export default function GlobalNav() {
             </Li>
             <Li>
               <Button
-                title={userData.name}
+                title={userData?.nickname}
                 RightIcon={
                   <ChevronIcon
                     style={{
