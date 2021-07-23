@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/common/button';
 
+import { userState } from 'src/atoms/user';
+
 export default function GlobalNavDropdown() {
+  const setUser = useSetRecoilState(userState);
+  const logout = () => {
+    setUser(null);
+  };
+
   return (
     <Wrapper>
       <Li>
-        <Button title="로그아웃" hasPadding />
+        <Button title="로그아웃" hasPadding onClick={logout} />
       </Li>
     </Wrapper>
   );
