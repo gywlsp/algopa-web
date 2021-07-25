@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 const Graph: any = dynamic(() => import('react-graph-vis'), {
@@ -18,7 +18,7 @@ import { useRoadmap } from 'src/hooks/api/roadmap';
 
 export default function Roadmap() {
   const { data: roadmapData } = useRoadmap();
-  const [network, setNetwork] = useState(null);
+  const network = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -54,7 +54,7 @@ export default function Roadmap() {
 
   const getNetwork = (_network) => {
     _network.moveTo({ scale: 0.7 });
-    setNetwork(_network);
+    network.current = _network;
   };
 
   const handleNodeClick = ({
@@ -64,7 +64,7 @@ export default function Roadmap() {
     nodes,
   }) => {
     setSelectedNodeId(nodes[0]);
-    network.moveTo({
+    network.current.moveTo({
       position: { x, y },
       scale: 1,
       offset: { x: 0, y: 0 },
