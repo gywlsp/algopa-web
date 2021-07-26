@@ -24,14 +24,11 @@ export default function GlobalNav() {
   return (
     <Wrapper>
       <Ul>
-        <Li>
-          <Button title="서비스 소개" href="/about" />
-        </Li>
         {userData && (
           <>
-            <Li>
+            {/* <Li>
               <Button title="대시보드" href="/dashboard" />
-            </Li>
+            </Li> */}
             <Li>
               <Button
                 title={userData?.nickname}
