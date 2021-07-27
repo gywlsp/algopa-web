@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { useRecoilValue } from 'recoil';
 
 import GlobalLayout from 'src/layouts/global';
 import Section from 'src/components/common/section';
 import RecommendedProblemsSection from 'src/components/recommendation/problems-section';
 
-import { userState } from 'src/atoms/user';
+import { useMe } from 'src/hooks/api/user';
 
 export default function RecommendationPage() {
   const router = useRouter();
-  const userData = useRecoilValue(userState);
+  const { data: userData } = useMe();
 
   useEffect(() => {
     if (userData) {

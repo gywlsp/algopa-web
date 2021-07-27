@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../styles/global';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -18,11 +17,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <GlobalStyle />
-      <RecoilRoot>
-        <Main>
-          <Component {...pageProps} />
-        </Main>
-      </RecoilRoot>
+      <Main>
+        <Component {...pageProps} />
+      </Main>
     </>
   );
 }

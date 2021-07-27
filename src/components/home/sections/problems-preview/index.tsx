@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import Section from 'src/components/common/section';
 import Link from 'src/components/common/link';
@@ -9,11 +8,11 @@ import MoreButton from './more-button';
 import { GREY, WHITE } from 'src/constants/colors';
 
 import { useProblemList } from 'src/hooks/api/problem';
-import { userState } from 'src/atoms/user';
+import { useMe } from 'src/hooks/api/user';
 
 export default function ProblemsPreviewSection() {
+  const { data: userData } = useMe();
   const { data: recommendedProblems } = useProblemList({ limit: 4 });
-  const userData = useRecoilValue(userState);
 
   const sectionTitle = userData
     ? `${userData.nickname}님을 위한 추천 문제`
