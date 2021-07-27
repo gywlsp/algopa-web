@@ -25,6 +25,7 @@ const Wrapper = styled.div<ProblemCardSkeletonProps>`
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 22.4rem;
   height: 27.2rem;
   margin-right: ${({ isLast }) => (isLast ? 0 : '1.2rem')};
   padding: 2rem 2rem 1.2rem;
