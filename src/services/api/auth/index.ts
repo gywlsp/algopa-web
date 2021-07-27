@@ -6,8 +6,9 @@ import {
   validateNicknameConfig,
   getBojAuthTokenConfig,
   joinConfig,
+  refreshConfig,
 } from './config';
-import { Provider } from 'src/types/user';
+import { Provider, UserToken } from 'src/types/user';
 import { IUserInputDTO, IUserReadDTO } from 'src/interfaces/user/IUser';
 
 const login = async (
@@ -47,12 +48,18 @@ const join = async (
     return res.data;
   });
 
+const refresh = async (refreshToken: string): Promise<UserToken> =>
+  axios(refreshConfig(refreshToken)).then((res) => {
+    return res.data;
+  });
+
 const AuthService = {
   login,
   validateNickname,
   getBojIdAuthToken,
   authenticateBojId,
   join,
+  refresh,
 };
 
 export default AuthService;
