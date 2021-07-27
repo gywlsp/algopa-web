@@ -1,4 +1,4 @@
-import { UserTokens } from 'src/types/user';
+import { UserToken } from 'src/types/user';
 
 export interface IUser {
   id?: number;
@@ -14,4 +14,4 @@ export type IUserInputDTO = Pick<
 >;
 
 export type IUserReadDTO = Pick<IUser, 'email' | 'nickname' | 'bojId'> &
-  UserTokens;
+  Partial<UserToken>;
