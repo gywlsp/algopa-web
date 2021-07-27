@@ -25,7 +25,9 @@ export default function ProblemsPreviewSection() {
           <ProblemCard key={i} {...problem} />
         ))}
         {!recommendedProblems &&
-          [...Array(5)].map((_, i) => <ProblemCardSkeleton isLast={i === 0} />)}
+          [...Array(5)].map((_, i) => (
+            <ProblemCardSkeleton key={i} isLast={i === 0} />
+          ))}
       </CardsWrapper>
     </Wrapper>
   );
