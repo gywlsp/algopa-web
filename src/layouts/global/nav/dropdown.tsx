@@ -26,7 +26,7 @@ export default function GlobalNavDropdown() {
 }
 
 const Wrapper = styled.ul`
-  position: fixed;
+  position: absolute;
   right: 5.2rem;
   top: 4.8rem;
   box-shadow: 0 2px 16px 0 rgb(0 0 0 / 10%);
