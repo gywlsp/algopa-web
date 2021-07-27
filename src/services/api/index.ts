@@ -15,11 +15,9 @@ class RequestConfig {
   }
 
   public setToken(token?: any) {
-    if (token) {
-      this.headers = {
-        Authorization: token,
-      };
-    }
+    this.headers = {
+      Authorization: token,
+    };
   }
 
   public get(path: string, config?: AxiosRequestConfig) {
