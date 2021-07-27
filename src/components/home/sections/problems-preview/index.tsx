@@ -26,10 +26,6 @@ export default function ProblemsPreviewSection() {
         {recommendedProblems?.reverse().map((problem, i) => (
           <ProblemCard key={i} {...problem} />
         ))}
-        {
-          /* @TO_BE_IMPROVED: dummy 데이터 */ !recommendedProblems &&
-            [...Array(4)].map((_, i) => <ProblemCard key={i} />)
-        }
       </CardsWrapper>
     </Wrapper>
   );

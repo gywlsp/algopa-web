@@ -30,8 +30,6 @@ export default function RecommendedProblemsSection({
         {problems?.map((problem, i) => (
           <ProblemCard key={i} index={i + 1} {...problem} />
         ))}
-        {!problems &&
-          [...Array(8)].map((_, i) => <ProblemCard key={i} index={i + 1} />)}
       </HorizontalScrollable>
     </Section>
   );
