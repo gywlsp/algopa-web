@@ -12,20 +12,15 @@ export default function RecommendationPage() {
   const { data: userData } = useMe();
 
   useEffect(() => {
-    if (userData) {
-      return;
+    if (userData === null) {
+      alert('로그인이 필요한 기능입니다.');
+      router.push('/login');
     }
-    alert('로그인이 필요한 기능입니다.');
-    router.push('/login');
   }, [userData]);
-
-  if (!userData) {
-    return <></>;
-  }
 
   return (
     <GlobalLayout>
-      <Section title={`${userData.nickname}님을 위한 추천 문제`}>
+      <Section title={`${userData?.nickname || '회원'}님을 위한 추천 문제`}>
         <RecommendedProblemsSection type="next" />
         <RecommendedProblemsSection type="wrong" />
         <RecommendedProblemsSection type="less" />
