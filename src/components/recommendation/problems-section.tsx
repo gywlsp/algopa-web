@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Section from 'src/components/common/section';
 import ProblemCard from 'src/components/common/card/problem';
+import ProblemCardSkeleton from '../skeletons/card/problem';
 import HorizontalScrollable from 'src/components/common/horizontal-scrollable';
 
 import { useProblemList } from 'src/hooks/api/problem';
@@ -30,6 +31,10 @@ export default function RecommendedProblemsSection({
         {problems?.map((problem, i) => (
           <ProblemCard key={i} index={i + 1} {...problem} />
         ))}
+        {!problems &&
+          [...Array(8)].map((_, i) => (
+            <ProblemCardSkeleton key={i} isLast={i === 7} />
+          ))}
       </HorizontalScrollable>
     </Section>
   );
