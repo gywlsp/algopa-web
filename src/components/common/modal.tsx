@@ -12,6 +12,7 @@ export type ModalProps = {
   okText: string;
   onOk?: () => void;
   okHref?: string;
+  isOkHrefExternal?: boolean;
   children: ReactNode | ReactNodeArray;
   contentWrapperStyle?: CSSProperties;
 };
@@ -21,6 +22,7 @@ export default function Modal({
   onClose,
   okText,
   okHref,
+  isOkHrefExternal = false,
   onOk,
   children,
   contentWrapperStyle,
@@ -47,6 +49,7 @@ export default function Modal({
             type="primary"
             title={okText}
             href={okHref}
+            isHrefExternal={isOkHrefExternal}
             onClick={onOk}
           />
         </Footer>
