@@ -12,6 +12,7 @@ export type ButtonProps = {
   type?: ButtonType;
   title: string;
   href?: string;
+  isHrefExternal?: boolean;
   onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   disabled?: boolean;
   RightIcon?: ReactNode | ReactNodeArray;
@@ -25,6 +26,7 @@ export default function Button({
   type = 'text',
   title,
   href,
+  isHrefExternal = false,
   onClick,
   disabled = false,
   RightIcon,
@@ -35,7 +37,22 @@ export default function Button({
   const _hasPadding = hasPadding || type !== 'text';
 
   if (href) {
-    return (
+    return isHrefExternal ? (
+      <A href={href} target="_blank">
+        <Wrapper
+          size={size}
+          buttonType={type}
+          onClick={onClick}
+          disabled={disabled}
+          className={className}
+          block={block}
+          hasPadding={_hasPadding}
+        >
+          {title}
+          {RightIcon}
+        </Wrapper>
+      </A>
+    ) : (
       <StyledLink
         size={size}
         buttonType={type}
@@ -151,4 +168,8 @@ const StyledLink = styled(Link)<{
     border-color: ${BLUE_GREEN[700]};
   }
   transition: all 0.3s;
+`;
+
+const A = styled.a`
+  text-decoration: none;
 `;
