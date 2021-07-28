@@ -7,6 +7,7 @@ import P from '../p';
 import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
 import { IProblem } from 'src/interfaces/problem/IProblem';
+import { bojLink } from 'src/data';
 
 export type ProblemCardProps = {
   index?: number;
@@ -36,12 +37,16 @@ export default function ProblemCard(props: ProblemCardProps) {
 const ContentWrapper = (
   props: ProblemCardProps & { children: ReactNode | ReactNodeArray }
 ) => {
-  const { isRouting = true, className, id, children } = props;
+  const { isRouting = true, className, number, children } = props;
   if (isRouting) {
     return (
-      <StyledLink href={`/problems/${id}`} className={className}>
+      <A
+        href={`${bojLink}/problem/${number}`}
+        target="_blank"
+        className={className}
+      >
         {children}
-      </StyledLink>
+      </A>
     );
   }
   return <Wrapper className={className}>{children}</Wrapper>;
@@ -66,6 +71,19 @@ const Wrapper = styled.div`
   flex: 1;
   margin-right: 1.2rem;
   padding: 2rem;
+  border: 1px solid ${GREY[400]};
+`;
+
+const A = styled.a`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 22.4rem;
+  height: 27.2rem;
+  text-decoration: none;
+  margin-right: 1.2rem;
+  padding: 2rem 2rem 0.8rem;
   border: 1px solid ${GREY[400]};
 `;
 

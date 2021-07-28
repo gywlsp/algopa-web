@@ -5,6 +5,7 @@ import ProblemCard from '../common/card/problem';
 import Modal from '../common/modal';
 
 import { RoadmapProblemNode } from 'src/types/roadmap';
+import { bojLink } from 'src/data';
 
 export type RoadmapProblemModalProps = {
   isOpen: boolean;
@@ -21,7 +22,8 @@ export default function RoadmapProblemModal({
       isOpen={isOpen}
       onClose={onClose}
       okText="문제 풀기"
-      okHref={`/problems/${problemNodeData.id}`}
+      okHref={`${bojLink}/problem/${problemNodeData.number}`}
+      isOkHrefExternal
       contentWrapperStyle={{ padding: '2rem 2rem 0.8rem' }}
     >
       <StyledProblemCard {...problemNodeData} isRouting={false} />
