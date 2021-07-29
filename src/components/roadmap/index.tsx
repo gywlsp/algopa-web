@@ -6,15 +6,19 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
 });
 
 import RoadmapProblemModal from './problem-modal';
-import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
+import { GREY, WHITE } from 'src/constants/colors';
 
 import {
   GRAPH_OPTIONS,
-  CATEGORY_NODES,
-  EDGES,
-  PROBLEM_NODES,
+  getProblemNodeStyle,
+  getCategoryNodeStyle,
 } from 'src/data/roadmap';
 import { useRoadmap } from 'src/hooks/api/roadmap';
+import {
+  RoadmapCategoryNode,
+  RoadmapNodes,
+  RoadmapProblemNode,
+} from 'src/types/roadmap';
 import { useMe } from 'src/hooks/api/user';
 
 export default function Roadmap() {
@@ -26,16 +30,19 @@ export default function Roadmap() {
 
   const isLoggedIn = !!userData;
 
+  const categoryNodes: RoadmapCategoryNode[] = roadmapData?.categories.map(
+    (category, index) => ({
       ...category,
       categoryId: category.id,
       id: category.nodeId,
       label: `[${index + 1}] ${category.name}`,
-      color: BLUE_GREEN[300],
-      shape: 'circle',
-      font: { size: 16 },
-    })) || CATEGORY_NODES;
-  const problemNodes =
-    roadmapData?.problems.map((problem) => ({
+      ...getCategoryNodeStyle(isLoggedIn, index),
+      userData,
+    })
+  );
+
+  const problemNodes: RoadmapProblemNode[] = roadmapData?.problems.map(
+    (problem, index) => ({
       ...problem,
       problemId: problem.id,
       id: problem.nodeId,
@@ -43,14 +50,17 @@ export default function Roadmap() {
         problem.title.length > 8
           ? problem.title.slice(0, 6) + '..'
           : problem.title,
-      color: BLUE_GREEN[100],
-      shape: 'circle',
-    })) || PROBLEM_NODES;
+      ...getProblemNodeStyle(isLoggedIn, index),
+    })
+  );
 
-  const nodes = categoryNodes.concat(problemNodes);
-  const edges = roadmapData?.edges || EDGES;
+  const nodes: RoadmapNodes = [
+    ...(categoryNodes || []),
+    ...(problemNodes || []),
+  ];
+  const edges = roadmapData?.edges;
 
-  const selectedProblemNode = problemNodes.find(
+  const selectedProblemNode = problemNodes?.find(
     ({ id }) => id === selectedNodeId
   );
 
