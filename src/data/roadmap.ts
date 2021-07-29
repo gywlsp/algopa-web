@@ -1,4 +1,17 @@
-import { BLACK, BLUE_GREEN } from 'src/constants/colors';
+import {
+  BLACK,
+  BLUE_GREEN,
+  FAILURE_RED,
+  GREY,
+  PASTEL_BLUE,
+  PASTEL_RED,
+  PASTEL_YELLOW,
+  SUCCESS_BLUE,
+} from 'src/constants/colors';
+
+export const FAILURE_RATE_COLORS = [PASTEL_RED, PASTEL_YELLOW, PASTEL_BLUE];
+export const SOLVED_COLORS = [SUCCESS_BLUE, FAILURE_RED, GREY[500]];
+
 
 const ALGORITHM_CATEGORIES = [
   '구현',
@@ -37,33 +50,34 @@ export const CATEGORY_EDGES = ALGORITHM_CATEGORIES.slice(1).map((_, i) => ({
   to: String(i + 1),
 }));
 
-export const PROBLEM_NODES = CATEGORY_NODES.reduce((acc, { id: _id }) => {
-  const problems = [];
-  for (let i = 0; i < 3; i++) {
-    const id = _id + '-' + i;
-    const label = `문제 ${id}`;
-    problems.push({
-      id,
-      label,
-      color: BLUE_GREEN[100],
+export const getCategoryNodeStyle = (isLoggedIn: boolean, index: number) => ({
+  color: isLoggedIn
+    ? {
+        background: FAILURE_RATE_COLORS[index % 4] || BLUE_GREEN[200],
+        border: index % 5 ? GREY[500] : SUCCESS_BLUE,
+        highlight: {
+          background: FAILURE_RATE_COLORS[index % 4] || BLUE_GREEN[200],
+          border: index % 5 ? GREY[500] : SUCCESS_BLUE,
+        },
+      }
+    : BLUE_GREEN[200],
       shape: 'circle',
+  font: { size: 16 },
     });
+
+export const getProblemNodeStyle = (isLoggedIn: boolean, index: number) => ({
+  color: isLoggedIn
+    ? {
+        background: BLUE_GREEN[100],
+        border: SOLVED_COLORS[index % 3],
+        highlight: {
+          background: BLUE_GREEN[100],
+          border: SOLVED_COLORS[index % 3],
+        },
   }
-  return acc.concat(problems);
-}, []);
-
-export const PROBLEM_EDGES = PROBLEM_NODES.map(({ id }) => {
-  const categoryId = id.slice(0, id.indexOf('-'));
-  return { from: id, to: categoryId };
+    : BLUE_GREEN[100],
+  shape: 'circle',
 });
-
-export const NODES = CATEGORY_NODES.concat(PROBLEM_NODES);
-export const EDGES = CATEGORY_EDGES.concat(PROBLEM_EDGES);
-
-export const GRAPH_DATA = {
-  nodes: NODES,
-  edges: EDGES,
-};
 
 export const GRAPH_OPTIONS = {
   layout: {
