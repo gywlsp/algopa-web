@@ -15,15 +15,17 @@ import {
   PROBLEM_NODES,
 } from 'src/data/roadmap';
 import { useRoadmap } from 'src/hooks/api/roadmap';
+import { useMe } from 'src/hooks/api/user';
 
 export default function Roadmap() {
+  const { data: userData } = useMe();
   const { data: roadmapData } = useRoadmap();
   const network = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const categoryNodes =
-    roadmapData?.categories.map((category, index) => ({
+  const isLoggedIn = !!userData;
+
       ...category,
       categoryId: category.id,
       id: category.nodeId,
