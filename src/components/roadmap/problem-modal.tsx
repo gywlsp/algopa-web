@@ -10,7 +10,7 @@ import { bojLink } from 'src/data';
 export type RoadmapProblemModalProps = {
   isOpen: boolean;
   onClose: () => void;
-} & RoadmapProblemNode;
+} & Omit<RoadmapProblemNode, 'id'>;
 
 export default function RoadmapProblemModal({
   isOpen,
