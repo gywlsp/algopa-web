@@ -12,8 +12,8 @@ export type RoadmapNode = {
   nodeId: string;
 } & Node;
 
-export type RoadmapCategoryNode = ICategoryReadDTO & RoadmapNode;
-export type RoadmapProblemNode = IProblemReadDTO & RoadmapNode;
+export type RoadmapCategoryNode = Omit<ICategoryReadDTO, 'id'> & RoadmapNode;
+export type RoadmapProblemNode = Omit<IProblemReadDTO, 'id'> & RoadmapNode;
 
 export type RoadmapEdge = Edge;
 
