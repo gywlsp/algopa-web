@@ -67,7 +67,7 @@ export const GRAPH_DATA = {
 
 export const GRAPH_OPTIONS = {
   layout: {
-    hierarchical: false,
+    hierarchical: { enabled: true, direction: 'LR' },
   },
   edges: {
     color: BLACK,
