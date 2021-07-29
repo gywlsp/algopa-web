@@ -24,3 +24,10 @@ export const BLUE_GREEN = {
   800: '#03282C',
   900: '#011213',
 };
+
+export const PASTEL_RED = '#F8CDC1';
+export const PASTEL_YELLOW = '#F8EEC1';
+export const PASTEL_BLUE = '#C1E3F8';
+
+export const SUCCESS_BLUE = '#5577F5';
+export const FAILURE_RED = '#EA4C4C';
