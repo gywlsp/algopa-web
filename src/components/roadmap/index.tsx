@@ -112,6 +112,10 @@ export default function Roadmap() {
     doubleClick: handleNodeDoubleClick,
   };
 
+  if (!(categoryNodes && problemNodes && edges)) {
+    return <></>;
+  }
+
   return (
     <>
       <Wrapper>
