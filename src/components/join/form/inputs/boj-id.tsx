@@ -42,13 +42,13 @@ export default function BojIdInput({
       <TextInput
         value={bojId}
         onChange={handleChange}
-        RightComponent={
-          <SubmitButton
-            type="primary"
-            title="인증하기"
-            onClick={getBojIdAuthToken}
-          />
-        }
+        // RightComponent={
+        //   <SubmitButton
+        //     type="primary"
+        //     title="인증하기"
+        //     onClick={getBojIdAuthToken}
+        //   />
+        // }
       />
     </Wrapper>
   );

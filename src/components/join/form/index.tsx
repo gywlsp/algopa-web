@@ -21,8 +21,7 @@ export default function JoinForm() {
   const [bojSubmitLink, setBojSubmitLink] = useState('');
   const [bojIdAuthToken, setBojIdAuthToken] = useState('');
 
-  const isSubmitButtonEnabled =
-    nickname && !isNicknameDuplicated && bojId && bojSubmitLink;
+  const isSubmitButtonEnabled = nickname && !isNicknameDuplicated && bojId;
 
   const isFormValid = async () => {
     if (!nickname) {
