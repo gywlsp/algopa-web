@@ -16,8 +16,10 @@ export default function LoginRedirectPage() {
       const { code, scope } = router.query;
       const provider = scope?.includes('google') ? 'google' : 'github';
       try {
-        const { accessToken, refreshToken, ...userData } =
-          await AuthService.login(provider, code as string);
+        const { accessToken, refreshToken } = await AuthService.login(
+          provider,
+          code as string
+        );
         setCookie('ACCESS_TOKEN', accessToken);
         setCookie('REFRESH_TOKEN', refreshToken);
         alert('로그인 성공!');
