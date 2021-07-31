@@ -20,4 +20,4 @@ export const joinConfig = (
 ) => baseConfig(true, token).post(`/auth/v1/join`, data);
 
 export const refreshConfig = (refreshToken: string) =>
-  baseConfig(true).post('/auth/v1/refresh', { refreshToken });
+  baseConfig(true, refreshToken).get('/auth/v1/refresh');
