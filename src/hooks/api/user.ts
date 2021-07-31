@@ -14,19 +14,12 @@ export const useMe = () => {
   });
   const { accessToken, refreshToken } = userToken;
 
-  if (!accessToken) {
-    return {
-      data: null,
-      error: null,
-    };
-  }
-
   const { data, error, mutate } = useRequest<IUserReadDTO>(
     meReadConfig(accessToken)
   );
 
   useEffect(() => {
-    if (error?.response?.status !== 401) {
+    if (!(error?.response?.status === 401 || accessToken)) {
       return;
     }
     const refreshUserTokens = async () => {
