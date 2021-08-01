@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 const Graph: any = dynamic(() => import('react-graph-vis'), {
@@ -13,12 +14,12 @@ import {
   getProblemNodeStyle,
   getCategoryNodeStyle,
 } from 'src/data/roadmap';
-import { useRoadmap } from 'src/hooks/api/roadmap';
 import {
   RoadmapCategoryNode,
   RoadmapNodes,
   RoadmapProblemNode,
 } from 'src/types/roadmap';
+import { useRoadmap } from 'src/hooks/api/roadmap';
 import { useMe } from 'src/hooks/api/user';
 
 export default function Roadmap() {
@@ -27,6 +28,19 @@ export default function Roadmap() {
   const network = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const changeNetworkSize = () => {
+      // Haven't resized in 100ms!
+      network?.current?.redraw();
+    };
+    let doIt;
+    const onResize = () => {
+      clearTimeout(doIt);
+      doIt = setTimeout(changeNetworkSize, 100);
+    };
+    window.addEventListener('resize', onResize);
+  }, []);
 
   const isLoggedIn = !!userData;
 
