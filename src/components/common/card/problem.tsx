@@ -64,16 +64,6 @@ const StyledLink = styled(Link)`
   border: 1px solid ${GREY[400]};
 `;
 
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-right: 1.2rem;
-  padding: 2rem;
-  border: 1px solid ${GREY[400]};
-`;
-
 const A = styled.a`
   position: relative;
   display: flex;
@@ -84,6 +74,16 @@ const A = styled.a`
   text-decoration: none;
   margin-right: 1.2rem;
   padding: 2rem 2rem 0.8rem;
+  border: 1px solid ${GREY[400]};
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 1.2rem;
+  padding: 2rem;
   border: 1px solid ${GREY[400]};
 `;
 

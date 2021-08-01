@@ -29,7 +29,7 @@ export default function RecommendedProblemsSection({
     <Section size="medium" title={problemsSectionTitle[type]}>
       <HorizontalScrollable>
         {problems?.map((problem, i) => (
-          <ProblemCard key={i} index={i + 1} {...problem} />
+          <StyledProblemCard key={i} index={i + 1} {...problem} />
         ))}
         {!problems &&
           [...Array(8)].map((_, i) => (
@@ -41,5 +41,5 @@ export default function RecommendedProblemsSection({
 }
 
 export const StyledProblemCard = styled(ProblemCard)`
-  min-width: 23.2rem;
+  width: 23.2rem;
 `;
