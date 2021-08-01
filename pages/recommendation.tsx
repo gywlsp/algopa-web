@@ -9,14 +9,18 @@ import { useMe } from 'src/hooks/api/user';
 
 export default function RecommendationPage() {
   const router = useRouter();
-  const { data: userData } = useMe();
+  const { data: userData, error } = useMe();
 
   useEffect(() => {
-    if (userData === null) {
+    if (error) {
       alert('로그인이 필요한 기능입니다.');
       router.push('/login');
     }
-  }, [userData]);
+  }, [error]);
+
+  if (error) {
+    return <></>;
+  }
 
   return (
     <GlobalLayout>
