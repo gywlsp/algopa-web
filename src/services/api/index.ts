@@ -15,6 +15,9 @@ class RequestConfig {
   }
 
   public setToken(token?: any) {
+    if (!token) {
+      return;
+    }
     this.headers = {
       Authorization: token,
     };
