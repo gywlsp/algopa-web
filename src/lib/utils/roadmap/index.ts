@@ -1,5 +1,5 @@
-import { BLUE_GREEN, GREY } from 'src/constants/colors';
-import { FAILURE_RATE_COLORS, SOLVED_COLORS } from 'src/data/roadmap';
+import { BLUE_GREEN, GREY, SUCCESS_BLUE } from 'src/constants/colors';
+import { FAILURE_RATE_COLORS } from 'src/data/roadmap';
 import {
   RoadmapDTO,
   RoadmapNodes,
@@ -8,8 +8,7 @@ import {
 } from 'src/types/roadmap';
 
 export const getNodes = (
-  roadmapData: RoadmapDTO,
-  isLoggedIn: boolean
+  roadmapData: RoadmapDTO
 ): {
   nodes: RoadmapNodes;
   categoryNodes: RoadmapCategoryNode[];
@@ -17,7 +16,7 @@ export const getNodes = (
 } => {
   const categoryNodes = roadmapData?.categories
     ?.sort((a, b) => a.order - b.order)
-    .map((category, index) => {
+    .map((category) => {
       const { id, nodeId, order, name } = category;
       const label = `[${order}] ${name}`;
       return {
@@ -26,13 +25,13 @@ export const getNodes = (
         id: nodeId,
         label,
         level: order,
-        ...getCategoryNodeStyle(isLoggedIn, index),
+        ...getCategoryNodeStyle(category),
       };
     });
 
   const problemNodes =
     categoryNodes &&
-    roadmapData?.problems.map((problem, index) => {
+    roadmapData?.problems.map((problem) => {
       const { id, nodeId, title, level: problemLevel, categories } = problem;
       const label = title.length > 8 ? title.slice(0, 6) + '..' : title;
       const lastCategory = categories[categories.length - 1];
@@ -46,7 +45,7 @@ export const getNodes = (
         label,
         level: nodeLevel,
         problemLevel,
-        ...getProblemNodeStyle(isLoggedIn, index),
+        ...getProblemNodeStyle(problem),
       };
     });
 
@@ -57,31 +56,32 @@ export const getNodes = (
   };
 };
 
-const getCategoryNodeStyle = (isLoggedIn: boolean, index: number) => ({
-  color: isLoggedIn
-    ? {
-        background: FAILURE_RATE_COLORS[index % 4] || BLUE_GREEN[200],
+const getCategoryNodeStyle = (category: RoadmapCategoryNode) => {
+  const background = category?.progressRate
+    ? FAILURE_RATE_COLORS[Math.floor(3 * category.failureRate)]
+    : BLUE_GREEN[200];
+  return {
+    color: {
+      background,
+      border: GREY[500],
+      highlight: {
+        background,
         border: GREY[500],
-        highlight: {
-          background: FAILURE_RATE_COLORS[index % 4] || BLUE_GREEN[200],
-          border: GREY[500],
-        },
-      }
-    : BLUE_GREEN[200],
-  shape: 'circle',
-  font: { size: 16 },
-});
+      },
+    },
+    shape: 'circle',
+    font: { size: 16 },
+  };
+};
 
-const getProblemNodeStyle = (isLoggedIn: boolean, index: number) => ({
-  color: isLoggedIn
-    ? {
-        background: BLUE_GREEN[100],
-        border: SOLVED_COLORS[index % 3],
-        highlight: {
-          background: BLUE_GREEN[100],
-          border: SOLVED_COLORS[index % 3],
-        },
-      }
-    : BLUE_GREEN[100],
+const getProblemNodeStyle = (problem: RoadmapProblemNode) => ({
+  color: {
+    background: BLUE_GREEN[100],
+    border: problem?.isSolved ? SUCCESS_BLUE : GREY[500],
+    highlight: {
+      background: BLUE_GREEN[100],
+      border: problem?.isSolved ? SUCCESS_BLUE : GREY[500],
+    },
+  },
   shape: 'circle',
 });
