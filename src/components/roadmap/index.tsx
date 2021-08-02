@@ -80,7 +80,7 @@ export default function Roadmap() {
 
   const getNetwork = (_network) => {
     _network.moveTo({ scale: 0.7 });
-    _network.focus(nodes[0].id, {
+    _network.focus(nodes[0]?.id, {
       scale: 1,
       animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
     });
