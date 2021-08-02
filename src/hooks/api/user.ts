@@ -19,9 +19,10 @@ export const useMe = () => {
   );
 
   useEffect(() => {
-    if (!(error?.response?.status === 401 || accessToken)) {
+    if (!(error?.response?.status === 401 && accessToken)) {
       return;
     }
+
     const refreshUserTokens = async () => {
       try {
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
