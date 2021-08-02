@@ -128,19 +128,17 @@ export default function Roadmap() {
     doubleClick: handleNodeDoubleClick,
   };
 
-  if (!(categoryNodes && problemNodes && edges)) {
-    return <></>;
-  }
-
   return (
     <>
       <Wrapper>
+        {categoryNodes && problemNodes && edges && (
         <Graph
           graph={graphData}
           events={events}
           options={GRAPH_OPTIONS}
           getNetwork={getNetwork}
         />
+        )}
       </Wrapper>
       <RoadmapProblemModal
         {...selectedProblemNode}
