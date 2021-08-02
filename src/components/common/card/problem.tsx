@@ -18,7 +18,17 @@ export type ProblemCardProps = {
 } & Partial<IProblem>;
 
 export default function ProblemCard(props: ProblemCardProps) {
-  const { index, number = 1260, levelImgLink, title = '문제 제목' } = props;
+  const {
+    index,
+    number = 1260,
+    level,
+    problemLevel,
+    title = '문제 제목',
+  } = props;
+
+  const levelImgSrc = `https://static.solved.ac/tier_small/${
+    level || problemLevel
+  }.svg`;
 
   return (
     <ContentWrapper {...props}>
@@ -29,7 +39,9 @@ export default function ProblemCard(props: ProblemCardProps) {
           </P>
         </IndexLabel>
       )}
-      <LevelImg src={levelImgLink} alt={title} />
+      <ImgWrapper>
+        <Img src={levelImgSrc} alt={title} height="8rem" />
+      </ImgWrapper>
       <StyledP>{number}</StyledP>
       <StyledP>{title}</StyledP>
     </ContentWrapper>
@@ -89,12 +101,14 @@ const Wrapper = styled.div`
   border: 1px solid ${GREY[400]};
 `;
 
-const LevelImg = styled(Img).attrs({
-  width: '100%',
-  height: '14rem',
-  cover: true,
-  border: true,
-})`
+const ImgWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 14rem;
+  background-color: ${GREY[100]};
+  border: 1px solid ${GREY[400]};
   margin-bottom: 2rem;
 `;
 
