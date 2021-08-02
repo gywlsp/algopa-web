@@ -44,16 +44,16 @@ export default function Roadmap() {
 
   const isLoggedIn = !!userData;
 
-  const categoryNodes: RoadmapCategoryNode[] = roadmapData?.categories.map(
-    (category, index) => ({
+  const categoryNodes: RoadmapCategoryNode[] = roadmapData?.categories
+    ?.sort((a, b) => a.order - b.order)
+    .map((category, index) => ({
       ...category,
       categoryId: category.id,
       id: category.nodeId,
-      label: `[${index + 1}] ${category.name}`,
+      label: `[${category.order}] ${category.name}`,
       ...getCategoryNodeStyle(isLoggedIn, index),
       userData,
-    })
-  );
+    }));
 
   const problemNodes: RoadmapProblemNode[] = roadmapData?.problems.map(
     (problem, index) => ({
@@ -64,6 +64,8 @@ export default function Roadmap() {
         problem.title.length > 8
           ? problem.title.slice(0, 6) + '..'
           : problem.title,
+      level: undefined,
+      problemLevel: problem.level,
       ...getProblemNodeStyle(isLoggedIn, index),
     })
   );
