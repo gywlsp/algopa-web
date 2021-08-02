@@ -7,6 +7,7 @@ import {
   getBojAuthTokenConfig,
   joinConfig,
   refreshConfig,
+  validateBojIdConfig,
 } from './config';
 import { Provider, UserToken } from 'src/types/user';
 import { IUserInputDTO, IUserReadDTO } from 'src/interfaces/user/IUser';
@@ -19,10 +20,13 @@ const login = async (
     return res.data;
   });
 
-const validateNickname = async (
-  nickname: string
-): Promise<{ isValidated: boolean }> =>
+const validateNickname = async (nickname: string): Promise<void> =>
   axios(validateNicknameConfig(nickname)).then((res) => {
+    return res.data;
+  });
+
+const validateBojId = async (id: string): Promise<void> =>
+  axios(validateBojIdConfig(id)).then((res) => {
     return res.data;
   });
 
@@ -56,6 +60,7 @@ const refresh = async (refreshToken: string): Promise<UserToken> =>
 const AuthService = {
   login,
   validateNickname,
+  validateBojId,
   getBojIdAuthToken,
   authenticateBojId,
   join,

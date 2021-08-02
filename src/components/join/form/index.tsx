@@ -41,6 +41,14 @@ export default function JoinForm() {
       alert('백준 아이디를 입력해주세요.');
       return false;
     }
+    try {
+      await AuthService.validateBojId(bojId);
+    } catch (err) {
+      if (err.response.status === 404) {
+        alert('백준 계정이 존재하지 않습니다.');
+      }
+      return false;
+    }
     if (!email || !provider || !accessToken) {
       alert('회원가입에 실패했습니다. 관리자에게 문의 바랍니다.');
       return false;

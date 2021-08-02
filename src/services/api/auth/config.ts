@@ -8,6 +8,9 @@ export const loginConfig = (provider: Provider, token: string) =>
 export const validateNicknameConfig = (nickname: string) =>
   baseConfig().get(`/auth/v1/validation/${nickname}`);
 
+export const validateBojIdConfig = (id: string) =>
+  baseConfig().get(`/auth/v1/validation/boj/${id}`);
+
 export const getBojAuthTokenConfig = (bojId: string) =>
   baseConfig().get(`/auth/v1/authentication/boj/token/${bojId}`);
 
