@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import NicknameInput from './inputs/nickname';
 import BojIdInput from './inputs/boj-id';
-import BojSubmitLinkInput from './inputs/boj-submit-link';
+//import BojSubmitLinkInput from './inputs/boj-submit-link';
 import Button from 'src/components/common/button';
 
 import { getDecryptedString } from 'src/lib/utils/crypto';
@@ -18,8 +18,8 @@ export default function JoinForm() {
   const [nickname, setNickname] = useState('');
   const [isNicknameDuplicated, setNicknameDuplicated] = useState<boolean>();
   const [bojId, setBojId] = useState('');
-  const [bojSubmitLink, setBojSubmitLink] = useState('');
-  const [bojIdAuthToken, setBojIdAuthToken] = useState('');
+  //const [bojSubmitLink, setBojSubmitLink] = useState('');
+  //const [bojIdAuthToken, setBojIdAuthToken] = useState('');
 
   const isSubmitButtonEnabled = nickname && !isNicknameDuplicated && bojId;
 
@@ -80,15 +80,15 @@ export default function JoinForm() {
       <BojIdInput
         bojId={bojId}
         setBojId={setBojId}
-        setBojIdAuthToken={setBojIdAuthToken}
+        //setBojIdAuthToken={setBojIdAuthToken}
       />
-      {bojIdAuthToken && (
+      {/* {bojIdAuthToken && (
         <BojSubmitLinkInput
           bojIdAuthToken={bojIdAuthToken}
           bojSubmitLink={bojSubmitLink}
           setBojSubmitLink={setBojSubmitLink}
         />
-      )}
+      )} */}
       <SubmitButton
         title="회원가입 완료"
         onClick={handleSubmit}
