@@ -53,7 +53,7 @@ export default function NicknameInput({
         name="nickname"
         value={nickname}
         onChange={handleChange}
-        placeholder="10자 이내, 한글/영어/숫자"
+        placeholder="10자 이내, 영어/숫자"
         maxLength={10}
         error={{
           state: isNicknameDuplicated === true,
