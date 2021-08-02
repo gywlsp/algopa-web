@@ -23,7 +23,7 @@ export default function JoinForm() {
 
   const isSubmitButtonEnabled = nickname && !isNicknameDuplicated && bojId;
 
-  const isFormValid = async () => {
+  const getFormValid = async () => {
     if (!nickname) {
       alert('닉네임을 입력해주세요.');
       return false;
@@ -57,7 +57,8 @@ export default function JoinForm() {
   };
 
   const handleSubmit = async () => {
-    if (!isFormValid()) {
+    const isFormValid = await getFormValid();
+    if (!isFormValid) {
       return;
     }
     try {
