@@ -13,6 +13,8 @@ export type ProblemCardProps = {
   index?: number;
   isRouting?: boolean;
   className?: string;
+  problemLevel?: number;
+  //vis-network node에 level property 있어서 겹치지 않게 하기 위함
 } & Partial<IProblem>;
 
 export default function ProblemCard(props: ProblemCardProps) {
