@@ -6,6 +6,7 @@ export interface IProblem {
   level: number;
   link: string;
   title: string;
+  categories: string[];
 }
 
 export type IProblemReadDTO = IProblem & UserProblemInfo;
