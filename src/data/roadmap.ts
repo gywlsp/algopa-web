@@ -1,14 +1,11 @@
 import {
   BLACK,
-  GREY,
   PASTEL_BLUE,
   PASTEL_RED,
   PASTEL_YELLOW,
-  SUCCESS_BLUE,
 } from 'src/constants/colors';
 
-export const FAILURE_RATE_COLORS = [PASTEL_RED, PASTEL_YELLOW, PASTEL_BLUE];
-export const SOLVED_COLORS = [SUCCESS_BLUE, GREY[500], GREY[500]];
+export const FAILURE_RATE_COLORS = [PASTEL_BLUE, PASTEL_YELLOW, PASTEL_RED];
 
 export const GRAPH_OPTIONS = {
   layout: {
