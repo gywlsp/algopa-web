@@ -1,7 +1,5 @@
 import {
   BLACK,
-  BLUE_GREEN,
-  FAILURE_RED,
   GREY,
   PASTEL_BLUE,
   PASTEL_RED,
@@ -10,7 +8,16 @@ import {
 } from 'src/constants/colors';
 
 export const FAILURE_RATE_COLORS = [PASTEL_RED, PASTEL_YELLOW, PASTEL_BLUE];
-export const SOLVED_COLORS = [SUCCESS_BLUE, FAILURE_RED, GREY[500]];
+export const SOLVED_COLORS = [SUCCESS_BLUE, GREY[500], GREY[500]];
+
+export const GRAPH_OPTIONS = {
+  layout: {
+    hierarchical: { enabled: true, direction: 'LR' },
+  },
+  edges: {
+    color: BLACK,
+  },
+};
 
 // const ALGORITHM_CATEGORIES = [
 //   '구현',
@@ -76,41 +83,3 @@ export const SOLVED_COLORS = [SUCCESS_BLUE, FAILURE_RED, GREY[500]];
 //   nodes: NODES,
 //   edges: EDGES,
 // };
-
-export const getCategoryNodeStyle = (isLoggedIn: boolean, index: number) => ({
-  color: isLoggedIn
-    ? {
-        background: FAILURE_RATE_COLORS[index % 4] || BLUE_GREEN[200],
-        border: index % 5 ? GREY[500] : SUCCESS_BLUE,
-        highlight: {
-          background: FAILURE_RATE_COLORS[index % 4] || BLUE_GREEN[200],
-          border: index % 5 ? GREY[500] : SUCCESS_BLUE,
-        },
-      }
-    : BLUE_GREEN[200],
-  shape: 'circle',
-  font: { size: 16 },
-});
-
-export const getProblemNodeStyle = (isLoggedIn: boolean, index: number) => ({
-  color: isLoggedIn
-    ? {
-        background: BLUE_GREEN[100],
-        border: SOLVED_COLORS[index % 3],
-        highlight: {
-          background: BLUE_GREEN[100],
-          border: SOLVED_COLORS[index % 3],
-        },
-      }
-    : BLUE_GREEN[100],
-  shape: 'circle',
-});
-
-export const GRAPH_OPTIONS = {
-  layout: {
-    hierarchical: { enabled: true, direction: 'LR' },
-  },
-  edges: {
-    color: BLACK,
-  },
-};

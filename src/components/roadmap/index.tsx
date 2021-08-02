@@ -9,16 +9,8 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
 import RoadmapProblemModal from './problem-modal';
 import { GREY, WHITE } from 'src/constants/colors';
 
-import {
-  GRAPH_OPTIONS,
-  getProblemNodeStyle,
-  getCategoryNodeStyle,
-} from 'src/data/roadmap';
-import {
-  RoadmapCategoryNode,
-  RoadmapNodes,
-  RoadmapProblemNode,
-} from 'src/types/roadmap';
+import { GRAPH_OPTIONS } from 'src/data/roadmap';
+import { getNodes } from 'src/lib/utils/roadmap';
 import { useRoadmap } from 'src/hooks/api/roadmap';
 import { useMe } from 'src/hooks/api/user';
 
@@ -44,36 +36,10 @@ export default function Roadmap() {
 
   const isLoggedIn = !!userData;
 
-  const categoryNodes: RoadmapCategoryNode[] = roadmapData?.categories
-    ?.sort((a, b) => a.order - b.order)
-    .map((category, index) => ({
-      ...category,
-      categoryId: category.id,
-      id: category.nodeId,
-      label: `[${category.order}] ${category.name}`,
-      ...getCategoryNodeStyle(isLoggedIn, index),
-      userData,
-    }));
-
-  const problemNodes: RoadmapProblemNode[] = roadmapData?.problems.map(
-    (problem, index) => ({
-      ...problem,
-      problemId: problem.id,
-      id: problem.nodeId,
-      label:
-        problem.title.length > 8
-          ? problem.title.slice(0, 6) + '..'
-          : problem.title,
-      level: undefined,
-      problemLevel: problem.level,
-      ...getProblemNodeStyle(isLoggedIn, index),
-    })
+  const { nodes, categoryNodes, problemNodes } = getNodes(
+    roadmapData,
+    isLoggedIn
   );
-
-  const nodes: RoadmapNodes = [
-    ...(categoryNodes || []),
-    ...(problemNodes || []),
-  ];
   const edges = roadmapData?.edges;
 
   const selectedProblemNode = problemNodes?.find(
@@ -132,12 +98,12 @@ export default function Roadmap() {
     <>
       <Wrapper>
         {categoryNodes && problemNodes && edges && (
-        <Graph
-          graph={graphData}
-          events={events}
-          options={GRAPH_OPTIONS}
-          getNetwork={getNetwork}
-        />
+          <Graph
+            graph={graphData}
+            events={events}
+            options={GRAPH_OPTIONS}
+            getNetwork={getNetwork}
+          />
         )}
       </Wrapper>
       <RoadmapProblemModal
