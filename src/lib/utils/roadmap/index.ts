@@ -17,27 +17,38 @@ export const getNodes = (
 } => {
   const categoryNodes = roadmapData?.categories
     ?.sort((a, b) => a.order - b.order)
-    .map((category, index) => ({
-      ...category,
-      categoryId: category.id,
-      id: category.nodeId,
-      label: `[${category.order}] ${category.name}`,
-      level: undefined,
-      ...getCategoryNodeStyle(isLoggedIn, index),
-    }));
+    .map((category, index) => {
+      const { id, nodeId, order, name } = category;
+      const label = `[${order}] ${name}`;
+      return {
+        ...category,
+        categoryId: id,
+        id: nodeId,
+        label,
+        level: order,
+        ...getCategoryNodeStyle(isLoggedIn, index),
+      };
+    });
 
-  const problemNodes = roadmapData?.problems.map((problem, index) => ({
-    ...problem,
-    problemId: problem.id,
-    id: problem.nodeId,
-    label:
-      problem.title.length > 8
-        ? problem.title.slice(0, 6) + '..'
-        : problem.title,
-    level: undefined,
-    problemLevel: problem.level,
-    ...getProblemNodeStyle(isLoggedIn, index),
-  }));
+  const problemNodes =
+    categoryNodes &&
+    roadmapData?.problems.map((problem, index) => {
+      const { id, nodeId, title, level: problemLevel, categories } = problem;
+      const label = title.length > 8 ? title.slice(0, 6) + '..' : title;
+      const lastCategory = categories[categories.length - 1];
+      const nodeLevel =
+        (categoryNodes?.find((category) => category.name === lastCategory)
+          ?.level || 0) + 1;
+      return {
+        ...problem,
+        problemId: id,
+        id: nodeId,
+        label,
+        level: nodeLevel,
+        problemLevel,
+        ...getProblemNodeStyle(isLoggedIn, index),
+      };
+    });
 
   return {
     nodes: [...(categoryNodes || []), ...(problemNodes || [])],
