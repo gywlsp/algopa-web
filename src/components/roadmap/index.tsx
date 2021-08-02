@@ -12,10 +12,8 @@ import { GREY, WHITE } from 'src/constants/colors';
 import { GRAPH_OPTIONS } from 'src/data/roadmap';
 import { getNodes } from 'src/lib/utils/roadmap';
 import { useRoadmap } from 'src/hooks/api/roadmap';
-import { useMe } from 'src/hooks/api/user';
 
 export default function Roadmap() {
-  const { data: userData } = useMe();
   const { data: roadmapData } = useRoadmap();
   const network = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
@@ -34,12 +32,7 @@ export default function Roadmap() {
     window.addEventListener('resize', onResize);
   }, []);
 
-  const isLoggedIn = !!userData;
-
-  const { nodes, categoryNodes, problemNodes } = getNodes(
-    roadmapData,
-    isLoggedIn
-  );
+  const { nodes, problemNodes } = getNodes(roadmapData);
   const edges = roadmapData?.edges;
 
   const selectedProblemNode = problemNodes?.find(
@@ -93,11 +86,10 @@ export default function Roadmap() {
     selectNode: handleNodeClick,
     doubleClick: handleNodeDoubleClick,
   };
-
   return (
     <>
       <Wrapper>
-        {categoryNodes && problemNodes && edges && (
+        {roadmapData && (
           <Graph
             graph={graphData}
             events={events}
