@@ -30,6 +30,7 @@ export default function Roadmap() {
       doIt = setTimeout(changeNetworkSize, 100);
     };
     window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   const { nodes, problemNodes } = getNodes(roadmapData);
