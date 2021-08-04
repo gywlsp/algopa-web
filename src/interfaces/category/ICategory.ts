@@ -6,4 +6,4 @@ export interface ICategory {
   order: number;
 }
 
-export type ICategoryReadDTO = ICategory & UserCategoryInfo;
+export type ICategoryReadDTO = ICategory & Partial<UserCategoryInfo>;

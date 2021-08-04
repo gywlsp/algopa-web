@@ -9,4 +9,4 @@ export interface IProblem {
   categories: string[];
 }
 
-export type IProblemReadDTO = IProblem & UserProblemInfo;
+export type IProblemReadDTO = IProblem & Partial<UserProblemInfo>;
