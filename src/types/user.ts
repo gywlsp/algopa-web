@@ -6,10 +6,10 @@ export type UserToken = {
 };
 
 export type UserCategoryInfo = {
-  failureRate?: number;
-  progressRate?: number;
+  failureRate: number;
+  progressRate: number;
 };
 
 export type UserProblemInfo = {
-  isSolved?: boolean;
+  isSolved: boolean;
 };
