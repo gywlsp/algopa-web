@@ -3,20 +3,32 @@ import { ICategoryReadDTO } from 'src/interfaces/category/ICategory';
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
 import { VariadicTuple } from '.';
 
-export type RoadmapDTO = {
-  categories: RoadmapCategoryNode[];
-  problems: RoadmapProblemNode[];
-  edges: RoadmapEdge[];
+export type RoadmapCategoryDTO = ICategoryReadDTO & {
+  nodeId: string;
 };
 
-export type RoadmapNode = {
+export type RoadmapProblemDTO = IProblemReadDTO & {
   nodeId: string;
+};
+
+export type RoadmapEdgeType = 'next' | 'in';
+
+export type RoadmapEdge = { type: RoadmapEdgeType } & Edge;
+
+export type RoadmapEdgeDTO = Omit<RoadmapEdge, 'id'>;
+
+export type RoadmapDTO = {
+  categories: RoadmapCategoryDTO[];
+  problems: RoadmapProblemDTO[];
+  edges: RoadmapEdgeDTO[];
+};
+
+export type RoadmapCategoryNode = Omit<RoadmapCategoryDTO, 'id'> & {
+  categoryId: number;
 } & Node;
-
-export type RoadmapCategoryNode = Omit<ICategoryReadDTO, 'id'> & RoadmapNode;
-export type RoadmapProblemNode = Omit<IProblemReadDTO, 'id'> & RoadmapNode;
-
-export type RoadmapEdge = Edge;
+export type RoadmapProblemNode = Omit<RoadmapProblemDTO, 'id'> & {
+  problemId: number;
+} & Node;
 
 export type RoadmapNodes = VariadicTuple<
   RoadmapCategoryNode[],

@@ -5,6 +5,8 @@ import {
   RoadmapNodes,
   RoadmapCategoryNode,
   RoadmapProblemNode,
+  RoadmapCategoryDTO,
+  RoadmapProblemDTO,
 } from 'src/types/roadmap';
 
 export const getNodes = (
@@ -56,7 +58,7 @@ export const getNodes = (
   };
 };
 
-const getCategoryNodeStyle = (category: RoadmapCategoryNode) => {
+const getCategoryNodeStyle = (category: RoadmapCategoryDTO) => {
   const background = category?.progressRate
     ? FAILURE_RATE_COLORS[Math.floor(3 * category.failureRate)]
     : BLUE_GREEN[200];
@@ -74,7 +76,7 @@ const getCategoryNodeStyle = (category: RoadmapCategoryNode) => {
   };
 };
 
-const getProblemNodeStyle = (problem: RoadmapProblemNode) => ({
+const getProblemNodeStyle = (problem: RoadmapProblemDTO) => ({
   color: {
     background: BLUE_GREEN[100],
     border: problem?.isSolved ? SUCCESS_BLUE : GREY[500],
