@@ -27,7 +27,7 @@ export default function ProblemCard(props: ProblemCardProps) {
   } = props;
 
   const levelImgSrc = `https://static.solved.ac/tier_small/${
-    level || problemLevel
+    problemLevel || level
   }.svg`;
 
   return (
