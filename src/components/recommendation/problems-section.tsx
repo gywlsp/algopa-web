@@ -14,7 +14,7 @@ export type RecommendedProblemsSectionProps = Pick<
   'type'
 >;
 
-const problemsSectionTitle = {
+const SECTION_TITLE = {
   next: '다음으로 풀면 좋은 문제들이에요 😉',
   wrong: '이런 유형의 문제를 많이 틀려요 😢',
   less: '이런 유형의 문제를 많이 풀지 않았어요 🧐',
@@ -26,7 +26,7 @@ export default function RecommendedProblemsSection({
   const { data: problems } = useProblemList({ limit: 8, type });
 
   return (
-    <Section size="medium" title={problemsSectionTitle[type]}>
+    <Section size="medium" title={SECTION_TITLE[type]}>
       <HorizontalScrollable>
         {problems?.map((problem, i) => (
           <StyledProblemCard key={i} index={i + 1} {...problem} />
