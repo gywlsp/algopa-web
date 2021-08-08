@@ -7,16 +7,16 @@ import Modal from '../common/modal';
 import { RoadmapProblemNode } from 'src/types/roadmap';
 import { bojLink } from 'src/data';
 
-export type RoadmapProblemModalProps = {
+export type RoadmapProblemInfoModalProps = {
   isOpen: boolean;
   onClose: () => void;
 } & Omit<RoadmapProblemNode, 'id'>;
 
-export default function RoadmapProblemModal({
+export default function RoadmapProblemInfoModal({
   isOpen,
   onClose,
   ...problemNodeData
-}: RoadmapProblemModalProps) {
+}: RoadmapProblemInfoModalProps) {
   return (
     <Modal
       title="문제 정보"

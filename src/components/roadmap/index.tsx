@@ -6,7 +6,7 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
   ssr: false,
 });
 
-import RoadmapProblemModal from './problem-modal';
+import ProblemInfoModal from './problem-modal';
 import { GREY, WHITE } from 'src/constants/colors';
 
 import { GRAPH_OPTIONS } from 'src/data/roadmap';
@@ -99,7 +99,7 @@ export default function Roadmap() {
           />
         )}
       </Wrapper>
-      <RoadmapProblemModal
+      <ProblemInfoModal
         {...selectedProblemNode}
         isOpen={isModalOpen}
         onClose={closeModal}
