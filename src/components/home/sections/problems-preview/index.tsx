@@ -20,10 +20,14 @@ export default function ProblemsPreviewSection() {
   return (
     <Wrapper title={sectionTitle}>
       <CardsWrapper>
-        {recommendedProblems && <MoreButton isLoggedIn={!!userData} />}
-        {recommendedProblems?.reverse().map((problem, i) => (
-          <ProblemCard key={i} {...problem} />
-        ))}
+        {recommendedProblems && (
+          <>
+            <MoreButton isLoggedIn={!!userData} />
+            {[...recommendedProblems].reverse().map((problem, i) => (
+              <ProblemCard key={i} {...problem} />
+            ))}
+          </>
+        )}
         {!recommendedProblems &&
           [...Array(5)].map((_, i) => (
             <ProblemCardSkeleton key={i} isLast={i === 0} />
