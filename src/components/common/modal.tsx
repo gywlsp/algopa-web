@@ -7,6 +7,7 @@ import XIcon from 'src/assets/icons/x';
 import { GREY, WHITE } from 'src/constants/colors';
 
 export type ModalProps = {
+  title: string;
   isOpen: boolean;
   onClose: () => void;
   okText: string;
@@ -18,6 +19,7 @@ export type ModalProps = {
 };
 
 export default function Modal({
+  title,
   isOpen,
   onClose,
   okText,
@@ -36,7 +38,7 @@ export default function Modal({
       <Wrapper isOpen={isOpen} onClick={handleWrapperClick}>
         <Header>
           <P level={5} fontWeight={500}>
-            문제 상세
+            {title}
           </P>
           <CloseButton onClick={onClose}>
             <XIcon style={{ width: '1.8rem', height: '1.8rem' }} />
