@@ -19,6 +19,7 @@ export default function RoadmapProblemModal({
 }: RoadmapProblemModalProps) {
   return (
     <Modal
+      title="문제 정보"
       isOpen={isOpen}
       onClose={onClose}
       okText="문제 풀기"
