@@ -75,22 +75,30 @@ Software Maestro 12기 LIMO팀(이종아, 고동천, 박효진) 서비스 `algop
      <td align="center">
        <br/>
          <figure>
-             <img src="./public/img/로드맵-첫로딩.gif" alt="로드맵-첫로딩" width=650/><br/>
-             <figcaption>첫 로딩</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128954056-a8578462-33de-4d8c-b94e-215dffb2bda4.gif" alt="로드맵-첫로딩" width=780/><br/>
+             <figcaption>첫 로딩</figcaption><br/>
          </figure>
+       <br/>
          <figure>
-             <img src="https://user-images.githubusercontent.com/47051596/128954473-cc1a08e4-2a45-4650-9f5e-d44a64747e19.png" alt="유형 오답률, 문제 풀이 유무" width=650/><br/>
-             <figcaption>유형 오답률, 문제 풀이 유무 표시</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128954473-cc1a08e4-2a45-4650-9f5e-d44a64747e19.png" alt="유형 오답률, 문제 풀이 유무" width=780/><br/>
+             <figcaption>유형 오답률, 문제 풀이 유무 표시</figcaption><br/>
          </figure>
+       <br/>
          <figure>
-             <img src="./public/img/로드맵-화면이동.gif" alt="로드맵-화면이동" width=650/><br/>
-             <figcaption>노드 클릭을 이용한 zoom, 화면 이동</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128959094-971ef8a8-8c8e-4c3e-9330-be0a48957692.gif" alt="로드맵-화면이동" width=780/><br/>
+             <figcaption>노드 클릭시 zoom</figcaption><br/>
          </figure>
+       <br/>
          <figure>
-             <img src="./public/img/로드맵-문제모달.gif" alt="로드맵-문제모달" width=650/><br/>
-             <figcaption>노드 더블클릭시 나타나는 문제 Modal</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128959052-931c3371-c594-4a48-9311-7852cb284094.gif" alt="로드맵-화면이동" width=780/><br/>
+             <figcaption>노드 클릭시 화면 이동</figcaption><br/>
          </figure>
-         <br/>
+       <br/>
+         <figure>
+             <img src="https://user-images.githubusercontent.com/47051596/128959100-0a7b68b7-a752-44eb-b37e-1e7db6d8b982.gif" alt="로드맵-문제모달" width=780/><br/>
+             <figcaption>노드 더블클릭시 나타나는 문제 Modal</figcaption><br/>
+         </figure>
+       <br/>
      </td>
   </tr>
    <tr style = "background-color:#00000000;">
@@ -102,22 +110,25 @@ Software Maestro 12기 LIMO팀(이종아, 고동천, 박효진) 서비스 `algop
      <td align="center">
        <br/>
          <figure>
-             <img src="https://user-images.githubusercontent.com/47051596/128956746-9fbb5d16-41ce-4b40-99b8-f6bba709ba88.png" alt="문제추천-종합" width=650/><br/>
-             <figcaption>종합 문제 추천</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128956746-9fbb5d16-41ce-4b40-99b8-f6bba709ba88.png" alt="문제추천-종합" width=780/><br/>
+             <figcaption>종합 문제 추천</figcaption><br/>
          </figure>
+       <br/>
          <figure>
-             <img src="https://user-images.githubusercontent.com/47051596/128956908-42216690-c320-4e92-bb42-ef8f214ef3c3.png" alt="문제추천-다음" width=650/><br/>
-             <figcaption>다음으로 풀면 좋은 문제 추천</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128956908-42216690-c320-4e92-bb42-ef8f214ef3c3.png" alt="문제추천-다음" width=780/><br/>
+             <figcaption>다음으로 풀면 좋은 문제 추천</figcaption><br/>
          </figure>
+       <br/>
          <figure>
-             <img src="https://user-images.githubusercontent.com/47051596/128956928-16a82428-bd97-40a8-ad9f-3777cf4d67f4.png" alt="문제추천-오답률상" width=650/><br/>
-             <figcaption>많이 틀리는 유형의 문제 추천</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128956928-16a82428-bd97-40a8-ad9f-3777cf4d67f4.png" alt="문제추천-오답률상" width=780/><br/>
+             <figcaption>많이 틀리는 유형의 문제 추천</figcaption><br/>
          </figure>
+       <br/>
          <figure>
-             <img src="https://user-images.githubusercontent.com/47051596/128956947-399da479-74d2-4771-be63-f2dbe3ccbc26.png" alt="문제추천-진행률하" width=650/><br/>
-             <figcaption>적게 푼 유형의 문제 추천</figcaption>
+             <img src="https://user-images.githubusercontent.com/47051596/128956947-399da479-74d2-4771-be63-f2dbe3ccbc26.png" alt="문제추천-진행률하" width=780/><br/>
+             <figcaption>적게 푼 유형의 문제 추천</figcaption><br/>
          </figure>
-         <br/>
+       <br/>
      </td>
   </tr>
 </table>
