@@ -77,12 +77,14 @@ export default function Roadmap() {
     <>
       <Wrapper>
         {roadmapData && (
+          <GraphWrapper>
           <Graph
             graph={graphData}
             events={events}
             options={GRAPH_OPTIONS}
               getNetwork={setInitialGraph}
           />
+          </GraphWrapper>
         )}
       </Wrapper>
       <ProblemInfoModal
@@ -96,6 +98,9 @@ export default function Roadmap() {
 
 const Wrapper = styled.div`
   width: 100%;
+`;
+
+const GraphWrapper = styled.div`
   height: 100vh;
   border: 1px solid ${GREY[400]};
   background-color: ${WHITE};
