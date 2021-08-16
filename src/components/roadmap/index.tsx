@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
   ssr: false,
 });
 
+import RoadmapCategoryRadio from './radio';
 import ProblemInfoModal from './problem-modal';
 import { GREY, WHITE } from 'src/constants/colors';
 
@@ -21,7 +22,9 @@ export default function Roadmap() {
 
   const { nodes, categoryNodes, problemNodes } = getNodes(roadmapData);
   const edges = roadmapData?.edges;
-
+  const selectedCategoryNodeId = categoryNodes?.find(
+    ({ id }) => id === selectedNodeId
+  )?.nodeId;
   const selectedProblemNode = problemNodes?.find(
     ({ id }) => id === selectedNodeId
   );
@@ -75,14 +78,19 @@ export default function Roadmap() {
   return (
     <>
       <Wrapper>
+        <RoadmapCategoryRadio
+          categoryNodes={categoryNodes}
+          selectedId={selectedCategoryNodeId}
+          selectNode={selectNode}
+        />
         {roadmapData && (
           <GraphWrapper>
-          <Graph
-            graph={graphData}
-            events={events}
-            options={GRAPH_OPTIONS}
+            <Graph
+              graph={graphData}
+              events={events}
+              options={GRAPH_OPTIONS}
               getNetwork={setInitialGraph}
-          />
+            />
           </GraphWrapper>
         )}
       </Wrapper>
