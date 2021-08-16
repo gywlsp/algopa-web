@@ -71,6 +71,8 @@ const getCategoryNodeStyle = (category: RoadmapCategoryDTO) => {
         border: GREY[500],
       },
     },
+    borderWidth: 2,
+    borderWidthSelected: 3,
     shape: 'circle',
     font: { size: 16 },
   };
@@ -85,5 +87,7 @@ const getProblemNodeStyle = (problem: RoadmapProblemDTO) => ({
       border: problem?.isSolved ? SUCCESS_BLUE : GREY[500],
     },
   },
+  borderWidth: 2,
+  borderWidthSelected: 3,
   shape: 'circle',
 });
