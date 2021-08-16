@@ -1,7 +1,7 @@
 import useRequest from '.';
 import { useEffect, useState } from 'react';
 
-import { getCookie, setCookie } from 'src/lib/utils/cookie';
+import { getCookie, removeCookie, setCookie } from 'src/lib/utils/cookie';
 import { meReadConfig } from 'src/services/api/user/config';
 import AuthService from 'src/services/api/auth';
 import { IUserReadDTO } from 'src/interfaces/user/IUser';
@@ -33,7 +33,14 @@ export const useMe = () => {
         });
         setCookie('ACCESS_TOKEN', newAccessToken);
         setCookie('REFRESH_TOKEN', newRefreshToken);
-      } catch (error) {}
+      } catch (error) {
+        removeCookie('ACCESS_TOKEN');
+        removeCookie('REFRESH_TOKEN');
+        setUserToken({
+          accessToken: null,
+          refreshToken: null,
+        });
+      }
     };
     refreshUserTokens();
   }, [error]);
