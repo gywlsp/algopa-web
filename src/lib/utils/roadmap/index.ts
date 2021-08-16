@@ -20,7 +20,7 @@ export const getNodes = (
     ?.sort((a, b) => a.order - b.order)
     .map((category) => {
       const { id, nodeId, order, name } = category;
-      const label = `[${order}] ${name}`;
+      const label = `${order}. ${name}`;
       return {
         ...category,
         categoryId: id,
