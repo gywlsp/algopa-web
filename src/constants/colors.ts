@@ -15,7 +15,7 @@ export const GREY = {
 
 export const BLUE_GREEN = {
   100: '#c1f2f8',
-  200: '#83d0da',
+  200: '#92DBE5',
   300: '#59BCC9',
   400: '#2E9CAB',
   500: '#097380',
