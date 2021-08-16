@@ -77,23 +77,21 @@ export default function Roadmap() {
 
   return (
     <>
-      <Wrapper>
-        <RoadmapCategoryRadio
-          categoryNodes={categoryNodes}
-          selectedId={selectedCategoryNodeId}
-          selectNode={selectNode}
-        />
-        {roadmapData && (
-          <GraphWrapper>
-            <Graph
-              graph={graphData}
-              events={events}
-              options={GRAPH_OPTIONS}
-              getNetwork={setInitialGraph}
-            />
-          </GraphWrapper>
-        )}
-      </Wrapper>
+      <RoadmapCategoryRadio
+        categoryNodes={categoryNodes}
+        selectedId={selectedCategoryNodeId}
+        selectNode={selectNode}
+      />
+      {roadmapData && (
+        <GraphWrapper>
+          <Graph
+            graph={graphData}
+            events={events}
+            options={GRAPH_OPTIONS}
+            getNetwork={setInitialGraph}
+          />
+        </GraphWrapper>
+      )}
       <ProblemInfoModal
         {...selectedProblemNode}
         isOpen={isModalOpen}
