@@ -8,6 +8,7 @@ export type UserToken = {
 export type UserCategoryInfo = {
   failureRate: number;
   progressRate: number;
+  solvedCount: number;
 };
 
 export type UserProblemInfo = {
