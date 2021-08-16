@@ -26,13 +26,13 @@ export default function Roadmap() {
     ({ id }) => id === selectedNodeId
   );
 
-  const getNetwork = (_network) => {
-    _network.moveTo({ scale: 0.7 });
-    _network.focus(nodes[0]?.id, {
+  const setInitialGraph = (network) => {
+    network.moveTo({ scale: 0.7 });
+    network.focus(nodes[0]?.id, {
       scale: 1,
       animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
     });
-    network.current = _network;
+    graph.current = network;
   };
 
   const handleNodeClick = ({
@@ -81,7 +81,7 @@ export default function Roadmap() {
             graph={graphData}
             events={events}
             options={GRAPH_OPTIONS}
-            getNetwork={getNetwork}
+              getNetwork={setInitialGraph}
           />
         )}
       </Wrapper>
