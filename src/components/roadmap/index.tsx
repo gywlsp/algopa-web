@@ -35,19 +35,17 @@ export default function Roadmap() {
     graph.current = network;
   };
 
-  const handleNodeClick = ({
-    pointer: {
-      canvas: { x, y },
-    },
-    nodes,
-  }) => {
-    setSelectedNodeId(nodes[0]);
-    network.current.moveTo({
-      position: { x, y },
+  const selectNode = (nodeId: string) => {
+    setSelectedNodeId(nodeId);
+    graph?.current?.selectNodes([nodeId]);
+    graph?.current?.focus(nodeId, {
       scale: 1,
-      offset: { x: 0, y: 0 },
       animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
     });
+  };
+
+  const handleNodeClick = ({ nodes }) => {
+    selectNode(nodes[0]);
   };
 
   const handleNodeDoubleClick = ({ nodes }) => {
@@ -73,6 +71,7 @@ export default function Roadmap() {
     selectNode: handleNodeClick,
     doubleClick: handleNodeDoubleClick,
   };
+
   return (
     <>
       <Wrapper>
