@@ -11,29 +11,15 @@ import { GREY, WHITE } from 'src/constants/colors';
 
 import { GRAPH_OPTIONS } from 'src/data/roadmap';
 import { getNodes } from 'src/lib/utils/roadmap';
-import { useRoadmap } from 'src/hooks/api/roadmap';
+import { useGraph, useRoadmap } from 'src/hooks/api/roadmap';
 
 export default function Roadmap() {
+  const { graph } = useGraph();
   const { data: roadmapData } = useRoadmap();
-  const network = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    const changeNetworkSize = () => {
-      // Haven't resized in 100ms!
-      network?.current?.redraw();
-    };
-    let doIt;
-    const onResize = () => {
-      clearTimeout(doIt);
-      doIt = setTimeout(changeNetworkSize, 100);
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  const { nodes, problemNodes } = getNodes(roadmapData);
+  const { nodes, categoryNodes, problemNodes } = getNodes(roadmapData);
   const edges = roadmapData?.edges;
 
   const selectedProblemNode = problemNodes?.find(
