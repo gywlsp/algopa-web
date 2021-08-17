@@ -82,16 +82,16 @@ export default function Roadmap() {
         selectedId={selectedCategoryNodeId}
         selectNode={selectNode}
       />
-      {roadmapData && (
-        <GraphWrapper>
+      <GraphWrapper>
+        {roadmapData && (
           <Graph
             graph={graphData}
             events={events}
             options={GRAPH_OPTIONS}
             getNetwork={setInitialGraph}
           />
-        </GraphWrapper>
-      )}
+        )}
+      </GraphWrapper>
       <ProblemInfoModal
         {...selectedProblemNode}
         isOpen={isModalOpen}
@@ -100,10 +100,6 @@ export default function Roadmap() {
     </>
   );
 }
-
-const Wrapper = styled.div`
-  width: 100%;
-`;
 
 const GraphWrapper = styled.div`
   height: 100vh;
