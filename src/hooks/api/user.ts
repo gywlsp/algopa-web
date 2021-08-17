@@ -23,25 +23,37 @@ export const useMe = () => {
       return;
     }
 
+    const updateUserTokens = ({ accessToken, refreshToken }) => {
+      setUserToken({
+        accessToken,
+        refreshToken,
+      });
+      setCookie('ACCESS_TOKEN', accessToken);
+      setCookie('REFRESH_TOKEN', refreshToken);
+    };
+
+    const removeUserTokens = () => {
+      setUserToken({
+        accessToken: null,
+        refreshToken: null,
+      });
+      removeCookie('ACCESS_TOKEN');
+      removeCookie('REFRESH_TOKEN');
+    };
+
     const refreshUserTokens = async () => {
       try {
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
           await AuthService.refresh(refreshToken);
-        setUserToken({
+        updateUserTokens({
           accessToken: newAccessToken,
           refreshToken: newRefreshToken,
         });
-        setCookie('ACCESS_TOKEN', newAccessToken);
-        setCookie('REFRESH_TOKEN', newRefreshToken);
       } catch (error) {
-        removeCookie('ACCESS_TOKEN');
-        removeCookie('REFRESH_TOKEN');
-        setUserToken({
-          accessToken: null,
-          refreshToken: null,
-        });
+        removeUserTokens();
       }
     };
+
     refreshUserTokens();
   }, [error]);
 
