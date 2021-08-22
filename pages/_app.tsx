@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import GlobalStyle from '../styles/global';
+import '../styles/problem-content.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
