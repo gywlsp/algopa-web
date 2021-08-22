@@ -5,18 +5,24 @@ import styled from 'styled-components';
 import P from './p';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-export type LogoSize = 'large' | 'medium';
+export type LogoSize = 'large' | 'medium' | 'small';
 
 export type LogoProps = {
   size?: LogoSize;
   className?: string;
 };
 
+const LOGO_TEXT_LEVEL = {
+  small: 6,
+  medium: 9,
+  large: 25,
+};
+
 export default function Logo({ size = 'medium', className }: LogoProps) {
   return (
     <Link href="/">
       <A className={className}>
-        <LogoText level={size === 'large' ? 25 : 9} color={BLUE_GREEN[500]}>
+        <LogoText level={LOGO_TEXT_LEVEL[size]} color={BLUE_GREEN[500]}>
           algopa
         </LogoText>
       </A>
