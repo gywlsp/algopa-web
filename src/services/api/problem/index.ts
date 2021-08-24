@@ -2,17 +2,17 @@ import axios from 'axios';
 
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
 import { ProblemListRequestParams } from 'src/types/problem';
-import { listConfig } from './config';
+import { recommendationListConfig } from './config';
 
-const list = async (
+const recommendationList = async (
   params: ProblemListRequestParams
 ): Promise<IProblemReadDTO[]> =>
-  axios(listConfig(params)).then((res) => {
+  axios(recommendationListConfig(params)).then((res) => {
     return res.data;
   });
 
 const ProblemService = {
-  list,
+  recommendationList,
 };
 
 export default ProblemService;
