@@ -1,17 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { problemHtml } from 'src/data/problem';
 import { GREY } from 'src/constants/colors';
 
-export default function ProblemDetailContentSection() {
+import { IProblem } from 'src/interfaces/problem/IProblem';
+
+export type ProblemDetailContentSectionProps = Pick<IProblem, 'contentHTML'>;
+
+function ProblemDetailContentSection({
+  contentHTML,
+}: ProblemDetailContentSectionProps) {
   return (
     <ProblemContent
       className="problem-content"
-      dangerouslySetInnerHTML={{ __html: problemHtml }}
+      dangerouslySetInnerHTML={{ __html: contentHTML }}
     />
   );
 }
+
+export default React.memo(ProblemDetailContentSection);
 
 const ProblemContent = styled.section`
   flex: 1;

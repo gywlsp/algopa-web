@@ -5,16 +5,28 @@ import ProblemDetailHeader from 'src/components/problem-detail/header';
 import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
 import CodeEditSection from 'src/components/problem-detail/section/code';
 
-export default function ProblemDetailPage() {
+import ProblemService from 'src/services/api/problem';
+import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
+
+export default function ProblemDetailPage(problemInfo: IProblemReadDTO) {
+  const { contentHTML } = problemInfo;
   return (
     <Wrapper>
       <ProblemDetailHeader />
       <ContentWrapper>
-        <ProblemContentSection />
+        <ProblemContentSection contentHTML={contentHTML} />
         <CodeEditSection />
       </ContentWrapper>
     </Wrapper>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  const data = await ProblemService.read(params.id);
+
+  return {
+    props: data, // will be passed to the page component as props
+  };
 }
 
 const Wrapper = styled.div`
