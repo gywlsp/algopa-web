@@ -6,12 +6,12 @@ import ProblemCard from 'src/components/common/card/problem';
 import MoreButton from './more-button';
 import ProblemCardSkeleton from 'src/components/skeletons/card/problem';
 
-import { useProblemList } from 'src/hooks/api/problem';
+import { useRecommendedProblemList } from 'src/hooks/api/problem';
 import { useMe } from 'src/hooks/api/user';
 
 export default function ProblemsPreviewSection() {
   const { data: userData } = useMe();
-  const { data: recommendedProblems } = useProblemList({ limit: 4 });
+  const { data: recommendedProblems } = useRecommendedProblemList({ limit: 4 });
 
   const sectionTitle = userData
     ? `${userData.nickname}님을 위한 추천 문제`

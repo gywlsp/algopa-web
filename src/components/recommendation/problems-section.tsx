@@ -6,7 +6,7 @@ import ProblemCard from 'src/components/common/card/problem';
 import ProblemCardSkeleton from '../skeletons/card/problem';
 import HorizontalScrollable from 'src/components/common/horizontal-scrollable';
 
-import { useProblemList } from 'src/hooks/api/problem';
+import { useRecommendedProblemList } from 'src/hooks/api/problem';
 import { ProblemListRequestParams } from 'src/types/problem';
 
 export type RecommendedProblemsSectionProps = Pick<
@@ -23,7 +23,7 @@ const SECTION_TITLE = {
 export default function RecommendedProblemsSection({
   type,
 }: RecommendedProblemsSectionProps) {
-  const { data: problems } = useProblemList({ limit: 8, type });
+  const { data: problems } = useRecommendedProblemList({ limit: 8, type });
 
   return (
     <Section size="medium" title={SECTION_TITLE[type]}>
