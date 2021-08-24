@@ -7,6 +7,7 @@ export interface IProblem {
   link: string;
   title: string;
   categories: string[];
+  contentHTML?: string;
 }
 
 export type IProblemReadDTO = IProblem & Partial<UserProblemInfo>;
