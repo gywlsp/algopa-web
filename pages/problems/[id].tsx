@@ -9,10 +9,11 @@ import ProblemService from 'src/services/api/problem';
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
 
 export default function ProblemDetailPage(problemInfo: IProblemReadDTO) {
-  const { contentHTML } = problemInfo;
+  const { number, title, contentHTML } = problemInfo;
+
   return (
     <Wrapper>
-      <ProblemDetailHeader />
+      <ProblemDetailHeader number={number} title={title} />
       <ContentWrapper>
         <ProblemContentSection contentHTML={contentHTML} />
         <CodeEditSection />

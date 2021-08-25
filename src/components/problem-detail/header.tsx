@@ -5,7 +5,18 @@ import Logo from 'src/components/common/logo';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-export default function ProblemDetailHeader() {
+import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
+
+export type ProblemDetailHeaderProps = Pick<
+  IProblemReadDTO,
+  'number' | 'title'
+>;
+
+export default function ProblemDetailHeader({
+  number,
+  title,
+}: ProblemDetailHeaderProps) {
+  const label = `${number}. ${title}`;
   return (
     <Wrapper>
       <Logo size="small" />
@@ -15,7 +26,7 @@ export default function ProblemDetailHeader() {
           style={{ width: '1.2rem', height: '1.2rem', margin: '0 0.6rem' }}
           fill={BLUE_GREEN[200]}
         />
-        2798 블랙잭
+        {label}
       </Title>
     </Wrapper>
   );
