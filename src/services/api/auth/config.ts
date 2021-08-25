@@ -20,7 +20,7 @@ export const authenticateBojIdConfig = (bojId: string) =>
 export const joinConfig = (
   data: Pick<IUser, 'email' | 'nickname' | 'provider' | 'bojId'>,
   token: string
-) => baseConfig(true, token).post(`/auth/v1/join`, data);
+) => baseConfig(true, token).post(`/auth/v1/join/${data.provider}`, data);
 
 export const refreshConfig = (refreshToken: string) =>
   baseConfig(true, refreshToken).get('/auth/v1/refresh');
