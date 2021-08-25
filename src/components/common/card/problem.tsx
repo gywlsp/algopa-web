@@ -7,7 +7,6 @@ import P from '../p';
 import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
 import { IProblem } from 'src/interfaces/problem/IProblem';
-import { bojLink } from 'src/data';
 
 export type ProblemCardProps = {
   index?: number;
@@ -54,13 +53,9 @@ const ContentWrapper = (
   const { isRouting = true, className, number, children } = props;
   if (isRouting) {
     return (
-      <A
-        href={`${bojLink}/problem/${number}`}
-        target="_blank"
-        className={className}
-      >
+      <StyledLink href={`/problems/${number}`} className={className}>
         {children}
-      </A>
+      </StyledLink>
     );
   }
   return <Wrapper className={className}>{children}</Wrapper>;
