@@ -9,7 +9,8 @@
 
 .problem-content .problem-menu,
 .problem-content .problem-label,
-.problem-content .copy-button {
+.problem-content .copy-button,
+.problem-content .no-print {
   display: none;
 }
 
