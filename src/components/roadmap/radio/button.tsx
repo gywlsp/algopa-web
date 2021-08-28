@@ -28,9 +28,9 @@ export default function RoadmapCategoryRadioButton({
 
   const wrapperStyle = isSelected
     ? {
-        fontWeight: 700,
+        fontWeight: 600,
         backgroundColor: background,
-        border: `2px solid ${border}`,
+        border: `1px solid ${border}`,
       }
     : {
         fontWeight: 400,
@@ -58,4 +58,6 @@ const Wrapper = styled.button`
   padding: 0.6rem 0.8rem;
   margin-right: 0.4rem;
   border-radius: 0.4rem;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
 `;
