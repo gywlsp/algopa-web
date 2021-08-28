@@ -1,4 +1,5 @@
-import HorizontalScrollable from 'src/components/common/horizontal-scrollable';
+import styled from 'styled-components';
+
 import RadioButton from './button';
 
 import { RoadmapCategoryNode } from 'src/types/roadmap';
@@ -15,7 +16,7 @@ export default function RoadmapCategoryRadio({
   selectNode,
 }: RoadmapCategoryRadioProps) {
   return (
-    <HorizontalScrollable>
+    <Wrapper>
       {categoryNodes?.map((categoryNode) => (
         <RadioButton
           key={categoryNode.id}
@@ -24,6 +25,12 @@ export default function RoadmapCategoryRadio({
           selectNode={selectNode}
         />
       ))}
-    </HorizontalScrollable>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+`;
