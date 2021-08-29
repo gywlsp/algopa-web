@@ -6,7 +6,7 @@ Software Maestro 12기 LIMO팀(이종아, 고동천, 박효진) 서비스 `algop
 
 ## URL 🚦
 
-- Service : https://algopa-web.vercel.app/
+- Service : https://algopa.io/
 - GitLab: https://git.swmgit.org/swm-12/12_swm06/algopa-web
 <!-- - Github : https://github.com/gywlsp/algopa-web -->
 
@@ -15,9 +15,6 @@ Software Maestro 12기 LIMO팀(이종아, 고동천, 박효진) 서비스 `algop
 ## 프로젝트 목표 🍀
 
 - 효율적인 코딩테스트 준비 유도
-  <!-- - 폐의약품 수거함 위치제공으로 올바른 폐기 유도 -->
-  <!-- - 폐의약품 종류별 폐기방법 인식 -->
-  <!-- - 무분별한 약품폐기로 인한 환경오염 사례 제공으로 심각성 인지 -->
 
 <br/>
 
