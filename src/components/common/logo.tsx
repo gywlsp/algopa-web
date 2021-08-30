@@ -18,7 +18,7 @@ const LOGO_TEXT_LEVEL = {
   large: 25,
 };
 
-export default function Logo({ size = 'medium', className }: LogoProps) {
+function Logo({ size = 'medium', className }: LogoProps) {
   return (
     <Link href="/">
       <A className={className}>
@@ -29,6 +29,8 @@ export default function Logo({ size = 'medium', className }: LogoProps) {
     </Link>
   );
 }
+
+export default React.memo(Logo);
 
 const A = styled.a`
   text-decoration: none;

@@ -24,7 +24,7 @@ export type PProps = {
     | ' inherit';
 } & React.HTMLAttributes<HTMLParagraphElement>;
 
-export default function P(props: PProps) {
+function P(props: PProps) {
   return <_P {...props} />;
 }
 
@@ -81,3 +81,5 @@ const _P = styled.p<PProps>`
       `;
   }}
 `;
+
+export default React.memo(P);

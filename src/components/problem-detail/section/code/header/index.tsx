@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
+import MemoInput from './memo-input';
 
 export default function ProblemDetailCodeSectionHeader() {
   return (
@@ -10,6 +11,7 @@ export default function ProblemDetailCodeSectionHeader() {
       <P level={2} color={GREY[400]}>
         코드
       </P>
+      <MemoInput value="" />
     </Wrapper>
   );
 }

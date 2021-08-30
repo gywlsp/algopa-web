@@ -21,7 +21,7 @@ export type ButtonProps = {
   hasPadding?: boolean;
 };
 
-export default function Button({
+function Button({
   size = 'medium',
   type = 'text',
   title,
@@ -84,6 +84,8 @@ export default function Button({
     </Wrapper>
   );
 }
+
+export default React.memo(Button);
 
 //@TO_BE_IMPROVED
 const Wrapper = styled.button<{

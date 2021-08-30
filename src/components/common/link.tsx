@@ -9,12 +9,7 @@ export type LinkProps = {
   className?: string;
 };
 
-export default function Link({
-  href,
-  onClick,
-  children,
-  className,
-}: LinkProps) {
+function Link({ href, onClick, children, className }: LinkProps) {
   return (
     <_Link href={href}>
       <A className={className} onClick={onClick}>
@@ -23,6 +18,8 @@ export default function Link({
     </_Link>
   );
 }
+
+export default React.memo(Link);
 
 const A = styled.a`
   text-decoration: none;

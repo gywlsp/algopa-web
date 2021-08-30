@@ -18,7 +18,7 @@ export type ModalProps = {
   contentWrapperStyle?: CSSProperties;
 };
 
-export default function Modal({
+function Modal({
   title,
   isOpen,
   onClose,
@@ -59,6 +59,8 @@ export default function Modal({
     </Overlay>
   );
 }
+
+export default React.memo(Modal);
 
 const Overlay = styled.div<{ isOpen: boolean }>`
   position: fixed;

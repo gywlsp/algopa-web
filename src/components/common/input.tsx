@@ -22,7 +22,7 @@ export type TextInputProps = Pick<
   value: string;
 };
 
-export default function TextInput({
+function TextInput({
   name,
   value,
   placeholder,
@@ -62,6 +62,8 @@ export default function TextInput({
     </>
   );
 }
+
+export default React.memo(TextInput);
 
 const Row = styled.div`
   display: flex;

@@ -10,7 +10,7 @@ export type HorizontalScrollableProps = {
   className?: string;
 };
 
-export default function HorizontalScrollable({
+function HorizontalScrollable({
   style,
   containerStyle,
   children,
@@ -22,6 +22,8 @@ export default function HorizontalScrollable({
     </Wrapper>
   );
 }
+
+export default React.memo(HorizontalScrollable);
 
 const Wrapper = styled.nav`
   position: relative;

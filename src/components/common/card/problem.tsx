@@ -16,7 +16,7 @@ export type ProblemCardProps = {
   //vis-network node에 level property 있어서 겹치지 않게 하기 위함
 } & Partial<IProblem>;
 
-export default function ProblemCard(props: ProblemCardProps) {
+function ProblemCard(props: ProblemCardProps) {
   const {
     index,
     number = 1260,
@@ -46,6 +46,8 @@ export default function ProblemCard(props: ProblemCardProps) {
     </ContentWrapper>
   );
 }
+
+export default React.memo(ProblemCard);
 
 const ContentWrapper = (
   props: ProblemCardProps & { children: ReactNode | ReactNodeArray }

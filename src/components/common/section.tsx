@@ -19,12 +19,7 @@ const TitleLevel = {
   small: 4,
 };
 
-export default function Section({
-  title,
-  size = 'large',
-  children,
-  className,
-}: SectionProps) {
+function Section({ title, size = 'large', children, className }: SectionProps) {
   return (
     <Wrapper className={className}>
       <Title
@@ -39,6 +34,8 @@ export default function Section({
     </Wrapper>
   );
 }
+
+export default React.memo(Section);
 
 const Wrapper = styled.div`
   width: 100%;

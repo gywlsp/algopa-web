@@ -14,9 +14,11 @@ export type ImgProps = {
   border?: boolean;
 };
 
-export default function Img(props: ImgProps) {
+function Img(props: ImgProps) {
   return <_Img {...props} />;
 }
+
+export default React.memo(Img);
 
 const _Img = styled.img<ImgProps>`
   ${({ width, height, circle, cover, border }) => `
