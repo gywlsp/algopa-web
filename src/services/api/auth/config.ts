@@ -3,24 +3,24 @@ import { Provider } from 'src/types/user';
 import { baseConfig } from '..';
 
 export const loginConfig = (provider: Provider, token: string) =>
-  baseConfig(true, token).get(`/auth/v1/login/${provider}`);
+  baseConfig(true, token).get(`/auth/login/${provider}`);
 
 export const validateNicknameConfig = (nickname: string) =>
-  baseConfig().get(`/auth/v1/validation/${nickname}`);
+  baseConfig().get(`/auth/validation/${nickname}`);
 
 export const validateBojIdConfig = (id: string) =>
-  baseConfig().get(`/auth/v1/validation/boj/${id}`);
+  baseConfig().get(`/auth/validation/boj/${id}`);
 
 export const getBojAuthTokenConfig = (bojId: string) =>
-  baseConfig().get(`/auth/v1/authentication/boj/token/${bojId}`);
+  baseConfig().get(`/auth/authentication/boj/token/${bojId}`);
 
 export const authenticateBojIdConfig = (bojId: string) =>
-  baseConfig().get(`/auth/v1/authentication/boj/${bojId}`);
+  baseConfig().get(`/auth/authentication/boj/${bojId}`);
 
 export const joinConfig = (
   data: Pick<IUser, 'email' | 'nickname' | 'provider' | 'bojId'>,
   token: string
-) => baseConfig(true, token).post(`/auth/v1/join/${data.provider}`, data);
+) => baseConfig(true, token).post(`/auth/join/${data.provider}`, data);
 
 export const refreshConfig = (refreshToken: string) =>
-  baseConfig(true, refreshToken).get('/auth/v1/refresh');
+  baseConfig(true, refreshToken).get('/auth/refresh');

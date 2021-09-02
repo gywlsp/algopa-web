@@ -1,3 +1,3 @@
 import { baseConfig } from '..';
 
-export const readConfig = () => baseConfig(true).get('/problems/v1/roadmap');
+export const readConfig = () => baseConfig(true).get('/problems/roadmap');
