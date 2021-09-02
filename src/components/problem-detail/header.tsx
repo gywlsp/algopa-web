@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import P from 'src/components/common/p';
 import Logo from 'src/components/common/logo';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { BLUE_GREEN } from 'src/constants/colors';
@@ -42,7 +43,10 @@ const Wrapper = styled.header`
   background-color: ${BLUE_GREEN[800]};
 `;
 
-const Title = styled.p`
+const Title = styled(P).attrs({
+  level: 3,
+  color: BLUE_GREEN[200],
+})`
   margin-left: 1.2rem;
   font-size: 1.6rem;
   color: ${BLUE_GREEN[200]};
