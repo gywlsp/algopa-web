@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
 import styled from 'styled-components';
 
 import ProblemDetailHeader from 'src/components/problem-detail/header';
@@ -8,14 +9,24 @@ import ProblemCodeSection from 'src/components/problem-detail/section/code';
 import ProblemService from 'src/services/api/problem';
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
 import { useCodeList } from 'src/hooks/api/code';
+import { useMe } from 'src/hooks/api/user';
 
 export default function ProblemDetailPage({
   id,
   title,
   contentHTML,
 }: IProblemReadDTO) {
+  const router = useRouter();
+  const { error } = useMe();
   const { data: codes } = useCodeList(id);
   const [selectedCodeId, setSelectedCodeId] = useState(undefined);
+
+  useEffect(() => {
+    if (error) {
+      alert('로그인이 필요한 기능입니다.');
+      router.push('/login');
+    }
+  }, [error]);
 
   useEffect(() => {
     if (codes && !selectedCodeId) {
