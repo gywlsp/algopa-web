@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { mutate } from 'swr';
 
-import { listConfig } from './config';
+import { createConfig, listConfig } from './config';
 import { ICode } from 'src/interfaces/code/ICode';
 
 const list = async (problemId: number): Promise<ICode[]> =>
@@ -8,6 +9,12 @@ const list = async (problemId: number): Promise<ICode[]> =>
     return res.data;
   });
 
-const CodeService = { list };
+export const create = async (problemId: number): Promise<ICode> =>
+  axios(createConfig(problemId)).then((res) => {
+    mutate(JSON.stringify(listConfig(problemId)));
+    return res.data;
+  });
+
+const CodeService = { list, create };
 
 export default CodeService;
