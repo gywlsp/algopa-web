@@ -16,6 +16,7 @@ export default function ProblemDetailCodeSection({
   return (
     <Wrapper>
       <Header {...code} />
+      <EditSection {...code} />
       <RunOutputSection />
     </Wrapper>
   );
