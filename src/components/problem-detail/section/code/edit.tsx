@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Editor from '@monaco-editor/react';
 
-import { defaultCodes } from 'src/data/code';
+import { ICode } from 'src/interfaces/code/ICode';
 
-export default function CodeEditSection() {
-  const [language, setLanguage] = useState('python');
-  const [code, setCode] = useState(defaultCodes[language]);
+export type CodeEditSectionProps = Pick<ICode, 'language' | 'text'>;
 
+export default function CodeEditSection({
+  language,
+  text,
+}: CodeEditSectionProps) {
   return (
     <Editor
       className="code-editor"
       options={{ fontSize: '14px' }}
       theme="vs-dark"
-      height="calc(100% - 26.4rem)"
-      defaultLanguage={language}
-      defaultValue={code}
+      height="calc(100% - 30rem)"
+      language={language}
+      value={text}
     />
   );
 }
