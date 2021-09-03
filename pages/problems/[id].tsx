@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import ProblemDetailHeader from 'src/components/problem-detail/header';
 import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
-import CodeEditSection from 'src/components/problem-detail/section/code';
+import ProblemCodeSection from 'src/components/problem-detail/section/code';
 
 import ProblemService from 'src/services/api/problem';
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
@@ -39,7 +39,7 @@ export default function ProblemDetailPage({
       />
       <ContentWrapper>
         <ProblemContentSection contentHTML={contentHTML} />
-        <CodeEditSection />
+        <ProblemCodeSection code={selectedCode} />
       </ContentWrapper>
     </Wrapper>
   );
