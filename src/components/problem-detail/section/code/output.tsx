@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   background-color: ${GREY[850]};
 `;
 
-const Title = styled(P).attrs({ level: 2, color: GREY[500] })`
+const Title = styled(P).attrs({ level: 2, color: GREY[500], fontWeight: 500 })`
   width: 100%;
   height: 4.4rem;
   padding: 1.2rem;

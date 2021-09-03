@@ -8,10 +8,7 @@ import MemoInput from './memo-input';
 export default function ProblemDetailCodeSectionHeader() {
   return (
     <Wrapper>
-      <P level={2} color={GREY[400]}>
-        코드
-      </P>
-      <MemoInput value="" />
+      <Title>코드</Title>
     </Wrapper>
   );
 }
@@ -24,4 +21,8 @@ const Wrapper = styled.header`
   padding: 1.2rem;
   margin-bottom: 0.8rem;
   border-bottom: 0.1rem solid ${GREY[900]};
+`;
+
+const Title = styled(P).attrs({ level: 2, color: GREY[400], fontWeight: 500 })`
+  margin-right: 1.2rem;
 `;
