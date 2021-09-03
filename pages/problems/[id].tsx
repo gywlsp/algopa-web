@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ProblemDetailHeader from 'src/components/problem-detail/header';
 import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
 import ProblemCodeSection from 'src/components/problem-detail/section/code';
+import { GREY } from 'src/constants/colors';
 
 import ProblemService from 'src/services/api/problem';
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
@@ -75,5 +76,5 @@ const ContentWrapper = styled.div`
   flex: 1;
   height: 100%;
   padding-top: 4.4rem;
-  background-color: #1e1e1e;
+  background-color: ${GREY[850]};
 `;
