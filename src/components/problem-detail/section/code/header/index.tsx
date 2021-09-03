@@ -5,10 +5,19 @@ import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 import MemoInput from './memo-input';
 
-export default function ProblemDetailCodeSectionHeader() {
+import { ICode } from 'src/interfaces/code/ICode';
+import LanguageSelect from './language-select';
+
+export type CodeEditSectionHeaderProps = Pick<ICode, 'id' | 'language'>;
+
+export default function ProblemDetailCodeSectionHeader({
+  id,
+  language,
+}: CodeEditSectionHeaderProps) {
   return (
     <Wrapper>
       <Title>코드</Title>
+      <LanguageSelect id={id} language={language} />
     </Wrapper>
   );
 }

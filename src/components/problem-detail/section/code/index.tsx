@@ -6,11 +6,16 @@ import EditSection from './edit';
 import RunOutputSection from './output';
 import { GREY } from 'src/constants/colors';
 
-export default function ProblemDetailCodeSection() {
+import { ICode } from 'src/interfaces/code/ICode';
+
+export type ProblemDetailCodeSectionProps = { code: ICode };
+
+export default function ProblemDetailCodeSection({
+  code,
+}: ProblemDetailCodeSectionProps) {
   return (
     <Wrapper>
-      <Header />
-      <EditSection />
+      <Header {...code} />
       <RunOutputSection />
     </Wrapper>
   );
