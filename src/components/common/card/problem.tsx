@@ -17,13 +17,7 @@ export type ProblemCardProps = {
 } & Partial<IProblem>;
 
 function ProblemCard(props: ProblemCardProps) {
-  const {
-    index,
-    number = 1260,
-    level,
-    problemLevel,
-    title = '문제 제목',
-  } = props;
+  const { index, id, level, problemLevel, title = '문제 제목' } = props;
 
   const levelImgSrc = `https://static.solved.ac/tier_small/${
     problemLevel || level
@@ -41,7 +35,7 @@ function ProblemCard(props: ProblemCardProps) {
       <ImgWrapper>
         <Img src={levelImgSrc} alt={title} height="8rem" />
       </ImgWrapper>
-      <StyledP>{number}</StyledP>
+      <StyledP>{id}</StyledP>
       <StyledP>{title}</StyledP>
     </ContentWrapper>
   );
@@ -52,10 +46,10 @@ export default React.memo(ProblemCard);
 const ContentWrapper = (
   props: ProblemCardProps & { children: ReactNode | ReactNodeArray }
 ) => {
-  const { isRouting = true, className, number, children } = props;
+  const { isRouting = true, className, id, children } = props;
   if (isRouting) {
     return (
-      <StyledLink href={`/problems/${number}`} className={className}>
+      <StyledLink href={`/problems/${id}`} className={className}>
         {children}
       </StyledLink>
     );

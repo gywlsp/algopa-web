@@ -9,7 +9,7 @@ import { RoadmapProblemNode } from 'src/types/roadmap';
 export type RoadmapProblemInfoModalProps = {
   isOpen: boolean;
   onClose: () => void;
-} & Omit<RoadmapProblemNode, 'id'>;
+} & RoadmapProblemNode;
 
 export default function RoadmapProblemInfoModal({
   isOpen,
@@ -22,10 +22,14 @@ export default function RoadmapProblemInfoModal({
       isOpen={isOpen}
       onClose={onClose}
       okText="문제 풀기"
-      okHref={`/problems/${problemNodeData.number}`}
+      okHref={`/problems/${problemNodeData.id}`}
       contentWrapperStyle={{ padding: '2rem 2rem 0.8rem' }}
     >
-      <StyledProblemCard {...problemNodeData} isRouting={false} />
+      <StyledProblemCard
+        {...problemNodeData}
+        id={problemNodeData.problemId}
+        isRouting={false}
+      />
     </Modal>
   );
 }
