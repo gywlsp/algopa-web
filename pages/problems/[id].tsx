@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import ProblemDetailHeader from 'src/components/problem-detail/header';
@@ -7,13 +7,36 @@ import CodeEditSection from 'src/components/problem-detail/section/code';
 
 import ProblemService from 'src/services/api/problem';
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
+import { useCodeList } from 'src/hooks/api/code';
 
-export default function ProblemDetailPage(problemInfo: IProblemReadDTO) {
-  const { number, title, contentHTML } = problemInfo;
+export default function ProblemDetailPage({
+  id,
+  title,
+  contentHTML,
+}: IProblemReadDTO) {
+  const { data: codes } = useCodeList(id);
+  const [selectedCodeId, setSelectedCodeId] = useState(undefined);
+
+  useEffect(() => {
+    if (codes && !selectedCodeId) {
+      setSelectedCodeId(codes[0].id);
+    }
+  }, [codes]);
+
+  const selectedCode = codes?.find((code) => code.id === selectedCodeId);
+  const selectCode = (id: string) => {
+    setSelectedCodeId(id);
+  };
 
   return (
     <Wrapper>
-      <ProblemDetailHeader number={number} title={title} />
+      <ProblemDetailHeader
+        id={id}
+        title={title}
+        codes={codes}
+        selectedCodeId={selectedCodeId}
+        selectCode={selectCode}
+      />
       <ContentWrapper>
         <ProblemContentSection contentHTML={contentHTML} />
         <CodeEditSection />
