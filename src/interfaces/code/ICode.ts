@@ -7,3 +7,5 @@ export interface ICode {
   problemId: number;
   tryCount: number;
 }
+
+export type ICodeUpdateDTO = Partial<Pick<ICode, 'text' | 'language'>>;
