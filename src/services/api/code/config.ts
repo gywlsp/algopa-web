@@ -1,4 +1,4 @@
-import { ICodeUpdateDTO } from 'src/interfaces/code/ICode';
+import { ICodeExecuteDTO, ICodeUpdateDTO } from 'src/interfaces/code/ICode';
 import { baseConfig } from '..';
 
 export const listConfig = (problemId: number) =>
@@ -9,3 +9,6 @@ export const createConfig = (problemId: number) =>
 
 export const updateConfig = (codeId: string, params: ICodeUpdateDTO) =>
   baseConfig(true).patch(`/codes/${codeId}`, params);
+
+export const executeConfig = (codeId: string, params: ICodeExecuteDTO) =>
+  baseConfig(true).patch(`/codes/execute/${codeId}`, params);

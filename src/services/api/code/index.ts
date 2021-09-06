@@ -2,8 +2,17 @@ import axios from 'axios';
 import { mutate } from 'swr';
 import Router from 'next/router';
 
-import { createConfig, listConfig, updateConfig } from './config';
-import { ICode, ICodeUpdateDTO } from 'src/interfaces/code/ICode';
+import {
+  createConfig,
+  executeConfig,
+  listConfig,
+  updateConfig,
+} from './config';
+import {
+  ICode,
+  ICodeExecuteDTO,
+  ICodeUpdateDTO,
+} from 'src/interfaces/code/ICode';
 
 const list = async (problemId: number): Promise<ICode[]> =>
   axios(listConfig(problemId)).then((res) => {
@@ -25,6 +34,14 @@ export const update = async (
     return res.data;
   });
 
-const CodeService = { list, create, update };
+export const execute = async (
+  codeId: string,
+  params: ICodeExecuteDTO
+): Promise<{ success: boolean; result: string }> =>
+  axios(executeConfig(codeId, params)).then((res) => {
+    return res.data;
+  });
+
+const CodeService = { list, create, update, execute };
 
 export default CodeService;
