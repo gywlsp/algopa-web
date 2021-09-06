@@ -9,3 +9,5 @@ export interface ICode {
 }
 
 export type ICodeUpdateDTO = Partial<Pick<ICode, 'text' | 'language'>>;
+
+export type ICodeExecuteDTO = Pick<ICode, 'text'> & { input: string };
