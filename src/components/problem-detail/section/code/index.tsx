@@ -9,6 +9,7 @@ import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
 import { ICode } from 'src/interfaces/code/ICode';
+import { RunOutput } from 'src/types/code';
 
 export type ProblemDetailCodeSectionProps = { code: ICode };
 
@@ -17,6 +18,10 @@ export default function ProblemDetailCodeSection({
 }: ProblemDetailCodeSectionProps) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [text, setText] = useState('');
+  const [runOutput, setRunOutput] = useState<RunOutput>({
+    success: undefined,
+    result: '',
+  });
 
   useEffect(() => {
     if (code) {
@@ -47,6 +52,7 @@ export default function ProblemDetailCodeSection({
         isOpen={isModalOpen}
         onClose={closeModal}
       />
+      <OutputSection {...runOutput} />
     </Wrapper>
   );
 }
