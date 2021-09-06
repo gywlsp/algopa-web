@@ -5,6 +5,7 @@ import { OnChange } from '@monaco-editor/react';
 import Header from './header';
 import EditSection from './edit';
 import OutputSection from './output';
+import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
 import { ICode } from 'src/interfaces/code/ICode';
@@ -30,10 +31,22 @@ export default function ProblemDetailCodeSection({
   const openModal = () => {
     setModalOpen(true);
   };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Wrapper>
       <Header {...code} onRunCodeButtonClick={openModal} />
       <EditSection {...code} text={text} onChange={handleTextChange} />
+      <InputModal
+        {...code}
+        text={text}
+        setRunOutput={setRunOutput}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </Wrapper>
   );
 }
