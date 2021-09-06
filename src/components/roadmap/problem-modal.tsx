@@ -22,7 +22,7 @@ export default function RoadmapProblemInfoModal({
       isOpen={isOpen}
       onClose={onClose}
       okText="문제 풀기"
-      okHref={`/problems/${problemNodeData.id}`}
+      okHref={`/problems/${problemNodeData.problemId}`}
       contentWrapperStyle={{ padding: '2rem 2rem 0.8rem' }}
     >
       <StyledProblemCard
