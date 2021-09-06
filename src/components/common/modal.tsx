@@ -6,6 +6,8 @@ import Button from './button';
 import XIcon from 'src/assets/icons/x';
 import { GREY, WHITE } from 'src/constants/colors';
 
+export type Theme = 'dark' | 'light';
+
 export type ModalProps = {
   title: string;
   isOpen: boolean;
@@ -16,6 +18,7 @@ export type ModalProps = {
   isOkHrefExternal?: boolean;
   children: ReactNode | ReactNodeArray;
   contentWrapperStyle?: CSSProperties;
+  theme?: Theme;
 };
 
 function Modal({
@@ -28,23 +31,41 @@ function Modal({
   onOk,
   children,
   contentWrapperStyle,
+  theme = 'light',
 }: ModalProps) {
   const handleWrapperClick = (e) => {
     e.stopPropagation();
   };
 
+  const [color, backgroundColor, borderColor] =
+    theme === 'light'
+      ? [GREY[800], WHITE, GREY[400]]
+      : [GREY[400], GREY[800], GREY[700]];
+
   return (
     <Overlay isOpen={isOpen} onClick={onClose}>
-      <Wrapper isOpen={isOpen} onClick={handleWrapperClick}>
+      <Wrapper
+        isOpen={isOpen}
+        onClick={handleWrapperClick}
+        style={{ backgroundColor }}
+      >
         <Header>
-          <P level={5} fontWeight={500}>
+          <P level={5} fontWeight={500} color={color}>
             {title}
           </P>
           <CloseButton onClick={onClose}>
-            <XIcon style={{ width: '1.8rem', height: '1.8rem' }} />
+            <XIcon style={{ width: '1.8rem', height: '1.8rem' }} fill={color} />
           </CloseButton>
         </Header>
-        <ContentWrapper style={contentWrapperStyle}>{children}</ContentWrapper>
+        <ContentWrapper
+          style={{
+            borderTop: `1px solid ${borderColor}`,
+            borderBottom: `1px solid ${borderColor}`,
+            ...contentWrapperStyle,
+          }}
+        >
+          {children}
+        </ContentWrapper>
         <Footer>
           <StyledButton type="secondary" title="닫기" onClick={onClose} />
           <StyledButton
@@ -85,7 +106,6 @@ const Wrapper = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   width: 480px;
   z-index: 700;
-  background-color: ${WHITE};
 `;
 
 const Header = styled.div`
@@ -97,8 +117,6 @@ const Header = styled.div`
 
 const ContentWrapper = styled.div`
   padding: 2rem;
-  border-top: 1px solid ${GREY[400]};
-  border-bottom: 1px solid ${GREY[400]};
 `;
 
 const Footer = styled.div`
