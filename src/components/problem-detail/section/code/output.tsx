@@ -47,5 +47,22 @@ const Title = styled(P).attrs({ level: 2, color: GREY[500], fontWeight: 500 })`
 `;
 
 const Content = styled(P).attrs({ level: 2 })`
+  width: 100%;
   padding: 1.2rem;
+  height: 23.6rem;
+  overflow-y: scroll;
+  -ms-overflow-style: auto;
+  &::-webkit-scrollbar {
+    display: flex;
+    height: 0.4rem;
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${GREY[900]};
+    width: 0.4rem;
+    opacity: 1;
+  }
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
 `;

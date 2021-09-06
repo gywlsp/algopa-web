@@ -5,6 +5,23 @@
   font-size: 1.6rem;
   overflow-y: scroll;
   height: 100vh;
+  -ms-overflow-style: auto;
+}
+
+.problem-content::-webkit-scrollbar {
+  display: flex;
+  width: 0.4rem;
+  background: none;
+}
+
+.problem-content::-webkit-scrollbar-thumb {
+  display: flex;
+  width: 0.4rem;
+  background: #333;
+}
+
+.problem-content::-webkit-scrollbar-track {
+  background: none;
 }
 
 .problem-content .problem-menu,
