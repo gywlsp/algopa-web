@@ -15,13 +15,7 @@
 }
 
 .problem-content::-webkit-scrollbar-thumb {
-  display: flex;
-  width: 0.4rem;
   background: #333;
-}
-
-.problem-content::-webkit-scrollbar-track {
-  background: none;
 }
 
 .problem-content .problem-menu,
@@ -74,4 +68,14 @@
   background-color: #333;
   overflow-x: scroll;
   line-height: 1.5;
+}
+
+.problem-content pre::-webkit-scrollbar {
+  display: flex;
+  height: 0.4rem;
+  background: none;
+}
+
+.problem-content pre::-webkit-scrollbar-thumb {
+  background: #444;
 }
