@@ -17,16 +17,25 @@ export default function CodeRunOutputSection({ success, result }: RunOutput) {
     <Wrapper>
       <Title>실행 결과</Title>
       <Content color={textColor}>
-        {result || '실행 결과가 여기에 표시됩니다.'}
+        {result.split('\n').map((v) => (
+          <>
+            {v}
+            <br />
+          </>
+        )) || '실행 결과가 여기에 표시됩니다.'}
       </Content>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
   width: 100%;
+  height: 27.6rem;
   border-top: 0.1rem solid ${GREY[900]};
-  z-index: 9999;
+  z-index: 99;
   background-color: ${GREY[850]};
 `;
 
