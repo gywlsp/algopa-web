@@ -11,17 +11,20 @@ import RunCodeButton from './button/run-code';
 import ViewHistoryButton from './button/view-history';
 import MemoSubmitButton from './button/memo-submit';
 
-export type CodeEditSectionHeaderProps = Pick<ICode, 'id' | 'language'>;
+export type CodeEditSectionHeaderProps = Pick<ICode, 'id' | 'language'> & {
+  onRunCodeButtonClick: () => void;
+};
 
 export default function ProblemDetailCodeSectionHeader({
   id,
   language,
+  onRunCodeButtonClick,
 }: CodeEditSectionHeaderProps) {
   return (
     <Wrapper>
       <Title>코드</Title>
       <LanguageSelect id={id} language={language} />
-      <RunCodeButton id={id} />
+      <RunCodeButton onClick={onRunCodeButtonClick} />
       <MemoInput />
       <MemoSubmitButton id={id} />
       <ViewHistoryButton id={id} />

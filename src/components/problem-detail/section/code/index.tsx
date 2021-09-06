@@ -13,11 +13,14 @@ export type ProblemDetailCodeSectionProps = { code: ICode };
 export default function ProblemDetailCodeSection({
   code,
 }: ProblemDetailCodeSectionProps) {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
   return (
     <Wrapper>
-      <Header {...code} />
-      <EditSection {...code} />
-      <RunOutputSection />
+      <Header {...code} onRunCodeButtonClick={openModal} />
     </Wrapper>
   );
 }
