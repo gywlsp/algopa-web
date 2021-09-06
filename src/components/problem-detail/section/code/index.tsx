@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { OnChange } from '@monaco-editor/react';
 
 import Header from './header';
 import EditSection from './edit';
-import RunOutputSection from './output';
+import OutputSection from './output';
 import { GREY } from 'src/constants/colors';
 
 import { ICode } from 'src/interfaces/code/ICode';
@@ -14,6 +15,17 @@ export default function ProblemDetailCodeSection({
   code,
 }: ProblemDetailCodeSectionProps) {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    if (code) {
+      setText(code.text);
+    }
+  }, [code]);
+
+  const handleTextChange: OnChange = (value, _) => {
+    setText(value);
+  };
 
   const openModal = () => {
     setModalOpen(true);
@@ -21,6 +33,7 @@ export default function ProblemDetailCodeSection({
   return (
     <Wrapper>
       <Header {...code} onRunCodeButtonClick={openModal} />
+      <EditSection {...code} text={text} onChange={handleTextChange} />
     </Wrapper>
   );
 }
