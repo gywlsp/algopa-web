@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import React from 'react';
 
 import GlobalLayout from 'src/layouts/global';
 import Section from 'src/components/common/section';
@@ -8,15 +7,7 @@ import RecommendedProblemsSection from 'src/components/recommendation/problems-s
 import { useMe } from 'src/hooks/api/user';
 
 export default function RecommendationPage() {
-  const router = useRouter();
-  const { data: userData, error } = useMe();
-
-  useEffect(() => {
-    if (error) {
-      alert('로그인이 필요한 기능입니다.');
-      router.push('/login');
-    }
-  }, [error]);
+  const { data: userData, error } = useMe({ isLoginRequired: true });
 
   if (error) {
     return <></>;

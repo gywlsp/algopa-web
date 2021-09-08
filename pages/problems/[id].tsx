@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
 import styled from 'styled-components';
 
 import ProblemDetailHeader from 'src/components/problem-detail/header';
@@ -17,17 +16,9 @@ export default function ProblemDetailPage({
   title,
   contentHTML,
 }: IProblemReadDTO) {
-  const router = useRouter();
-  const { error } = useMe();
+  useMe({ isLoginRequired: true });
   const { data: codes } = useCodeList(id);
   const [selectedCodeId, setSelectedCodeId] = useState(undefined);
-
-  useEffect(() => {
-    if (error) {
-      alert('로그인이 필요한 기능입니다.');
-      router.push('/login');
-    }
-  }, [error]);
 
   useEffect(() => {
     if (codes && !selectedCodeId) {
