@@ -18,10 +18,10 @@ export default function CodeRunOutputSection({ success, result }: RunOutput) {
       <Title>실행 결과</Title>
       <Content color={textColor}>
         {result.split('\n').map((v) => (
-          <>
+          <React.Fragment key={v}>
             {v}
             <br />
-          </>
+          </React.Fragment>
         )) || '실행 결과가 여기에 표시됩니다.'}
       </Content>
     </Wrapper>
