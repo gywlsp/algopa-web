@@ -24,7 +24,7 @@
     "styled-components": "^5.3.0",
     "styled-normalize": "^8.0.7",
     "styled-reset": "^4.3.4",
-    "swr": "^0.5.6",
+    "swr": "^1.0.0",
     "vis-network": "^9.0.5"
   },
   "devDependencies": {
