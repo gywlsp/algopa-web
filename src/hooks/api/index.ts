@@ -6,7 +6,7 @@ export type GetRequest = AxiosRequestConfig | null;
 export interface Return<Data, Error>
   extends Pick<
     SWRResponse<AxiosResponse<Data>, AxiosError<Error>>,
-    'isValidating' | 'revalidate' | 'error' | 'mutate'
+    'isValidating' | 'error' | 'mutate'
   > {
   data: Data | undefined;
   response: AxiosResponse<Data> | undefined;
@@ -22,13 +22,12 @@ export interface Config<Data = unknown, Error = unknown>
 
 export default function useRequest<Data = unknown, Error = unknown>(
   request: GetRequest,
-  { initialData, ...config }: Config<Data, Error> = {}
+  config: Config<Data, Error> = {}
 ): Return<Data, Error> {
   const {
     data: response,
     error,
     isValidating,
-    revalidate,
     mutate,
   } = useSWR<AxiosResponse<Data>, AxiosError<Error>>(
     request && JSON.stringify(request),
@@ -40,13 +39,6 @@ export default function useRequest<Data = unknown, Error = unknown>(
     () => axios(request!),
     {
       ...config,
-      initialData: initialData && {
-        status: 200,
-        statusText: 'InitialData',
-        config: request,
-        headers: {},
-        data: initialData,
-      },
     }
   );
 
@@ -55,7 +47,6 @@ export default function useRequest<Data = unknown, Error = unknown>(
     response,
     error,
     isValidating,
-    revalidate,
     mutate,
   };
 }
