@@ -11,6 +11,7 @@ const skeletonKeyframes = keyframes`
 `;
 
 type SkeletonProps = {
+  theme?: 'light' | 'dark';
   width: string;
   height: string;
   circle?: boolean;
@@ -21,28 +22,27 @@ type SkeletonProps = {
   br?: string;
 };
 
-export const defaultBaseColor = '#F0F0F0';
-
-export const defaultHighlightColor = '#FBFBFB';
-
-const DURATION = 4;
+const DURATION = 2;
 
 export default function Skeleton(props: SkeletonProps) {
   return <Box {...props} />;
 }
 
 const Box = styled.div<SkeletonProps>`
-  background-color: ${defaultBaseColor};
-  background-image: linear-gradient(
-    90deg,
-    ${defaultBaseColor},
-    ${defaultHighlightColor},
-    ${defaultBaseColor}
-  );
   animation: ${skeletonKeyframes} ${DURATION}s ease-in-out infinite;
   background-size: 200px 100%;
   background-repeat: no-repeat;
-  ${(props) => `
+  ${(props) => {
+    const [baseColor, highlightColor] =
+      props.theme === 'dark' ? ['#282828', '#2F2F2F'] : ['#F0F0F0', '#FBFBFB'];
+    return `
+  background-color: ${baseColor};
+  background-image: linear-gradient(
+    90deg,
+    ${baseColor},
+    ${highlightColor},
+    ${baseColor}
+  );
     width: ${props.width};
     height: ${props.height};
     margin-bottom: ${props.mb};
@@ -50,5 +50,6 @@ const Box = styled.div<SkeletonProps>`
     margin-left: ${props.ml};
     ${props.circle ? 'border-radius:50%;' : ''}
     border-radius: ${props.br};
-    `}
+    `;
+  }}
 `;
