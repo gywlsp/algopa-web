@@ -25,11 +25,15 @@ export default function ProblemDetailHeader({
       <Logo size="small" />
       <Title>
         코딩테스트 연습
-        <ChevronRightIcon
-          style={{ width: '1.2rem', height: '1.2rem', margin: '0 0.6rem' }}
-          fill={BLUE_GREEN[200]}
-        />
-        {label}
+        {id && (
+          <>
+            <ChevronRightIcon
+              style={{ width: '1.2rem', height: '1.2rem', margin: '0 0.6rem' }}
+              fill={BLUE_GREEN[200]}
+            />
+            {label}
+          </>
+        )}
       </Title>
       <CodeSelect {...codeSelectProps} />
       <NewCodeButton id={id} />

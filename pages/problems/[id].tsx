@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import ProblemDetailHeader from 'src/components/problem-detail/header';
 import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
 import ProblemCodeSection from 'src/components/problem-detail/section/code';
+import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
 import { GREY } from 'src/constants/colors';
 
 import { useCodeList } from 'src/hooks/api/code';
@@ -39,7 +40,8 @@ export default function ProblemDetailPage() {
         selectCode={selectCode}
       />
       <ContentWrapper>
-        <ProblemContentSection contentHTML={contentHTML} />
+        {data && <ProblemContentSection contentHTML={data?.contentHTML} />}
+        {!data && <ProblemContentSkeleton />}
         <ProblemCodeSection code={selectedCode} />
       </ContentWrapper>
     </Wrapper>
