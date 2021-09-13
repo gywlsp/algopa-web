@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 import ProblemDetailHeader from 'src/components/problem-detail/header';
 import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
 import ProblemCodeSection from 'src/components/problem-detail/section/code';
 import { GREY } from 'src/constants/colors';
 
-import ProblemService from 'src/services/api/problem';
-import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
 import { useCodeList } from 'src/hooks/api/code';
 import { useMe } from 'src/hooks/api/user';
+import { useProblem } from 'src/hooks/api/problem';
 
-export default function ProblemDetailPage({
-  id,
-  title,
-  contentHTML,
-}: IProblemReadDTO) {
+export default function ProblemDetailPage() {
   useMe({ isLoginRequired: true });
-  const { data: codes } = useCodeList(id);
+  const router = useRouter();
+  const { data } = useProblem(+router.query.id);
+  const { data: codes } = useCodeList(data?.id);
   const [selectedCodeId, setSelectedCodeId] = useState(undefined);
 
   useEffect(() => {
@@ -34,8 +32,8 @@ export default function ProblemDetailPage({
   return (
     <Wrapper>
       <ProblemDetailHeader
-        id={id}
-        title={title}
+        id={data?.id}
+        title={data?.title}
         codes={codes}
         selectedCodeId={selectedCodeId}
         selectCode={selectCode}
@@ -46,14 +44,6 @@ export default function ProblemDetailPage({
       </ContentWrapper>
     </Wrapper>
   );
-}
-
-export async function getServerSideProps({ params }) {
-  const data = await ProblemService.read(params.id);
-
-  return {
-    props: data, // will be passed to the page component as props
-  };
 }
 
 const Wrapper = styled.div`
