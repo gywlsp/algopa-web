@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Link from './link';
 import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
-export type ButtonSize = 'large' | 'medium';
+export type ButtonSize = 'large' | 'medium' | 'small';
 export type ButtonType = 'primary' | 'secondary' | 'text';
 
 export type ButtonProps = {
@@ -87,7 +87,6 @@ function Button({
 
 export default React.memo(Button);
 
-//@TO_BE_IMPROVED
 const Wrapper = styled.button<{
   size: ButtonSize;
   disabled: boolean;
@@ -95,40 +94,53 @@ const Wrapper = styled.button<{
   block: boolean;
   hasPadding: boolean;
 }>`
+  ${({ size, disabled, buttonType, block, hasPadding }) => `
+  width: ${block ? '100%' : 'fit-content'};
+  height: ${{ large: '5.2rem', medium: '4rem', small: 'fit-content' }[size]};
+  padding:  ${
+    hasPadding || buttonType !== 'text'
+      ? size === 'small'
+        ? '0.5rem 0.8rem'
+        : '1rem 1.6rem'
+      : 0
+  };
+  font-size: ${{ large: '1.8rem', medium: '1.6rem', small: '1.4rem' }[size]};
+  font-weight: ${size === 'large' ? 500 : 400};
+  cursor: ${disabled ? 'default' : 'pointer'};
+  color: ${
+    (disabled && GREY[500]) ||
+    (buttonType === 'primary' ? WHITE : BLUE_GREEN[700])
+  };
+  background-color: ${
+    (disabled && GREY[300]) ||
+    (buttonType === 'primary' ? BLUE_GREEN[500] : WHITE)
+  };
+  ${
+    !disabled &&
+    `&:hover {
+    ${buttonType === 'primary' ? 'background-color' : 'color'}: ${
+      BLUE_GREEN[700]
+    }
+  }`
+  }
+  border: ${
+    disabled || buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`
+  };
+  &:hover {
+    border-color: ${BLUE_GREEN[700]};
+    ${
+      !disabled &&
+      `${buttonType === 'primary' ? 'background-color' : 'color'}: ${
+        BLUE_GREEN[700]
+      };`
+    }
+  }
+`}
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ block }) => (block ? '100%' : 'fit-content')};
-  ${({ size }) =>
-    size === 'large'
-      ? 'height: 5.2rem; font-size: 1.8rem; font-weight: 500;'
-      : 'height: 4rem; font-size: 1.6rem; font-weight: 400;'}
   margin: 0;
-  padding: ${({ hasPadding }) => (hasPadding ? '1rem 1.6rem' : 0)};
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  ${({ buttonType, disabled }) =>
-    disabled
-      ? `color: ${GREY[500]};
-    background-color: ${GREY[300]};`
-      : buttonType === 'primary'
-      ? `color: ${WHITE};
-    background-color: ${BLUE_GREEN[500]};
-    &:hover {
-      background-color: ${BLUE_GREEN[700]}
-    }`
-      : `color: ${BLUE_GREEN[500]};
-    background-color: ${WHITE};
-    &:hover {
-      color: ${BLUE_GREEN[700]}
-    }`};
-  border: ${({ buttonType, disabled }) =>
-    disabled || buttonType === 'text'
-      ? 'none'
-      : `1px solid ${BLUE_GREEN[500]}`};
   border-radius: 0.2rem;
-  &:hover {
-    border-color: ${BLUE_GREEN[700]};
-  }
   transition: all 0.3s;
 `;
 
@@ -139,36 +151,51 @@ const StyledLink = styled(Link)<{
   block: boolean;
   hasPadding: boolean;
 }>`
+  ${({ size, disabled, buttonType, block, hasPadding }) => `
+width: ${block ? '100%' : 'fit-content'};
+height: ${{ large: '5.2rem', medium: '4rem', small: 'fit-content' }[size]};
+padding:  ${
+    hasPadding || buttonType !== 'text'
+      ? size === 'small'
+        ? '0.5rem 0.8rem'
+        : '1rem 1.6rem'
+      : 0
+  };
+font-size: ${{ large: '1.8rem', medium: '1.6rem', small: '1.4rem' }[size]};
+font-weight: ${size === 'large' ? 500 : 400};
+cursor: ${disabled ? 'default' : 'pointer'};
+color: ${
+    (disabled && GREY[500]) ||
+    (buttonType === 'primary' ? WHITE : BLUE_GREEN[700])
+  };
+background-color: ${
+    (disabled && GREY[300]) ||
+    (buttonType === 'primary' ? BLUE_GREEN[500] : WHITE)
+  };
+${
+  !disabled &&
+  `&:hover {
+  ${buttonType === 'primary' ? 'background-color' : 'color'}: ${BLUE_GREEN[700]}
+}`
+}
+border: ${
+    disabled || buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`
+  };
+&:hover {
+  border-color: ${BLUE_GREEN[700]};
+  ${
+    !disabled &&
+    `${buttonType === 'primary' ? 'background-color' : 'color'}: ${
+      BLUE_GREEN[700]
+    };`
+  }
+}
+`}
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ block }) => (block ? '100%' : 'fit-content')};
-  ${({ size }) =>
-    size === 'medium'
-      ? 'height: 4rem; font-size: 1.6rem; font-weight: 400;'
-      : 'height: 5.2rem; font-size: 1.8rem; font-weight: 500;'}
   margin: 0;
-  padding: ${({ hasPadding }) => (hasPadding ? '1rem 1.6rem' : 0)};
-  font-size: 1.6rem;
-  cursor: pointer;
-  ${({ buttonType }) =>
-    buttonType === 'primary'
-      ? `color: ${WHITE};
-  background-color: ${BLUE_GREEN[500]};
-  &:hover {
-    background-color: ${BLUE_GREEN[700]}
-  }`
-      : `color: ${BLUE_GREEN[500]};
-  background-color: ${WHITE};
-  &:hover {
-    color: ${BLUE_GREEN[700]}
-  }`};
-  border: ${({ buttonType }) =>
-    buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`};
   border-radius: 0.2rem;
-  &:hover {
-    border-color: ${BLUE_GREEN[700]};
-  }
   transition: all 0.3s;
 `;
 
