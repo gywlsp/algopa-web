@@ -10,10 +10,10 @@ import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
 import EventService from 'src/services/api/event';
-import { ICode } from 'src/interfaces/code/ICode';
+import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import { RunOutput } from 'src/types/code';
 
-export type ProblemDetailCodeSectionProps = { code: ICode };
+export type ProblemDetailCodeSectionProps = { code: ICodeReadDTO };
 
 export default function ProblemDetailCodeSection({
   code,
