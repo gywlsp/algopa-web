@@ -20,7 +20,7 @@ export default function ProblemDetailPage() {
   const [selectedCodeId, setSelectedCodeId] = useState(undefined);
 
   useEffect(() => {
-    if (codes && !selectedCodeId) {
+    if (codes && codes[0].id !== selectedCodeId) {
       setSelectedCodeId(codes[0].id);
     }
   }, [codes]);
