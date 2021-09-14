@@ -30,6 +30,7 @@ export default function ProblemDetailCodeSection({
   useEffect(() => {
     if (code) {
       setText(code.text);
+      setLastEventId(code.lastEventId);
     }
   }, [code]);
 
