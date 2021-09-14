@@ -2,7 +2,6 @@ import { CodeTextChange } from 'src/types/code';
 import { EventIndex } from 'src/types/event';
 
 export interface IEvent {
-  codeId: string[];
   changes: CodeTextChange[];
   eol: string;
   isFlush: boolean;
