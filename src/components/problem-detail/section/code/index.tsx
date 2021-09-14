@@ -36,7 +36,6 @@ export default function ProblemDetailCodeSection({
   const handleTextChange: OnChange = (v, e) => {
     events.push({
       ...e,
-      codeId: code?.id,
       modifiedText: v,
       timestamp: new Date(),
     });
@@ -46,7 +45,7 @@ export default function ProblemDetailCodeSection({
   const sendEvents = useCallback(
     debounce(async (events) => {
       try {
-        const { lastEventId } = await EventService.create(events);
+        const { lastEventId } = await EventService.create(code?.id, events);
         setLastEventId(lastEventId);
         events.splice(0, events.length);
       } catch (err) {
