@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { debounce } from 'lodash';
 import { OnChange } from '@monaco-editor/react';
 
 import Header from './header';
@@ -8,6 +9,7 @@ import OutputSection from './output';
 import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
+import EventService from 'src/services/api/event';
 import { ICode } from 'src/interfaces/code/ICode';
 import { RunOutput } from 'src/types/code';
 
@@ -22,6 +24,8 @@ export default function ProblemDetailCodeSection({
     success: undefined,
     result: '',
   });
+  const [lastEventId, setLastEventId] = useState<string>();
+  const events = [];
 
   useEffect(() => {
     if (code) {
@@ -29,9 +33,28 @@ export default function ProblemDetailCodeSection({
     }
   }, [code]);
 
-  const handleTextChange: OnChange = (value, _) => {
-    setText(value);
+  const handleTextChange: OnChange = (v, e) => {
+    events.push({
+      ...e,
+      codeId: code?.id,
+      modifiedText: v,
+      timestamp: new Date(),
+    });
+    sendEvents(events);
   };
+
+  const sendEvents = useCallback(
+    debounce(async (events) => {
+      try {
+        const { lastEventId } = await EventService.create(events);
+        setLastEventId(lastEventId);
+        events.splice(0, events.length);
+      } catch (err) {
+        console.log(err);
+      }
+    }, 1000),
+    []
+  );
 
   const openModal = () => {
     setModalOpen(true);
