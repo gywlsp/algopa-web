@@ -9,7 +9,7 @@ import OutputSection from './output';
 import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
-import EventService from 'src/services/api/event';
+import CodeService from 'src/services/api/code';
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import { RunOutput } from 'src/types/code';
 
@@ -26,7 +26,6 @@ export default function ProblemDetailCodeSection({
   });
   const [lastEventId, setLastEventId] = useState<string>();
   const events = [];
-
   useEffect(() => {
     if (code) {
       setText(code.text);
@@ -40,13 +39,13 @@ export default function ProblemDetailCodeSection({
       modifiedText: v,
       timestamp: new Date(),
     });
-    sendEvents(events);
+    sendEvents(code?.id, events);
   };
 
   const sendEvents = useCallback(
-    debounce(async (events) => {
+    debounce(async (codeId, events) => {
       try {
-        const { lastEventId } = await EventService.create(code?.id, events);
+        const { lastEventId } = await CodeService.createEvent(codeId, events);
         setLastEventId(lastEventId);
         events.splice(0, events.length);
       } catch (err) {
