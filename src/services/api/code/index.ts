@@ -15,7 +15,7 @@ import {
   ICodeReadDTO,
   ICodeUpdateDTO,
 } from 'src/interfaces/code/ICode';
-import { IEvent } from 'src/interfaces/event/IEvent';
+import { CodeTextChangeEvent } from 'src/types/code';
 
 const list = async (problemId: number): Promise<ICodeReadDTO[]> =>
   axios(listConfig(problemId)).then((res) => {
@@ -42,9 +42,9 @@ const execute = async (
     return res.data;
   });
 
-export const createEvent = async (
+const createEvent = async (
   codeId: string,
-  events: IEvent[]
+  events: CodeTextChangeEvent[]
 ): Promise<{
   lastEventId: string;
   timestamp: Date;
@@ -52,6 +52,7 @@ export const createEvent = async (
   axios(createEventConfig(codeId, events)).then((res) => {
     return res.data;
   });
+
 const CodeService = { list, create, update, execute, createEvent };
 
 export default CodeService;

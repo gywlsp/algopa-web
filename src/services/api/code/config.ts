@@ -1,5 +1,5 @@
 import { ICodeExecuteDTO, ICodeUpdateDTO } from 'src/interfaces/code/ICode';
-import { IEvent } from 'src/interfaces/event/IEvent';
+import { CodeTextChangeEvent } from 'src/types/code';
 import { baseConfig } from '..';
 
 export const listConfig = (problemId: number) =>
@@ -14,5 +14,7 @@ export const updateConfig = (codeId: string, params: ICodeUpdateDTO) =>
 export const executeConfig = (codeId: string, params: ICodeExecuteDTO) =>
   baseConfig(true).patch(`/codes/execute/${codeId}`, params);
 
-export const createEventConfig = (codeId: string, events: IEvent[]) =>
-  baseConfig(true).post(`/codes/${codeId}/events`, events);
+export const createEventConfig = (
+  codeId: string,
+  events: CodeTextChangeEvent[]
+) => baseConfig(true).post(`/codes/${codeId}/events`, events);

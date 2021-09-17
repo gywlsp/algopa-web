@@ -15,3 +15,20 @@ export type CodeTextChange = {
 };
 
 export type RunOutput = { success: boolean; result: string };
+
+export type CodeTextChangeEvent = {
+  changes: CodeTextChange[];
+  eol: string;
+  isFlush: boolean;
+  isRedoing: boolean;
+  isUndoing: boolean;
+  versionId: number;
+  modifiedText: string;
+  timestamp: Date;
+  index?: CodeTextChangeEventIndex;
+};
+
+export type CodeTextChangeEventIndex = {
+  title: string;
+  content: string;
+};
