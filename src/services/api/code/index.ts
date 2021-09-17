@@ -5,6 +5,7 @@ import Router from 'next/router';
 import {
   createConfig,
   createEventConfig,
+  createEventIndexConfig,
   executeConfig,
   listConfig,
   updateConfig,
@@ -15,7 +16,7 @@ import {
   ICodeReadDTO,
   ICodeUpdateDTO,
 } from 'src/interfaces/code/ICode';
-import { CodeTextChangeEvent } from 'src/types/code';
+import { CodeTextChangeEvent, CodeTextChangeEventIndex } from 'src/types/code';
 
 const list = async (problemId: number): Promise<ICodeReadDTO[]> =>
   axios(listConfig(problemId)).then((res) => {
@@ -53,6 +54,21 @@ const createEvent = async (
     return res.data;
   });
 
-const CodeService = { list, create, update, execute, createEvent };
+const createEventIndex = async (
+  eventId: string,
+  index: CodeTextChangeEventIndex
+): Promise<void> =>
+  axios(createEventIndexConfig(eventId, index)).then((res) => {
+    return res.data;
+  });
+
+const CodeService = {
+  list,
+  create,
+  update,
+  execute,
+  createEvent,
+  createEventIndex,
+};
 
 export default CodeService;
