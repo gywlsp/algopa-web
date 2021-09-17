@@ -5,19 +5,22 @@ import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 import MemoInput from './memo-input';
 
-import { ICode } from 'src/interfaces/code/ICode';
+import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import LanguageSelect from './language-select';
 import RunCodeButton from './button/run-code';
 import ViewHistoryButton from './button/view-history';
-import MemoSubmitButton from './button/memo-submit';
 
-export type CodeEditSectionHeaderProps = Pick<ICode, 'id' | 'language'> & {
+export type CodeEditSectionHeaderProps = Pick<
+  ICodeReadDTO,
+  'id' | 'language' | 'lastEventId'
+> & {
   onRunCodeButtonClick: () => void;
 };
 
 export default function ProblemDetailCodeSectionHeader({
   id,
   language,
+  lastEventId,
   onRunCodeButtonClick,
 }: CodeEditSectionHeaderProps) {
   return (
@@ -25,8 +28,7 @@ export default function ProblemDetailCodeSectionHeader({
       <Title>코드</Title>
       <LanguageSelect id={id} language={language} />
       <RunCodeButton onClick={onRunCodeButtonClick} />
-      <MemoInput />
-      <MemoSubmitButton id={id} />
+      <MemoInput lastEventId={lastEventId} />
       <ViewHistoryButton id={id} />
     </Wrapper>
   );
