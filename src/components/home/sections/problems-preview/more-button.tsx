@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/dist/client/router';
 
 import Link from 'src/components/common/link';
+import P from 'src/components/common/p';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { GREY, WHITE } from 'src/constants/colors';
 
@@ -28,15 +29,15 @@ export default function MoreButton({ isLoggedIn }: MoreButtonProps) {
         style={{ width: '2rem', height: '2rem', margin: '1.2rem 0' }}
         fill={WHITE}
       />
-      <P>더 보기</P>
+      <StyledP level={4} color={WHITE}>
+        더 보기
+      </StyledP>
     </Wrapper>
   );
 }
 
-const P = styled.p`
-  font-size: 1.8rem;
+const StyledP = styled(P)`
   margin-bottom: 1.2rem;
-  color: ${WHITE};
 `;
 
 const Wrapper = styled(Link)`
