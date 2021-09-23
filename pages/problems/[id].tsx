@@ -9,11 +9,11 @@ import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
 import { GREY } from 'src/constants/colors';
 
 import { useCodeList } from 'src/hooks/api/code';
-import { useMe } from 'src/hooks/api/user';
+import { useRecentAuthTokens } from 'src/hooks/api/auth';
 import { useProblem } from 'src/hooks/api/problem';
 
 export default function ProblemDetailPage() {
-  useMe({ isLoginRequired: true });
+  useRecentAuthTokens(true);
   const router = useRouter();
   const { data } = useProblem(+router.query.id);
   const { data: codes } = useCodeList(data?.id);
