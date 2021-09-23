@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import useSWR, { SWRResponse, SWRConfiguration } from 'swr';
+import { useRecentAuthTokens } from './auth';
 
 export type GetRequest = AxiosRequestConfig | null;
 
@@ -24,19 +25,27 @@ export default function useRequest<Data = unknown, Error = unknown>(
   request: GetRequest,
   config: Config<Data, Error> = {}
 ): Return<Data, Error> {
+  const { accessToken } = useRecentAuthTokens();
+  const authedRequest = {
+    ...request,
+    headers: {
+      Authorization: accessToken,
+    },
+  };
+
   const {
     data: response,
     error,
     isValidating,
     mutate,
   } = useSWR<AxiosResponse<Data>, AxiosError<Error>>(
-    request && JSON.stringify(request),
+    request && JSON.stringify(authedRequest),
     /**
      * NOTE: Typescript thinks `request` can be `null` here, but the fetcher
      * function is actually only called by `useSWR` when it isn't.
      */
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    () => axios(request!),
+    () => axios(authedRequest),
     {
       ...config,
     }
