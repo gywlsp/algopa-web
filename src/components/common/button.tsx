@@ -109,7 +109,7 @@ const Wrapper = styled.button<{
   cursor: ${disabled ? 'default' : 'pointer'};
   color: ${
     (disabled && GREY[500]) ||
-    (buttonType === 'primary' ? WHITE : BLUE_GREEN[700])
+    (buttonType === 'primary' ? WHITE : BLUE_GREEN[500])
   };
   background-color: ${
     (disabled && GREY[300]) ||
