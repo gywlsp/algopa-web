@@ -4,10 +4,12 @@ import GlobalLayout from 'src/layouts/global';
 import Section from 'src/components/common/section';
 import RecommendedProblemsSection from 'src/components/recommendation/problems-section';
 
+import { useRecentAuthTokens } from 'src/hooks/api/auth';
 import { useMe } from 'src/hooks/api/user';
 
 export default function RecommendationPage() {
-  const { data: userData, error } = useMe({ isLoginRequired: true });
+  useRecentAuthTokens(true);
+  const { data: userData, error } = useMe();
 
   if (error) {
     return <></>;
