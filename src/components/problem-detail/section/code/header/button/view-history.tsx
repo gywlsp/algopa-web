@@ -1,15 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
+import { BLUE_GREEN, WHITE } from 'src/constants/colors';
 
-import { ICode } from 'src/interfaces/code/ICode';
-
-export type ViewHistoryButtonProps = Pick<ICode, 'id'>;
-
-export default function ViewHistoryButton({ id }: ViewHistoryButtonProps) {
+export default function CodeHistoryViewButton() {
   const handleButtonClick = async () => {
-    //풀이 내역 조회
+    //풀이 내역 조회 컴포넌트 띄우기
   };
 
   return <Button onClick={handleButtonClick}>풀이 내역</Button>;

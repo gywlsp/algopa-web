@@ -8,7 +8,7 @@ import MemoInput from './memo-input';
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import LanguageSelect from './language-select';
 import RunCodeButton from './button/run-code';
-import ViewHistoryButton from './button/view-history';
+import CodeHistoryViewButton from './button/view-history';
 
 export type CodeEditSectionHeaderProps = Pick<
   ICodeReadDTO,
@@ -26,10 +26,7 @@ export default function ProblemDetailCodeSectionHeader({
   return (
     <Wrapper>
       <Title>코드</Title>
-      <LanguageSelect id={id} language={language} />
-      <RunCodeButton onClick={onRunCodeButtonClick} />
-      <MemoInput lastEventId={lastEventId} />
-      <ViewHistoryButton id={id} />
+      <CodeHistoryViewButton />
     </Wrapper>
   );
 }
