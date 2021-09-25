@@ -1,23 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/dist/client/router';
 
 import P from 'src/components/common/p';
 import Select from 'src/components/common/select';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { ICode } from 'src/interfaces/code/ICode';
+import { useProblemCodes, useSelectedCode } from 'src/hooks/api/code';
 
-export type CodeSelectProps = {
-  codes: ICode[];
-  selectedCodeId: string;
-  selectCode: (id: string) => void;
-};
-
-export default function CodeSelect({
-  codes,
-  selectedCodeId,
-  selectCode,
-}: CodeSelectProps) {
+export default function CodeSelect() {
+  const router = useRouter();
+  const { data: codes } = useProblemCodes(+router.query.id);
+  const { id: selectedCodeId, select } = useSelectedCode();
   const selectOptions = codes?.map(({ id, tryCount }) => ({
     key: id,
     label: `try_${tryCount}`,
@@ -28,7 +22,7 @@ export default function CodeSelect({
   const handleSelectedCodeChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    selectCode(e.target.value);
+    select(e.target.value);
   };
 
   return (
