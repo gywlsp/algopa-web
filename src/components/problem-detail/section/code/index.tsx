@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { debounce } from 'lodash';
-import { OnChange } from '@monaco-editor/react';
 
 import Header from './header';
 import EditSection from './edit';
@@ -9,72 +7,13 @@ import OutputSection from './output';
 import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
-import CodeService from 'src/services/api/code';
-import { ICodeReadDTO } from 'src/interfaces/code/ICode';
-import { RunOutput } from 'src/types/code';
-
-export type ProblemDetailCodeSectionProps = { code: ICodeReadDTO };
-
-export default function ProblemDetailCodeSection({
-  code,
-}: ProblemDetailCodeSectionProps) {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [text, setText] = useState('');
-  const [runOutput, setRunOutput] = useState<RunOutput>({
-    success: undefined,
-    result: '',
-  });
-  const [lastEventId, setLastEventId] = useState<string>();
-  const events = [];
-  useEffect(() => {
-    if (code) {
-      setText(code.text);
-      setLastEventId(code.lastEventId);
-    }
-  }, [code]);
-
-  const handleTextChange: OnChange = (v, e) => {
-    events.push({
-      ...e,
-      modifiedText: v,
-      timestamp: new Date(),
-    });
-    sendEvents(code?.id, events);
-  };
-
-  const sendEvents = useCallback(
-    debounce(async (codeId, events) => {
-      try {
-        const { lastEventId } = await CodeService.createEvent(codeId, events);
-        setLastEventId(lastEventId);
-        events.splice(0, events.length);
-      } catch (err) {
-        console.log(err);
-      }
-    }, 1000),
-    []
-  );
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
+export default function ProblemDetailCodeSection() {
   return (
     <Wrapper>
-      <Header {...code} onRunCodeButtonClick={openModal} />
-      <EditSection {...code} text={text} onChange={handleTextChange} />
-      <InputModal
-        {...code}
-        text={text}
-        setRunOutput={setRunOutput}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-      />
-      <OutputSection {...runOutput} />
+      <Header />
+      <EditSection />
+      <InputModal />
+      <OutputSection />
     </Wrapper>
   );
 }
