@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import CheckIcon from 'src/assets/icons/check';
 import { GREY } from 'src/constants/colors';
 
-import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import CodeService from 'src/services/api/code';
+import { useSelectedCodeEdit } from 'src/hooks/api/code';
 
-export type MemoTitleInputProps = Pick<ICodeReadDTO, 'lastEventId'>;
-
-export default function MemoTitleInput({ lastEventId }: MemoTitleInputProps) {
+export default function MemoTitleInput() {
+  const { lastEventId } = useSelectedCodeEdit();
   const [memoTitle, setMemoTitle] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
