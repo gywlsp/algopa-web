@@ -1,24 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import { GREY } from 'src/constants/colors';
 
-import { IProblem } from 'src/interfaces/problem/IProblem';
+import { problem } from 'src/modules/atoms/problem';
 
-export type ProblemDetailContentSectionProps = Pick<IProblem, 'contentHTML'>;
+export default function ProblemDetailContentSection() {
+  const problemData = useRecoilValue(problem);
 
-function ProblemDetailContentSection({
-  contentHTML,
-}: ProblemDetailContentSectionProps) {
   return (
     <ProblemContent
       className="problem-content"
-      dangerouslySetInnerHTML={{ __html: contentHTML }}
+      dangerouslySetInnerHTML={{ __html: problemData?.contentHTML }}
     />
   );
 }
-
-export default React.memo(ProblemDetailContentSection);
 
 const ProblemContent = styled.section`
   flex: 1;
