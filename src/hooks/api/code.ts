@@ -34,9 +34,15 @@ export const useProblemCodes = (problemId?: number) => {
   return { data: codes };
 };
 
-export const useCodeList = (problemId?: number) =>
-  useRequest<ICodeReadDTO[]>(listConfig(problemId), {
-    revalidateOnFocus: false,
-    revalidateOnMount: false,
-    revalidateOnReconnect: false,
+export const useSelectedCode = () => {
+  const [selectedCodeId, setSelectedCodeId] = useRecoilState(
+    selectedProblemCodeId
+  );
+  const selectedCode = useRecoilValue(selectedProblemCode);
+  const selectCode = (id: string) => {
+    setSelectedCodeId(id);
+  };
+  return { id: selectedCodeId, data: selectedCode, select: selectCode };
+};
+
   });
