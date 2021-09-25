@@ -4,9 +4,13 @@ import styled from 'styled-components';
 import P from 'src/components/common/p';
 import { FAILURE_RED, GREY, SUCCESS_BLUE } from 'src/constants/colors';
 
-import { RunOutput } from 'src/types/code';
+import { useCodeRun } from 'src/hooks/api/code';
 
-export default function CodeRunOutputSection({ success, result }: RunOutput) {
+export default function CodeRunOutputSection() {
+  const {
+    runOutput: { success, result },
+  } = useCodeRun();
+
   const textColor = success
     ? SUCCESS_BLUE
     : success === false
