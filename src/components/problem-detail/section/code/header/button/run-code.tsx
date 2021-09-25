@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import PlayIcon from 'src/assets/icons/play';
 import { GREY } from 'src/constants/colors';
 
-export type RunCodeButtonProps = { onClick: () => void };
+import { useCodeRun } from 'src/hooks/api/code';
 
-export default function RunCodeButton({ onClick }: RunCodeButtonProps) {
+export default function CodeRunButton() {
+  const { openModal } = useCodeRun();
+
   return (
-    <Button onClick={onClick}>
+    <Button onClick={openModal}>
       <PlayIcon
         style={{ width: '1.2rem', height: '1.2rem', marginRight: '0.6rem' }}
       />
