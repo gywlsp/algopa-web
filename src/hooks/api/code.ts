@@ -7,7 +7,9 @@ import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import { listConfig } from 'src/services/api/code/config';
 import CodeService from 'src/services/api/code';
+import { RunOutput } from 'src/types/code';
 import {
+  isCodeRunInputModalOpen,
   problemCodes,
   selectedProblemCodeId,
   selectedProblemCodeText,
@@ -79,9 +81,53 @@ export const useSelectedCodeEdit = () => {
       ...e,
       modifiedText: v,
       timestamp: new Date(),
-  });
+    });
     sendEvents(code?.id, events);
   };
 
   return { code, text, lastEventId, onChange: handleTextChange };
+};
+
+export const useCodeRun = () => {
+  const codeId = useRecoilValue(selectedProblemCodeId);
+  const text = useRecoilValue(selectedProblemCodeText);
+  const [input, setInput] = useState('');
+  const [isModalOpen, setModalOpen] = useRecoilState(isCodeRunInputModalOpen);
+  const [runOutput, setRunOutput] = useState<RunOutput>({
+    success: undefined,
+    result: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const data = await CodeService.execute(codeId, { text, input });
+      setRunOutput(data);
+      setInput('');
+      closeModal();
+    } catch (err) {
+      setRunOutput({ success: false, result: '코드 실행 실패' });
+    }
+  };
+
+  return {
+    input,
+    isModalOpen,
+    runOutput,
+    openModal,
+    closeModal,
+    onInputChange: handleInputChange,
+    onCodeSubmit: handleSubmit,
+  };
 };
