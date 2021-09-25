@@ -4,28 +4,17 @@ import styled from 'styled-components';
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 import MemoInput from './memo-input';
-
-import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import LanguageSelect from './language-select';
-import RunCodeButton from './button/run-code';
+import CodeRunButton from './button/run-code';
 import CodeHistoryViewButton from './button/view-history';
 
-export type CodeEditSectionHeaderProps = Pick<
-  ICodeReadDTO,
-  'id' | 'language' | 'lastEventId'
-> & {
-  onRunCodeButtonClick: () => void;
-};
-
-export default function ProblemDetailCodeSectionHeader({
-  id,
-  language,
-  lastEventId,
-  onRunCodeButtonClick,
-}: CodeEditSectionHeaderProps) {
+export default function ProblemDetailCodeSectionHeader() {
   return (
     <Wrapper>
       <Title>코드</Title>
+      <LanguageSelect />
+      <CodeRunButton />
+      <MemoInput />
       <CodeHistoryViewButton />
     </Wrapper>
   );
