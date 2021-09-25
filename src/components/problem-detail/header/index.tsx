@@ -1,31 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import P from 'src/components/common/p';
 import Logo from 'src/components/common/logo';
-import CodeSelect, { CodeSelectProps } from './code-select';
+import CodeSelect from './code-select';
 import NewCodeButton from './new-code-button';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
+import { problem } from 'src/modules/atoms/problem';
 
-export type ProblemDetailHeaderProps = Pick<IProblemReadDTO, 'id' | 'title'> &
-  CodeSelectProps;
-
-export default function ProblemDetailHeader({
-  id,
-  title,
-  ...codeSelectProps
-}: ProblemDetailHeaderProps) {
-  const label = `${id}. ${title}`;
+export default function ProblemDetailHeader() {
+  const problemData = useRecoilValue(problem);
+  const label = `${problemData?.id}. ${problemData?.title}`;
 
   return (
     <Wrapper>
       <Logo size="small" />
       <Title>
         코딩테스트 연습
-        {id && (
+        {problemData?.id && (
           <>
             <ChevronRightIcon
               style={{ width: '1.2rem', height: '1.2rem', margin: '0 0.6rem' }}
@@ -35,8 +30,8 @@ export default function ProblemDetailHeader({
           </>
         )}
       </Title>
-      <CodeSelect {...codeSelectProps} />
-      <NewCodeButton id={id} />
+      <CodeSelect />
+      <NewCodeButton />
     </Wrapper>
   );
 }
