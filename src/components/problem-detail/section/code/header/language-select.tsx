@@ -1,22 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import P from 'src/components/common/p';
 import Select from 'src/components/common/select';
 import { GREY } from 'src/constants/colors';
 
-import { ICode } from 'src/interfaces/code/ICode';
 import CodeService from 'src/services/api/code';
 import { CodeLanguage } from 'src/types/code';
-
-export type LanguageSelectProps = Pick<ICode, 'id' | 'language'>;
+import { selectedProblemCode } from 'src/modules/selectors/code';
 
 const LANGUAGE_OPTIONS = [
   { label: 'python', value: 'python' },
   { label: 'javascript', value: 'javascript' },
 ];
 
-export default function LanguageSelect({ id, language }: LanguageSelectProps) {
+export default function LanguageSelect() {
+  const code = useRecoilValue(selectedProblemCode);
+
   const handleSelectedCodeChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -28,7 +29,7 @@ export default function LanguageSelect({ id, language }: LanguageSelectProps) {
       return;
     }
     try {
-      await CodeService.update(id, {
+      await CodeService.update(code?.id, {
         language: e.target.value as CodeLanguage,
       });
     } catch (err) {
@@ -43,7 +44,7 @@ export default function LanguageSelect({ id, language }: LanguageSelectProps) {
         size="small"
         options={LANGUAGE_OPTIONS}
         onChange={handleSelectedCodeChange}
-        value={language}
+        value={code?.language}
       />
     </>
   );
