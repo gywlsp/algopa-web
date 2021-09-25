@@ -9,7 +9,7 @@ import {
   refreshConfig,
   validateBojIdConfig,
 } from './config';
-import { Provider, UserToken } from 'src/types/user';
+import { Provider, AuthTokens } from 'src/types/user';
 import { IUserInputDTO, IUserReadDTO } from 'src/interfaces/user/IUser';
 
 const login = async (
@@ -52,7 +52,7 @@ const join = async (
     return res.data;
   });
 
-const refresh = async (refreshToken: string): Promise<UserToken> =>
+const refresh = async (refreshToken: string): Promise<AuthTokens> =>
   axios(refreshConfig(refreshToken)).then((res) => {
     return res.data;
   });

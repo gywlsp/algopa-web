@@ -18,7 +18,7 @@ export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
 
   useEffect(() => {
     if (error?.response?.status === 401 && accessToken) {
-      const updateUserTokens = ({ accessToken, refreshToken }) => {
+      const updateAuthTokens = ({ accessToken, refreshToken }) => {
         setTokens({
           accessToken,
           refreshToken,
@@ -27,7 +27,7 @@ export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
         setCookie('REFRESH_TOKEN', refreshToken);
       };
 
-      const removeUserTokens = () => {
+      const removeAuthTokens = () => {
         setTokens({
           accessToken: null,
           refreshToken: null,
@@ -36,20 +36,20 @@ export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
         removeCookie('REFRESH_TOKEN');
       };
 
-      const refreshUserTokens = async () => {
+      const refreshAuthTokens = async () => {
         try {
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
             await AuthService.refresh(refreshToken);
-          updateUserTokens({
+          updateAuthTokens({
             accessToken: newAccessToken,
             refreshToken: newRefreshToken,
           });
         } catch (error) {
-          removeUserTokens();
+          removeAuthTokens();
         }
       };
 
-      refreshUserTokens();
+      refreshAuthTokens();
     } else if (isLoginRequired && error) {
       alert('로그인이 필요한 기능입니다.');
       router.push('/login');

@@ -1,6 +1,6 @@
 export type Provider = 'github' | 'google';
 
-export type UserToken = {
+export type AuthTokens = {
   accessToken: string;
   refreshToken: string;
 };

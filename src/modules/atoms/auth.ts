@@ -1,7 +1,9 @@
 import { atom } from 'recoil';
-import { getCookie } from 'src/lib/utils/cookie';
 
-export const authTokens = atom({
+import { getCookie } from 'src/lib/utils/cookie';
+import { AuthTokens } from 'src/types/user';
+
+export const authTokens = atom<AuthTokens>({
   key: 'authTokens',
   default: {
     accessToken: getCookie('ACCESS_TOKEN'),
