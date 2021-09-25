@@ -6,3 +6,9 @@ export const problemCodes = atom<ICodeReadDTO[]>({
   key: 'problemCodes',
   default: undefined,
 });
+
+export const selectedProblemCodeId = atom<string>({
+  key: 'selectedProblemCodeId',
+  default: undefined,
+});
+
