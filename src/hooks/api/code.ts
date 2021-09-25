@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
+import { OnChange } from '@monaco-editor/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isEqual, debounce } from 'lodash';
 
 import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import { listConfig } from 'src/services/api/code/config';
+import CodeService from 'src/services/api/code';
 import {
   problemCodes,
   selectedProblemCodeId,
+  selectedProblemCodeText,
 } from 'src/modules/atoms/code';
 import { selectedProblemCode } from 'src/modules/selectors/code';
 import useRequest from '.';
@@ -45,4 +48,40 @@ export const useSelectedCode = () => {
   return { id: selectedCodeId, data: selectedCode, select: selectCode };
 };
 
+export const useSelectedCodeEdit = () => {
+  const code = useRecoilValue(selectedProblemCode);
+  const [text, setText] = useRecoilState(selectedProblemCodeText);
+  const [lastEventId, setLastEventId] = useState<string>();
+  const events = [];
+
+  useEffect(() => {
+    if (code) {
+      setText(code.text);
+      setLastEventId(code.lastEventId);
+    }
+  }, [code]);
+
+  const sendEvents = useCallback(
+    debounce(async (codeId, events) => {
+      try {
+        const { lastEventId } = await CodeService.createEvent(codeId, events);
+        setLastEventId(lastEventId);
+        events.splice(0, events.length);
+      } catch (err) {
+        console.log(err);
+      }
+    }, 1000),
+    []
+  );
+
+  const handleTextChange: OnChange = (v, e) => {
+    events.push({
+      ...e,
+      modifiedText: v,
+      timestamp: new Date(),
   });
+    sendEvents(code?.id, events);
+  };
+
+  return { code, text, lastEventId, onChange: handleTextChange };
+};
