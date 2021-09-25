@@ -12,3 +12,8 @@ export const selectedProblemCodeId = atom<string>({
   default: undefined,
 });
 
+export const selectedProblemCodeText = atom<string>({
+  key: 'selectedProblemCodeText',
+  default: '',
+});
+
