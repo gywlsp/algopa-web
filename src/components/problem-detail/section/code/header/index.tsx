@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
-import MemoInput from './memo-input';
+import IndexTitleInput from './index-title-input';
 import LanguageSelect from './language-select';
 import CodeRunButton from './button/run-code';
 import CodeHistoryViewButton from './button/view-history';
@@ -14,7 +14,7 @@ export default function ProblemDetailCodeSectionHeader() {
       <Title>코드</Title>
       <LanguageSelect />
       <CodeRunButton />
-      <MemoInput />
+      <IndexTitleInput />
       <CodeHistoryViewButton />
     </Wrapper>
   );

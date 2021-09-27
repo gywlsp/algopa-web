@@ -7,12 +7,12 @@ import { GREY } from 'src/constants/colors';
 import CodeService from 'src/services/api/code';
 import { useSelectedCodeEdit } from 'src/hooks/api/code';
 
-export default function MemoTitleInput() {
+export default function IndexTitleInput() {
   const { lastEventId } = useSelectedCodeEdit();
-  const [memoTitle, setMemoTitle] = useState('');
+  const [indexTitle, setIndexTitle] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMemoTitle(e.target.value);
+    setIndexTitle(e.target.value);
   };
 
   const handleSubmit = async () => {
@@ -22,10 +22,11 @@ export default function MemoTitleInput() {
     }
     try {
       await CodeService.createEventIndex(lastEventId, {
-        title: memoTitle,
+        title: indexTitle,
         content: '',
       });
       alert('인덱스가 생성되었습니다.');
+      setIndexTitle('');
     } catch (err) {
       alert('인덱스 생성에 실패하였습니다.');
     }
@@ -35,7 +36,7 @@ export default function MemoTitleInput() {
     <>
       <InputWrapper>
         <StyledInput
-          value={memoTitle}
+          value={indexTitle}
           onChange={handleChange}
           placeholder="Message (optional)"
         />
