@@ -23,3 +23,15 @@ export const selectedCodeEvent = selector({
     return events?.find((event) => event.id === selectedEventId);
   },
 });
+
+export const selectedCodeEventOrder = selector({
+  key: 'selectedCodeEventOrder',
+  get: ({ get }) => {
+    const events = get(codeEvents);
+    const selectedEventId = get(selectedCodeEventId);
+    return (
+      events?.findIndex((event) => event.id === selectedEventId) + 1 ||
+      undefined
+    );
+  },
+});
