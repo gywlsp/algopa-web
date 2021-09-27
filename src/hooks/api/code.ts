@@ -14,6 +14,7 @@ import {
   isCodeRunInputModalOpen,
   problemCodes,
   selectedCodeEventId,
+  selectedCodeLastEventId,
   selectedProblemCodeId,
   selectedProblemCodeText,
 } from 'src/modules/atoms/code';
@@ -143,8 +144,9 @@ export const useCodeEvents = () => {
     useRecoilState(selectedCodeEventId);
 
   useEffect(() => {
-    if (!isEqual(data, events)) {
-      setEvents(data);
+    const orderedEvents = data?.map((v, i) => ({ ...v, order: i + 1 }));
+    if (!isEqual(orderedEvents, events)) {
+      setEvents(orderedEvents);
     }
     if (data && data[0].id !== selectedEventId) {
       setSelectedEventId(data[0].id);

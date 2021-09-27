@@ -27,6 +27,7 @@ export type CodeTextChangeEvent = {
   modifiedText: string;
   timestamp: Date;
   index?: CodeTextChangeEventIndex;
+  order?: number;
 };
 
 export type CodeTextChangeEventCreateDTO = Omit<CodeTextChangeEvent, 'id'>;
