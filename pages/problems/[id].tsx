@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import ProblemDetailHeader from 'src/components/problem-detail/header';
 import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
-import ProblemCodeSection from 'src/components/problem-detail/section/code';
 import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
+import ProblemCodeSection from 'src/components/problem-detail/section/code';
+import CodeHistorySection from 'src/components/problem-detail/section/history';
 import { GREY } from 'src/constants/colors';
 
 import { useRecentAuthTokens } from 'src/hooks/api/auth';

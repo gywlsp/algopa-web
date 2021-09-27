@@ -5,8 +5,8 @@ import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 import IndexTitleInput from './index-title-input';
 import LanguageSelect from './language-select';
-import CodeRunButton from './button/run-code';
-import CodeHistoryViewButton from './button/view-history';
+import CodeRunButton from './button/code-run';
+import CodeHistoryViewButton from './button/history-view';
 
 export default function ProblemDetailCodeSectionHeader() {
   return (

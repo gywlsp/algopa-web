@@ -7,7 +7,7 @@ import OutputSection from './output';
 import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
-export default function ProblemDetailCodeSection() {
+export default function ProblemCodeSection() {
   return (
     <Wrapper>
       <Header />
