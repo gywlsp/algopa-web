@@ -93,10 +93,7 @@ export const useCodeRun = () => {
   const text = useRecoilValue(selectedProblemCodeText);
   const [input, setInput] = useState('');
   const [isModalOpen, setModalOpen] = useRecoilState(isCodeRunInputModalOpen);
-  const [runOutput, setRunOutput] = useState<RunOutput>({
-    success: undefined,
-    result: '',
-  });
+  const [runOutput, setRunOutput] = useRecoilState(codeRunOutput);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
