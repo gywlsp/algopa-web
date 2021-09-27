@@ -30,3 +30,13 @@ export const codeRunOutput = atom<RunOutput>({
     result: '',
   },
 });
+
+export const codeEvents = atom<CodeTextChangeEvent[]>({
+  key: 'codeEvents',
+  default: undefined,
+});
+
+export const selectedCodeEventId = atom<string>({
+  key: 'selectedCodeEventId',
+  default: undefined,
+});
