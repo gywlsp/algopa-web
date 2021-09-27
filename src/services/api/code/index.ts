@@ -6,6 +6,7 @@ import {
   createConfig,
   createEventConfig,
   createEventIndexConfig,
+  eventListConfig,
   executeConfig,
   listConfig,
   updateConfig,
@@ -43,6 +44,11 @@ const execute = async (
     return res.data;
   });
 
+const eventList = async (codeId: string): Promise<CodeTextChangeEvent[]> =>
+  axios(eventListConfig(codeId)).then((res) => {
+    return res.data;
+  });
+
 const createEvent = async (
   codeId: string,
   events: CodeTextChangeEvent[]
@@ -67,6 +73,7 @@ const CodeService = {
   create,
   update,
   execute,
+  eventList,
   createEvent,
   createEventIndex,
 };

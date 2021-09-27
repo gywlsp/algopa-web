@@ -14,6 +14,9 @@ export const updateConfig = (codeId: string, params: ICodeUpdateDTO) =>
 export const executeConfig = (codeId: string, params: ICodeExecuteDTO) =>
   baseConfig(true).patch(`/codes/execute/${codeId}`, params);
 
+export const eventListConfig = (codeId: string) =>
+  baseConfig(true).get(`/codes/${codeId}/events`);
+
 export const createEventConfig = (
   codeId: string,
   events: CodeTextChangeEvent[]
