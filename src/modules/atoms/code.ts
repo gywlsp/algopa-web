@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
+import { CodeTextChangeEvent, RunOutput } from 'src/types/code';
 
 export const problemCodes = atom<ICodeReadDTO[]>({
   key: 'problemCodes',
@@ -20,4 +21,12 @@ export const selectedProblemCodeText = atom<string>({
 export const isCodeRunInputModalOpen = atom<boolean>({
   key: 'isCodeRunInputModalOpen',
   default: false,
+});
+
+export const codeRunOutput = atom<RunOutput>({
+  key: 'codeRunOutput',
+  default: {
+    success: undefined,
+    result: '',
+  },
 });
