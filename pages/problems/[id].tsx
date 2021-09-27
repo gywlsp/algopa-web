@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import ProblemDetailHeader from 'src/components/problem-detail/header';
@@ -9,11 +10,13 @@ import { GREY } from 'src/constants/colors';
 
 import { useRecentAuthTokens } from 'src/hooks/api/auth';
 import { useProblem } from 'src/hooks/api/problem';
+import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 
 export default function ProblemDetailPage() {
   useRecentAuthTokens(true);
   const router = useRouter();
   const { data } = useProblem(+router.query.id);
+  const rightSectionType = useRecoilValue(problemPageRightSectionType);
 
   return (
     <Wrapper>
@@ -21,7 +24,7 @@ export default function ProblemDetailPage() {
       <ContentWrapper>
         {data && <ProblemContentSection />}
         {!data && <ProblemContentSkeleton />}
-        <ProblemCodeSection />
+        {rightSectionType === 'code' && <ProblemCodeSection />}
       </ContentWrapper>
     </Wrapper>
   );
