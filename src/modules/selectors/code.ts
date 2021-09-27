@@ -24,11 +24,11 @@ export const selectedCodeEvent = selector({
   },
 });
 
-export const selectedCodeIndices = selector({
-  key: 'selectedCodeIndices',
+export const selectedCodeIndexedEvents = selector({
+  key: 'selectedCodeIndexedEvents',
   get: ({ get }) => {
     const events = get(codeEvents);
-    return events.filter((event) => event.index).map((event) => event.index);
+    return events?.filter((v) => v.index);
   },
 });
 
