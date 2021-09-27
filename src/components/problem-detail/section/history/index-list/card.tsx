@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
 
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
 import { CodeTextChangeEventIndex } from 'src/types/code';
 import CodeService from 'src/services/api/code';
+import { selectedCodeEventId } from 'src/modules/atoms/code';
 
 export type EventIndexPreviewCardProps = {
   order: number;
@@ -18,6 +20,12 @@ export default function EventIndexPreviewCard({
   eventId,
   title,
 }: EventIndexPreviewCardProps) {
+  const setSelectedCodeEventId = useSetRecoilState(selectedCodeEventId);
+
+  const handleCardClick = () => {
+    setSelectedCodeEventId(eventId);
+  };
+
   const handleDeleteButtonClick = async () => {
     if (!confirm('인덱스를 삭제하시겠습니까?')) {
       return;
@@ -35,24 +43,22 @@ export default function EventIndexPreviewCard({
   };
 
   return (
-    <Wrapper>
+    <Wrapper onClick={handleCardClick}>
       <DeleteButton onClick={handleDeleteButtonClick}>x</DeleteButton>
       <Order>{order}</Order>
-      <Title>
-        {title}
-        {title}
-        {title}
-      </Title>
+      <Title>{title}</Title>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
   position: relative;
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid ${GREY[700]};
   margin-bottom: 1.2rem;
+  border: 1px solid ${GREY[700]};
+  background: none;
+  cursor: pointer;
 `;
 
 const Title = styled(P).attrs({ level: 1, color: GREY[400], numOfLines: 2 })`
