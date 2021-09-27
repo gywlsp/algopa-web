@@ -8,7 +8,7 @@ import CodeService from 'src/services/api/code';
 import { useSelectedCodeEdit } from 'src/hooks/api/code';
 
 export default function IndexTitleInput() {
-  const { lastEventId } = useSelectedCodeEdit();
+  const { code, lastEventId } = useSelectedCodeEdit();
   const [indexTitle, setIndexTitle] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +21,13 @@ export default function IndexTitleInput() {
       return;
     }
     try {
-      await CodeService.createEventIndex(lastEventId, {
-        title: indexTitle,
-        content: '',
+      await CodeService.createEventIndex({
+        codeId: code?.id,
+        eventId: lastEventId,
+        index: {
+          title: indexTitle,
+          content: '',
+        },
       });
       alert('인덱스가 생성되었습니다.');
       setIndexTitle('');

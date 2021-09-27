@@ -61,14 +61,21 @@ const createEvent = async (
   timestamp: Date;
 }> =>
   axios(createEventConfig(codeId, events)).then((res) => {
+    mutate(JSON.stringify(eventListConfig(codeId)));
     return res.data;
   });
 
-const createEventIndex = async (
-  eventId: string,
-  index: CodeTextChangeEventIndex
-): Promise<void> =>
+const createEventIndex = async ({
+  codeId,
+  eventId,
+  index,
+}: {
+  codeId: string;
+  eventId: string;
+  index: CodeTextChangeEventIndex;
+}): Promise<void> =>
   axios(createEventIndexConfig(eventId, index)).then((res) => {
+    mutate(JSON.stringify(eventListConfig(codeId)));
     return res.data;
   });
 
