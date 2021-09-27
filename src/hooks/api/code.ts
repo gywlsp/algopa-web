@@ -5,12 +5,15 @@ import { isEqual, debounce } from 'lodash';
 
 import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
-import { listConfig } from 'src/services/api/code/config';
+import { eventListConfig, listConfig } from 'src/services/api/code/config';
 import CodeService from 'src/services/api/code';
-import { RunOutput } from 'src/types/code';
+import { CodeTextChangeEvent } from 'src/types/code';
 import {
+  codeEvents,
+  codeRunOutput,
   isCodeRunInputModalOpen,
   problemCodes,
+  selectedCodeEventId,
   selectedProblemCodeId,
   selectedProblemCodeText,
 } from 'src/modules/atoms/code';
@@ -127,4 +130,26 @@ export const useCodeRun = () => {
     onInputChange: handleInputChange,
     onCodeSubmit: handleSubmit,
   };
+};
+
+export const useCodeEvents = () => {
+  const codeId = useRecoilValue(selectedProblemCodeId);
+  const { data } = useRequest<CodeTextChangeEvent[]>(
+    eventListConfig(codeId),
+    VALIDATE_DISABLE_OPTIONS
+  );
+  const [events, setEvents] = useRecoilState(codeEvents);
+  const [selectedEventId, setSelectedEventId] =
+    useRecoilState(selectedCodeEventId);
+
+  useEffect(() => {
+    if (!isEqual(data, events)) {
+      setEvents(data);
+    }
+    if (data && data[0].id !== selectedEventId) {
+      setSelectedEventId(data[0].id);
+    }
+  }, [data]);
+
+  return { data: events };
 };
