@@ -1,11 +1,16 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { BLUE_GREEN, WHITE } from 'src/constants/colors';
 
+import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+
 export default function CodeHistoryViewButton() {
+  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+
   const handleButtonClick = async () => {
-    //풀이 내역 조회 컴포넌트 띄우기
+    setRightSectionType('history');
   };
 
   return <Button onClick={handleButtonClick}>풀이 내역</Button>;
