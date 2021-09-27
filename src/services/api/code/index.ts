@@ -17,7 +17,11 @@ import {
   ICodeReadDTO,
   ICodeUpdateDTO,
 } from 'src/interfaces/code/ICode';
-import { CodeTextChangeEvent, CodeTextChangeEventIndex } from 'src/types/code';
+import {
+  CodeTextChangeEvent,
+  CodeTextChangeEventCreateDTO,
+  CodeTextChangeEventIndex,
+} from 'src/types/code';
 
 const list = async (problemId: number): Promise<ICodeReadDTO[]> =>
   axios(listConfig(problemId)).then((res) => {
@@ -51,7 +55,7 @@ const eventList = async (codeId: string): Promise<CodeTextChangeEvent[]> =>
 
 const createEvent = async (
   codeId: string,
-  events: CodeTextChangeEvent[]
+  events: CodeTextChangeEventCreateDTO[]
 ): Promise<{
   lastEventId: string;
   timestamp: Date;

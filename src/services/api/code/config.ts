@@ -1,5 +1,8 @@
 import { ICodeExecuteDTO, ICodeUpdateDTO } from 'src/interfaces/code/ICode';
-import { CodeTextChangeEvent, CodeTextChangeEventIndex } from 'src/types/code';
+import {
+  CodeTextChangeEventCreateDTO,
+  CodeTextChangeEventIndex,
+} from 'src/types/code';
 import { baseConfig } from '..';
 
 export const listConfig = (problemId: number) =>
@@ -19,7 +22,7 @@ export const eventListConfig = (codeId: string) =>
 
 export const createEventConfig = (
   codeId: string,
-  events: CodeTextChangeEvent[]
+  events: CodeTextChangeEventCreateDTO[]
 ) => baseConfig(true).post(`/codes/${codeId}/events`, events);
 
 export const createEventIndexConfig = (

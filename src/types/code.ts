@@ -17,6 +17,7 @@ export type CodeTextChange = {
 export type RunOutput = { success: boolean; result: string };
 
 export type CodeTextChangeEvent = {
+  id: string;
   changes: CodeTextChange[];
   eol: string;
   isFlush: boolean;
@@ -27,6 +28,8 @@ export type CodeTextChangeEvent = {
   timestamp: Date;
   index?: CodeTextChangeEventIndex;
 };
+
+export type CodeTextChangeEventCreateDTO = Omit<CodeTextChangeEvent, 'id'>;
 
 export type CodeTextChangeEventIndex = {
   title: string;
