@@ -56,7 +56,7 @@ export const useSelectedCode = () => {
 export const useSelectedCodeEdit = () => {
   const code = useRecoilValue(selectedProblemCode);
   const [text, setText] = useRecoilState(selectedProblemCodeText);
-  const [lastEventId, setLastEventId] = useState<string>();
+  const [lastEventId, setLastEventId] = useRecoilState(selectedCodeLastEventId);
   const events = [];
 
   useEffect(() => {

@@ -18,6 +18,11 @@ export const selectedProblemCodeText = atom<string>({
   default: '',
 });
 
+export const selectedCodeLastEventId = atom<string>({
+  key: 'selectedCodeLastEventId',
+  default: undefined,
+});
+
 export const isCodeRunInputModalOpen = atom<boolean>({
   key: 'isCodeRunInputModalOpen',
   default: false,
