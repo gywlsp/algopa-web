@@ -20,6 +20,14 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
   }
 
+  .event-text-highlight {
+    background: #444;
+  }
+
+  .event-text-line-highlight {
+    background: #333;
+  }
+
   @font-face {
     font-family: 'Comfortaa';
     font-weight: 500;
