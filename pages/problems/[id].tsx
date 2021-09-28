@@ -12,12 +12,14 @@ import { GREY } from 'src/constants/colors';
 import { useRecentAuthTokens } from 'src/hooks/api/auth';
 import { useProblem } from 'src/hooks/api/problem';
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { useCodeEvents } from 'src/hooks/api/code';
 
 export default function ProblemDetailPage() {
   useRecentAuthTokens(true);
   const router = useRouter();
   const { data } = useProblem(+router.query.id);
   const rightSectionType = useRecoilValue(problemPageRightSectionType);
+  useCodeEvents();
 
   return (
     <Wrapper>
@@ -26,6 +28,7 @@ export default function ProblemDetailPage() {
         {data && <ProblemContentSection />}
         {!data && <ProblemContentSkeleton />}
         {rightSectionType === 'code' && <ProblemCodeSection />}
+        {rightSectionType === 'history' && <CodeHistorySection />}
       </ContentWrapper>
     </Wrapper>
   );
