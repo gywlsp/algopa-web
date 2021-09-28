@@ -4,7 +4,6 @@ import { useSetRecoilState } from 'recoil';
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
-import { CodeTextChangeEventIndex } from 'src/types/code';
 import CodeService from 'src/services/api/code';
 import { selectedCodeEventId } from 'src/modules/atoms/code';
 
@@ -12,13 +11,14 @@ export type EventIndexPreviewCardProps = {
   order: number;
   codeId: string;
   eventId: string;
-} & Partial<Pick<CodeTextChangeEventIndex, 'title'>>;
+  index?: string;
+};
 
 export default function EventIndexPreviewCard({
   order,
   codeId,
   eventId,
-  title,
+  index,
 }: EventIndexPreviewCardProps) {
   const setSelectedCodeEventId = useSetRecoilState(selectedCodeEventId);
 
@@ -46,7 +46,7 @@ export default function EventIndexPreviewCard({
     <Wrapper onClick={handleCardClick}>
       <DeleteButton onClick={handleDeleteButtonClick}>x</DeleteButton>
       <Order>{order}</Order>
-      <Title>{title}</Title>
+      <Title>{index}</Title>
     </Wrapper>
   );
 }
@@ -61,13 +61,18 @@ const Wrapper = styled.button`
   cursor: pointer;
 `;
 
-const Title = styled(P).attrs({ level: 1, color: GREY[400], numOfLines: 2 })`
-  margin-right: auto;
-`;
-
-const Order = styled(P).attrs({ level: 1, color: GREY[400] })`
+const Order = styled(P).attrs({ level: 1, color: GREY[450], fontWeight: 500 })`
   margin-right: auto;
   margin-bottom: 0.4rem;
+`;
+
+const Title = styled(P).attrs({
+  level: 1,
+  color: GREY[400],
+  fontWeight: 500,
+  numOfLines: 2,
+})`
+  margin-right: auto;
 `;
 
 const DeleteButton = styled.button`
