@@ -35,8 +35,8 @@ export const useProblemCodes = (problemId?: number) => {
     if (!isEqual(data, codes)) {
       setCodes(data);
     }
-    if (data && data[0].id !== selectedCodeId) {
-      setSelectedCodeId(data[0].id);
+    if (data && data[0]?.id !== selectedCodeId) {
+      setSelectedCodeId(data[0]?.id);
     }
   }, [data]);
 
@@ -148,8 +148,8 @@ export const useCodeEvents = () => {
     if (!isEqual(orderedEvents, events)) {
       setEvents(orderedEvents);
     }
-    if (data && data[0].id !== selectedEventId) {
-      setSelectedEventId(data[0].id);
+    if (data && data[0]?.id !== selectedEventId) {
+      setSelectedEventId(data[0]?.id);
     }
   }, [data]);
 
