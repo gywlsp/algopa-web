@@ -38,5 +38,17 @@ const Wrapper = styled.div`
 `;
 
 const CardsWrapper = styled.div`
+  height: calc(100% - 4.4rem);
   padding: 1.2rem;
+  overflow-y: scroll;
+  -ms-overflow-style: auto;
+  &::-webkit-scrollbar {
+    display: flex;
+    width: 0.4rem;
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+  }
+  padding-bottom: 4.4rem;
 `;
