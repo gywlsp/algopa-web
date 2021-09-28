@@ -26,13 +26,8 @@ export type CodeTextChangeEvent = {
   versionId: number;
   modifiedText: string;
   timestamp: Date;
-  index?: CodeTextChangeEventIndex;
+  index?: string;
   order?: number;
 };
 
 export type CodeTextChangeEventCreateDTO = Omit<CodeTextChangeEvent, 'id'>;
-
-export type CodeTextChangeEventIndex = {
-  title: string;
-  content: string;
-};

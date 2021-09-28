@@ -3,11 +3,11 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Header from './header';
-import { GREY } from 'src/constants/colors';
 import EventIndexPreviewCard from './card';
+import { GREY } from 'src/constants/colors';
 
-import { selectedCodeIndexedEvents } from 'src/modules/selectors/code';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
+import { selectedCodeIndexedEvents } from 'src/modules/selectors/code';
 
 export default function CodeHistoryIndexListSection() {
   const codeId = useRecoilValue(selectedProblemCodeId);
@@ -23,7 +23,7 @@ export default function CodeHistoryIndexListSection() {
             codeId={codeId}
             eventId={id}
             order={order}
-            title={index.title}
+            index={index}
           />
         ))}
       </CardsWrapper>

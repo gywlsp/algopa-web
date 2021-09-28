@@ -24,10 +24,7 @@ export default function IndexTitleInput() {
       await CodeService.createEventIndex({
         codeId: code?.id,
         eventId: lastEventId,
-        index: {
-          title: indexTitle,
-          content: '',
-        },
+        index: indexTitle,
       });
       alert('인덱스가 생성되었습니다.');
       setIndexTitle('');

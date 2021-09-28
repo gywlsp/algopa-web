@@ -20,7 +20,6 @@ import {
 import {
   CodeTextChangeEvent,
   CodeTextChangeEventCreateDTO,
-  CodeTextChangeEventIndex,
 } from 'src/types/code';
 
 const list = async (problemId: number): Promise<ICodeReadDTO[]> =>
@@ -72,7 +71,7 @@ const createEventIndex = async ({
 }: {
   codeId: string;
   eventId: string;
-  index: CodeTextChangeEventIndex;
+  index: string;
 }): Promise<void> =>
   axios(createEventIndexConfig(eventId, index)).then((res) => {
     mutate(JSON.stringify(eventListConfig(codeId)));
