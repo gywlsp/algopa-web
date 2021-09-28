@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { OnChange } from '@monaco-editor/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isEqual, debounce } from 'lodash';
@@ -18,7 +18,10 @@ import {
   selectedProblemCodeId,
   selectedProblemCodeText,
 } from 'src/modules/atoms/code';
-import { selectedProblemCode } from 'src/modules/selectors/code';
+import {
+  selectedCodeEvent,
+  selectedProblemCode,
+} from 'src/modules/selectors/code';
 import useRequest from '.';
 
 export const useProblemCodes = (problemId?: number) => {
@@ -154,4 +157,61 @@ export const useCodeEvents = () => {
   }, [data]);
 
   return { data: events };
+};
+
+export const useCodeEventHighlight = () => {
+  const editorRef = useRef(null);
+  const codeEvent = useRecoilValue(selectedCodeEvent);
+
+  useEffect(() => {
+    highlight(editorRef?.current);
+  }, [editorRef.current, codeEvent]);
+
+  const getHighlightRange = () => {
+    if (!codeEvent) {
+      return undefined;
+    }
+
+    const { text, range } = codeEvent?.changes[0];
+    if (!text) {
+      return {
+        startLineNumber: range.startLineNumber,
+        startColumn: range.startColumn,
+        endLineNumber: range.startLineNumber,
+        endColumn: range.startColumn,
+      };
+    }
+    if (text.includes('\n')) {
+      const eolCnt = text.match(/\n/g).length;
+      return {
+        startLineNumber: range.startLineNumber + 1,
+        startColumn: 1,
+        endLineNumber: range.endLineNumber + eolCnt,
+        endColumn: 1 + text.length,
+      };
+    }
+    return { ...range, endColumn: range.endColumn + text.length };
+  };
+
+  const highlight = (editor = editorRef?.current) => {
+    const highlightRange = getHighlightRange();
+    editor?.deltaDecorations(
+      [],
+      [
+        {
+          range: highlightRange,
+          options: { inlineClassName: 'event-text-highlight' },
+        },
+        {
+          range: highlightRange,
+          options: {
+            isWholeLine: true,
+            className: 'event-text-line-highlight',
+          },
+        },
+      ]
+    );
+  };
+
+  return { editorRef, text: codeEvent?.modifiedText, highlight };
 };
