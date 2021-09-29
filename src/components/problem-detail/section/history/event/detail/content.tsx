@@ -15,7 +15,7 @@ export default function EventDetailSectionContent() {
   const dateString =
     moment(date).format('YY/MM/DD') +
     `(${DAY_KOR[date.day()]}) ` +
-    moment(date).format('hh:mm:ssA');
+    moment(date).format('HH:mm:ss');
 
   return (
     <Wrapper>
