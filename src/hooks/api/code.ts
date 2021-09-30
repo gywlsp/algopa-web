@@ -24,13 +24,14 @@ import {
 } from 'src/modules/selectors/code';
 import useRequest from '.';
 
-export const useProblemCodes = (problemId?: number) => {
+export const useProblemCodes = () => {
+  const router = useRouter();
   const [codes, setCodes] = useRecoilState(problemCodes);
   const [selectedCodeId, setSelectedCodeId] = useRecoilState(
     selectedProblemCodeId
   );
   const { data } = useRequest<ICodeReadDTO[]>(
-    listConfig(problemId),
+    listConfig(+router?.query?.id),
     VALIDATE_DISABLE_OPTIONS
   );
 

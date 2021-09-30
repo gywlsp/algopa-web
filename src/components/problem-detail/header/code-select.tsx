@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRouter } from 'next/dist/client/router';
 
 import P from 'src/components/common/p';
 import Select from 'src/components/common/select';
@@ -9,8 +8,7 @@ import { BLUE_GREEN } from 'src/constants/colors';
 import { useProblemCodes, useSelectedCode } from 'src/hooks/api/code';
 
 export default function CodeSelect() {
-  const router = useRouter();
-  const { data: codes } = useProblemCodes(+router.query.id);
+  const { data: codes } = useProblemCodes();
   const { id: selectedCodeId, select } = useSelectedCode();
   const selectOptions = codes?.map(({ id, tryCount }) => ({
     key: id,
