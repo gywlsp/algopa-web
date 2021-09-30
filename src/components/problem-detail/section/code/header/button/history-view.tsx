@@ -1,15 +1,21 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { BLUE_GREEN, WHITE } from 'src/constants/colors';
 
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { codeEvents } from 'src/modules/atoms/code';
 
 export default function CodeHistoryViewButton() {
+  const events = useRecoilValue(codeEvents);
   const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
 
   const handleButtonClick = async () => {
+    if (!events || !events.length) {
+      alert('풀이 내역이 없습니다.');
+      return;
+    }
     setRightSectionType('history');
   };
 
