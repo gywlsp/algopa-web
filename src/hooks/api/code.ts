@@ -178,7 +178,12 @@ export const useCodeEventHighlight = () => {
 
   const getHighlightRange = () => {
     if (!codeEvent) {
-      return undefined;
+      return {
+        startLineNumber: 0,
+        startColumn: 0,
+        endLineNumber: 0,
+        endColumn: 0,
+      };
     }
 
     const { text, range } = codeEvent?.changes[0];
