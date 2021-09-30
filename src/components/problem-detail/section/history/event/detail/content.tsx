@@ -11,7 +11,7 @@ import { selectedCodeEvent } from 'src/modules/selectors/code';
 
 export default function EventDetailSectionContent() {
   const codeEvent = useRecoilValue(selectedCodeEvent);
-  const date = moment(codeEvent.timestamp);
+  const date = moment(codeEvent?.timestamp);
   const dateString =
     moment(date).format('YY/MM/DD') +
     `(${DAY_KOR[date.day()]}) ` +

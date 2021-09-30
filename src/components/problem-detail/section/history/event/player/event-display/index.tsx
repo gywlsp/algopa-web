@@ -15,7 +15,7 @@ export default function CodeHistoryPlayerEventDisplay() {
   return (
     <Wrapper>
       <StyledP>
-        <Strong>{selectedEvent.order}</Strong> / {events.length}
+        <Strong>{selectedEvent?.order}</Strong> / {events?.length}
       </StyledP>
     </Wrapper>
   );
