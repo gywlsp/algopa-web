@@ -6,9 +6,15 @@ import IndexListSection from './index-list';
 import EventSection from './event';
 import { GREY } from 'src/constants/colors';
 
-export default function CodeHistorySection() {
+export type CodeHistorySectionProps = {
+  isShown: boolean;
+};
+
+export default function CodeHistorySection({
+  isShown,
+}: CodeHistorySectionProps) {
   return (
-    <Wrapper>
+    <Wrapper isShown={isShown}>
       <Header />
       <Row>
         <EventSection />
@@ -18,7 +24,8 @@ export default function CodeHistorySection() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<CodeHistorySectionProps>`
+  display: ${({ isShown }) => (isShown ? 'block' : 'none')};
   position: relative;
   width: 66%;
   height: 100%;

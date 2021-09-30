@@ -27,8 +27,8 @@ export default function ProblemDetailPage() {
       <ContentWrapper>
         {data && <ProblemContentSection />}
         {!data && <ProblemContentSkeleton />}
-        {rightSectionType === 'code' && <ProblemCodeSection />}
-        {rightSectionType === 'history' && <CodeHistorySection />}
+        <ProblemCodeSection isShown={rightSectionType === 'code'} />
+        <CodeHistorySection isShown={rightSectionType === 'history'} />
       </ContentWrapper>
     </Wrapper>
   );

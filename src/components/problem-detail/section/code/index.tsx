@@ -7,9 +7,15 @@ import OutputSection from './output';
 import InputModal from './input-modal';
 import { GREY } from 'src/constants/colors';
 
-export default function ProblemCodeSection() {
+export type ProblemCodeSectionProps = {
+  isShown: boolean;
+};
+
+export default function ProblemCodeSection({
+  isShown,
+}: ProblemCodeSectionProps) {
   return (
-    <Wrapper>
+    <Wrapper isShown={isShown}>
       <Header />
       <EditSection />
       <InputModal />
@@ -18,7 +24,8 @@ export default function ProblemCodeSection() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<ProblemCodeSectionProps>`
+  display: ${({ isShown }) => (isShown ? 'block' : 'none')};
   position: relative;
   width: 66%;
   height: 100%;
