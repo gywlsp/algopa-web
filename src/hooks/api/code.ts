@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { OnChange } from '@monaco-editor/react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { isEqual, debounce } from 'lodash';
+import { useRouter } from 'next/router';
 
 import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import { eventListConfig, listConfig } from 'src/services/api/code/config';
 import CodeService from 'src/services/api/code';
 import { CodeTextChangeEvent } from 'src/types/code';
+import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import {
   codeEvents,
   codeRunOutput,
@@ -27,6 +29,7 @@ import useRequest from '.';
 export const useProblemCodes = () => {
   const router = useRouter();
   const [codes, setCodes] = useRecoilState(problemCodes);
+  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
   const [selectedCodeId, setSelectedCodeId] = useRecoilState(
     selectedProblemCodeId
   );
@@ -34,6 +37,10 @@ export const useProblemCodes = () => {
     listConfig(+router?.query?.id),
     VALIDATE_DISABLE_OPTIONS
   );
+
+  useEffect(() => {
+    setRightSectionType('code');
+  }, [router?.query?.id]);
 
   useEffect(() => {
     if (!isEqual(data, codes)) {
