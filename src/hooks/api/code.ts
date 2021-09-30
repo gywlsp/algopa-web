@@ -89,6 +89,7 @@ export const useSelectedCodeEdit = () => {
       modifiedText: v,
       timestamp: new Date(),
     });
+    setText(v);
     sendEvents(code?.id, events);
   };
 
