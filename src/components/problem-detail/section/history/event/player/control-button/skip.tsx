@@ -40,7 +40,7 @@ const Button = styled.button`
     background-color: ${GREY[700]};
     transition: all 0.2s;
   }
-  border: 0.1rem solid ${GREY[500]};
+  border: 0.1rem solid ${GREY[600]};
   border-radius: 999px;
   cursor: pointer;
 `;

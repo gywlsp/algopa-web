@@ -56,8 +56,13 @@ const Wrapper = styled.button`
   width: 100%;
   padding: 0.8rem;
   margin-bottom: 1.2rem;
-  border: 1px solid ${GREY[700]};
-  background: none;
+  border: 1px solid ${GREY[750]};
+  border-radius: 0.2rem;
+  background-color: ${GREY[800]};
+  &:hover {
+    background-color: ${GREY[750]};
+    transition: all 0.2s;
+  }
   cursor: pointer;
 `;
 
