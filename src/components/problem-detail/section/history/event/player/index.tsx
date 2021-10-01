@@ -1,15 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import EventDisplay from './event-display';
 import Timeline from './timeline';
 import ControlButtonList from './control-button/list';
-import { GREY } from 'src/constants/colors';
+
+import { codeEvents } from 'src/modules/atoms/code';
+import { selectedCodeEventOrder } from 'src/modules/selectors/code';
 
 export default function CodeHistoryPlayer() {
+  const codeEventOrder = useRecoilValue(selectedCodeEventOrder);
+  const events = useRecoilValue(codeEvents);
   const scrubberRef = useRef(null);
   const [isPlaying, setPlaying] = useState(false);
   const [playRate, setPlayRate] = useState('0%');
+
+  const unitPercent = events?.length && 100 / events.length;
+
+  useEffect(() => {
+    setPlayRate((codeEventOrder - 1) * unitPercent + '%');
+  }, [codeEventOrder]);
 
   return (
     <>
