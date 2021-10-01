@@ -1,21 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
-import { codeEvents } from 'src/modules/atoms/code';
-import { selectedCodeEvent } from 'src/modules/selectors/code';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
 export default function CodeHistoryPlayerEventDisplay() {
-  const events = useRecoilValue(codeEvents);
-  const selectedEvent = useRecoilValue(selectedCodeEvent);
+  const {
+    state: { events, selectedEventOrder },
+  } = useCodeHistoryPlayerContext();
 
   return (
     <Wrapper>
       <StyledP>
-        <Strong>{selectedEvent?.order}</Strong> / {events?.length}
+        <Strong>{selectedEventOrder}</Strong> / {events?.length}
       </StyledP>
     </Wrapper>
   );

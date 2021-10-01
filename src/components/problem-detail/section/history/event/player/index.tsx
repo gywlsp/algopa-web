@@ -1,57 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import EventDisplay from './event-display';
 import Timeline from './timeline';
 import ControlButtonList from './control-button/list';
+import SpeedSelect from './speed-select';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { codeEvents } from 'src/modules/atoms/code';
-import { selectedCodeEventOrder } from 'src/modules/selectors/code';
+import { withCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
-export default function CodeHistoryPlayer() {
-  const codeEventOrder = useRecoilValue(selectedCodeEventOrder);
-  const events = useRecoilValue(codeEvents);
-  const scrubberRef = useRef(null);
-  const [isPlaying, setPlaying] = useState(false);
-  const [playRate, setPlayRate] = useState('0%');
-  const [playSpeed, setPlaySpeed] = useState(1);
-
-  const unitPercent = events?.length && 100 / events.length;
-
-  useEffect(() => {
-    setPlayRate((codeEventOrder - 1) * unitPercent + '%');
-  }, [codeEventOrder]);
-
-  const updatePlayRate = () => {
-    setPlayRate(
-      window
-        ?.getComputedStyle(scrubberRef.current)
-        ?.getPropertyValue('margin-left')
-    );
-  };
-
+function CodeHistoryPlayer() {
   return (
     <>
-      <Timeline
-        isPlaying={isPlaying}
-        setPlaying={setPlaying}
-        playRate={playRate}
-        playSpeed={playSpeed}
-        ref={scrubberRef}
-      />
+      <Timeline />
       <Wrapper>
         <EventDisplay />
-        <ControlButtonList
-          isPlaying={isPlaying}
-          setPlaying={setPlaying}
-          updatePlayRate={updatePlayRate}
-        />
+        <ControlButtonList />
+        <SpeedSelect />
       </Wrapper>
     </>
   );
 }
+
+export default withCodeHistoryPlayerContext(CodeHistoryPlayer);
 
 const Wrapper = styled.div`
   display: flex;
@@ -59,6 +30,6 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 4.4rem;
-  padding: 1rem 10rem 1rem 1.2rem;
+  padding: 1rem 1.2rem;
   background-color: ${BLUE_GREEN[900]};
 `;

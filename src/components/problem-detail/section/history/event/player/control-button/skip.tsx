@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { GREY } from 'src/constants/colors';
 
-import { useCodeEvents } from 'src/hooks/api/code';
-import { selectedCodeEvent } from 'src/modules/selectors/code';
-import { selectedCodeEventId } from 'src/modules/atoms/code';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
 export type CodeHistoryPlayerSkipButtonProps = {
   value: number;
@@ -15,20 +12,14 @@ export type CodeHistoryPlayerSkipButtonProps = {
 export default function CodeHistoryPlayerSkipButton({
   value,
 }: CodeHistoryPlayerSkipButtonProps) {
-  const { data: events } = useCodeEvents();
-  const selectedEvent = useRecoilValue(selectedCodeEvent);
-  const setSelectedEventId = useSetRecoilState(selectedCodeEventId);
+  const {
+    action: { skipEvent },
+  } = useCodeHistoryPlayerContext();
 
   const buttonText = (value >= 0 ? '+' : '') + value;
 
   const handleButtonClick = () => {
-    const prevOrder = selectedEvent?.order;
-    const nextOrder =
-      value >= 0
-        ? Math.min(events.length, prevOrder + value)
-        : Math.max(1, prevOrder + value);
-    const nextId = events[nextOrder - 1]?.id;
-    setSelectedEventId(nextId);
+    skipEvent(value);
   };
 
   return <Button onClick={handleButtonClick}>{buttonText}</Button>;

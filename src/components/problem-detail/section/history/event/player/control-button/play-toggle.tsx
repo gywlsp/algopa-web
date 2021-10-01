@@ -1,39 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { BLUE_GREEN } from 'src/constants/colors';
 import PlayIcon from 'src/assets/icons/play';
 import PauseIcon from 'src/assets/icons/pause';
 
-import { codeEvents } from 'src/modules/atoms/code';
-import { selectedCodeEventOrder } from 'src/modules/selectors/code';
-import { CodeHistoryPlayerControlButtonProps } from './list';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
-export type CodeHistoryPlayerPlayToggleButtonProps =
-  CodeHistoryPlayerControlButtonProps;
+export default function CodeHistoryPlayerPlayToggleButton() {
+  const {
+    state: { isPlaying },
+    action: { togglePlaying },
+  } = useCodeHistoryPlayerContext();
 
-export default function CodeHistoryPlayerPlayToggleButton({
-  updatePlayRate,
-  isPlaying,
-  setPlaying,
-}: CodeHistoryPlayerPlayToggleButtonProps) {
-  const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
-  const events = useRecoilValue(codeEvents);
   const Icon = isPlaying ? PauseIcon : PlayIcon;
 
-  const handleClick = () => {
-    if (isPlaying) {
-      updatePlayRate();
-    }
-    if (!isPlaying && selectedEventOrder === events.length) {
-      return;
-    }
-    setPlaying(!isPlaying);
-  };
-
   return (
-    <Button onClick={handleClick}>
+    <Button onClick={togglePlaying}>
       <Icon style={{ width: '2rem', height: '2rem' }} fill={BLUE_GREEN[400]} />
     </Button>
   );

@@ -1,30 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { codeEvents, selectedCodeEventId } from 'src/modules/atoms/code';
-import { CodeHistoryPlayerControlButtonProps } from './list';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
-export type CodeHistoryPlayerPlayInitButtonProps = Pick<
-  CodeHistoryPlayerControlButtonProps,
-  'setPlaying'
->;
-
-export default function CodeHistoryPlayerPlayInitButton({
-  setPlaying,
-}: CodeHistoryPlayerPlayInitButtonProps) {
-  const events = useRecoilValue(codeEvents);
-  const setEventId = useSetRecoilState(selectedCodeEventId);
-
-  const handleClick = () => {
-    setPlaying(false);
-    setEventId(events[0].id);
-  };
+export default function CodeHistoryPlayerPlayInitButton() {
+  const {
+    action: { initPlaying },
+  } = useCodeHistoryPlayerContext();
 
   return (
-    <Button onClick={handleClick}>
+    <Button onClick={initPlaying}>
       <InitIcon />
     </Button>
   );

@@ -1,54 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { BLUE_GREEN, GREY } from 'src/constants/colors';
 
-import { codeEvents, selectedCodeEventId } from 'src/modules/atoms/code';
-import { selectedCodeEventOrder } from 'src/modules/selectors/code';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
-export type CodeHistoryPlayerTimelineProps = {
-  isPlaying: boolean;
-  setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  playRate: string;
-  playSpeed: number;
-};
-
-
-function CodeHistoryPlayerTimeline(
-  {
-    isPlaying,
-    setPlaying,
-    playRate,
-    playSpeed,
-  }: CodeHistoryPlayerTimelineProps,
-  scrubberRef
-) {
-  const timelineRef = useRef(null);
-  const [timer, setTimer] = useState<NodeJS.Timeout>();
-  const selectedEventId = useSetRecoilState(selectedCodeEventId);
-  const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
-  const events = useRecoilValue(codeEvents);
-  const unitSec = 0.15 / playSpeed;
-  const playSec = unitSec * (events?.length - selectedEventOrder + 1);
-
-  useEffect(() => {
-    if (isPlaying) {
-      let curr = selectedEventOrder;
-      const _timer = setInterval(() => {
-        if (curr < events.length) {
-          selectedEventId(events[curr++]?.id);
-        }
-        if (curr === events.length) {
-          clearInterval(timer);
-          setPlaying(false);
-        }
-      }, unitSec * 1000);
-      setTimer(_timer);
-    } else {
-      clearInterval(timer);
-    }
-  }, [isPlaying]);
+export default function CodeHistoryPlayerTimeline() {
+  const {
+    state: { timelineRef, scrubberRef, playSec, isPlaying, playRate },
+  } = useCodeHistoryPlayerContext();
 
   return (
     <Wrapper ref={timelineRef}>
@@ -67,7 +27,6 @@ function CodeHistoryPlayerTimeline(
   );
 }
 
-export default React.forwardRef(CodeHistoryPlayerTimeline);
 const Wrapper = styled.div`
   position: relative;
   display: flex;
