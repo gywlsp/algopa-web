@@ -38,6 +38,7 @@ export default function CodeHistoryPlayer() {
         isPlaying={isPlaying}
         setPlaying={setPlaying}
         playRate={playRate}
+        playSpeed={playSpeed}
         ref={scrubberRef}
       />
       <Wrapper>

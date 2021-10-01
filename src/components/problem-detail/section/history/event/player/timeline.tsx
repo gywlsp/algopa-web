@@ -11,10 +11,17 @@ export type CodeHistoryPlayerTimelineProps = {
   isPlaying: boolean;
   setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   playRate: string;
+  playSpeed: number;
 };
 
+
 function CodeHistoryPlayerTimeline(
-  { isPlaying, setPlaying, playRate }: CodeHistoryPlayerTimelineProps,
+  {
+    isPlaying,
+    setPlaying,
+    playRate,
+    playSpeed,
+  }: CodeHistoryPlayerTimelineProps,
   scrubberRef
 ) {
   const timelineRef = useRef(null);
@@ -22,7 +29,7 @@ function CodeHistoryPlayerTimeline(
   const selectedEventId = useSetRecoilState(selectedCodeEventId);
   const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
   const events = useRecoilValue(codeEvents);
-  const unitSec = 0.2;
+  const unitSec = 0.15 / playSpeed;
   const playSec = unitSec * (events?.length - selectedEventOrder + 1);
 
   useEffect(() => {
