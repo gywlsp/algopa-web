@@ -29,5 +29,6 @@ const Button = styled.button`
 const InitIcon = styled.div`
   width: 2rem;
   height: 2rem;
+  margin-bottom: 0.2rem;
   background-color: ${BLUE_GREEN[400]};
 `;
