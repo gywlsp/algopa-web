@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import EventDisplay from './event-display';
+import Timeline from './timeline';
 import ControlButtonList from './control-button/list';
 import { GREY } from 'src/constants/colors';
 
 export default function CodeHistoryPlayer() {
+  const scrubberRef = useRef(null);
+  const [isPlaying, setPlaying] = useState(false);
+  const [playRate, setPlayRate] = useState('0%');
+
   return (
+    <>
+      <Timeline
+        isPlaying={isPlaying}
+        setPlaying={setPlaying}
+        playRate={playRate}
+        ref={scrubberRef}
+      />
     <Wrapper>
       <EventDisplay />
       <ControlButtonList />
     </Wrapper>
+    </>
   );
 }
 
