@@ -229,3 +229,54 @@ export const useCodeEventHighlight = () => {
 
   return { editorRef, text: codeEvent?.modifiedText, highlight };
 };
+
+export const useEventIndexEdit = () => {
+  const codeId = useRecoilValue(selectedProblemCodeId);
+  const selectedEvent = useRecoilValue(selectedCodeEvent);
+  const [index, setIndex] = useState('');
+  const hasIndex = selectedEvent?.index !== undefined;
+  const [isEditing, setEditing] = useState(false);
+
+  useEffect(() => {
+    if (isEditing) {
+      setEditing(false);
+    }
+    setIndex(selectedEvent?.index || '');
+  }, [selectedEvent]);
+
+  const handleEditStart = () => {
+    setEditing(true);
+  };
+
+  const handleEditCancel = () => {
+    setIndex(selectedEvent?.index || '');
+    setEditing(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIndex(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await CodeService.createEventIndex({
+        codeId,
+        eventId: selectedEvent?.id,
+        index,
+      });
+      alert(hasIndex ? '인덱스가 수정되었습니다.' : '인덱스가 생성되었습니다.');
+      handleEditCancel();
+    } catch (err) {
+      alert('인덱스 생성에 실패하였습니다.');
+    }
+  };
+
+  return {
+    index,
+    isEditing,
+    onStart: handleEditStart,
+    onCancel: handleEditCancel,
+    onSubmit: handleSubmit,
+    onChange: handleChange,
+  };
+};
