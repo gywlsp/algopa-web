@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import EventDisplay from './event-display';
 import Timeline from './timeline';
 import ControlButtonList from './control-button/list';
+import { BLUE_GREEN } from 'src/constants/colors';
 
 import { codeEvents } from 'src/modules/atoms/code';
 import { selectedCodeEventOrder } from 'src/modules/selectors/code';
@@ -22,6 +23,14 @@ export default function CodeHistoryPlayer() {
     setPlayRate((codeEventOrder - 1) * unitPercent + '%');
   }, [codeEventOrder]);
 
+  const updatePlayRate = () => {
+    setPlayRate(
+      window
+        ?.getComputedStyle(scrubberRef.current)
+        ?.getPropertyValue('margin-left')
+    );
+  };
+
   return (
     <>
       <Timeline
@@ -30,10 +39,14 @@ export default function CodeHistoryPlayer() {
         playRate={playRate}
         ref={scrubberRef}
       />
-    <Wrapper>
-      <EventDisplay />
-      <ControlButtonList />
-    </Wrapper>
+      <Wrapper>
+        <EventDisplay />
+        <ControlButtonList
+          isPlaying={isPlaying}
+          setPlaying={setPlaying}
+          updatePlayRate={updatePlayRate}
+        />
+      </Wrapper>
     </>
   );
 }
@@ -45,6 +58,5 @@ const Wrapper = styled.div`
   width: 100%;
   height: 4.4rem;
   padding: 1rem 10rem 1rem 1.2rem;
-  border-top: 0.1rem solid ${GREY[900]};
-  background-color: #333;
+  background-color: ${BLUE_GREEN[900]};
 `;
