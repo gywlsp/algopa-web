@@ -5,11 +5,21 @@ import Header from './header';
 import Content from './content';
 import { GREY } from 'src/constants/colors';
 
+import { useEventIndexEdit } from 'src/hooks/api/code';
+
 export default function EventDetailSection() {
+  const { index, isEditing, onStart, onCancel, onSubmit, onChange } =
+    useEventIndexEdit();
+
   return (
     <Wrapper>
-      <Header />
-      <Content />
+      <Header
+        isEditing={isEditing}
+        onStart={onStart}
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+      />
+      <Content index={index} onIndexChange={onChange} isEditing={isEditing} />
     </Wrapper>
   );
 }

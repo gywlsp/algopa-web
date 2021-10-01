@@ -3,13 +3,24 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import moment from 'moment';
 
+import IndexEditInput from './index-input';
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
 import { DAY_KOR } from 'src/data/date';
 import { selectedCodeEvent } from 'src/modules/selectors/code';
 
-export default function EventDetailSectionContent() {
+export type EventDetailSectionContentProps = {
+  isEditing: boolean;
+  index: string;
+  onIndexChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function EventDetailSectionContent({
+  isEditing,
+  index,
+  onIndexChange,
+}: EventDetailSectionContentProps) {
   const codeEvent = useRecoilValue(selectedCodeEvent);
   const date = moment(codeEvent?.timestamp);
   const dateString =
@@ -20,17 +31,10 @@ export default function EventDetailSectionContent() {
   return (
     <Wrapper>
       <Label>시간</Label>
-      <StyledP>
-        {dateString || '여기는 타임스탬프 공간 여기는 타임스탬프 공간'}
-      </StyledP>
-      {codeEvent?.index !== undefined && (
-        <>
-          <Label>인덱스</Label>
-          <StyledP>
-            {codeEvent.index || '여기는 인덱스 공간 여기는 인덱스 공간'}
-          </StyledP>
-        </>
-      )}
+      <StyledP>{dateString}</StyledP>
+      <Label>인덱스</Label>
+      {!isEditing && codeEvent?.index && <StyledP>{codeEvent.index}</StyledP>}
+      {isEditing && <IndexEditInput value={index} onChange={onIndexChange} />}
     </Wrapper>
   );
 }
