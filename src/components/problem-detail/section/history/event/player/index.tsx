@@ -16,6 +16,7 @@ export default function CodeHistoryPlayer() {
   const scrubberRef = useRef(null);
   const [isPlaying, setPlaying] = useState(false);
   const [playRate, setPlayRate] = useState('0%');
+  const [playSpeed, setPlaySpeed] = useState(1);
 
   const unitPercent = events?.length && 100 / events.length;
 
