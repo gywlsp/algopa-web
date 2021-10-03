@@ -15,8 +15,12 @@ export default function CodeHistoryPlayerPlayToggleButton() {
 
   const Icon = isPlaying ? PauseIcon : PlayIcon;
 
+  const handleClick = () => {
+    togglePlaying();
+  };
+
   return (
-    <Button onClick={togglePlaying}>
+    <Button onClick={handleClick}>
       <Icon style={{ width: '2rem', height: '2rem' }} fill={BLUE_GREEN[400]} />
     </Button>
   );

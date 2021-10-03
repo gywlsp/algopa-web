@@ -73,14 +73,16 @@ export const withCodeHistoryPlayerContext =
       progressBarRef.current.style.width = marginLeft;
     };
 
-    const togglePlaying = () => {
-      if (isPlaying) {
+    const togglePlaying = (
+      actionType: 'start' | 'stop' = isPlaying ? 'stop' : 'start'
+    ) => {
+      if (actionType === 'start' && selectedEventOrder !== events.length) {
+        setPlaying(true);
+      }
+      if (actionType === 'stop') {
         updateScrubberPos();
+        setPlaying(false);
       }
-      if (!isPlaying && selectedEventOrder === events.length) {
-        return;
-      }
-      setPlaying(!isPlaying);
     };
 
     const initPlaying = () => {
@@ -89,7 +91,9 @@ export const withCodeHistoryPlayerContext =
     };
 
     const skipEvent = (value: number) => {
-      togglePlaying();
+      if (isPlaying) {
+        togglePlaying('stop');
+      }
       const prevOrder = selectedEventOrder;
       const nextOrder =
         value >= 0
@@ -101,7 +105,7 @@ export const withCodeHistoryPlayerContext =
 
     const updatePlaySpeed = (speed: number) => {
       if (isPlaying) {
-        togglePlaying();
+        togglePlaying('stop');
       }
       setPlaySpeed(speed);
     };
