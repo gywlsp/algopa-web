@@ -7,8 +7,8 @@ export interface ICodeHistoryPlayerContext {
     selectedEventOrder: number;
     timelineRef: MutableRefObject<any>;
     scrubberRef: MutableRefObject<any>;
+    progressBarRef: MutableRefObject<any>;
     isPlaying: boolean;
-    playRate: string;
     playSpeed: number;
     playSec: number;
   };

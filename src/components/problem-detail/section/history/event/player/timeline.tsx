@@ -7,22 +7,17 @@ import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-pl
 
 export default function CodeHistoryPlayerTimeline() {
   const {
-    state: { timelineRef, scrubberRef, playSec, isPlaying, playRate },
+    state: { timelineRef, scrubberRef, progressBarRef, playSec, isPlaying },
   } = useCodeHistoryPlayerContext();
 
   return (
     <Wrapper ref={timelineRef}>
       <ProgressBar
-        playSec={playSec}
-        isPlaying={isPlaying}
-        style={{ width: playRate }}
-      />
-      <Scrubber
-        ref={scrubberRef}
-        style={{ marginLeft: playRate }}
+        ref={progressBarRef}
         playSec={playSec}
         isPlaying={isPlaying}
       />
+      <Scrubber ref={scrubberRef} playSec={playSec} isPlaying={isPlaying} />
     </Wrapper>
   );
 }
@@ -42,11 +37,13 @@ const ProgressBar = styled.div<{
 }>`
   position: absolute;
   left: 0;
+  width: 0%;
   height: 0.4rem;
   background-color: ${BLUE_GREEN[400]};
   ${({ isPlaying, playSec }) =>
     isPlaying
       ? `
+      transform: scaleX(100%);
       width: 100% !important;
   -webkit-transition: ${playSec}s linear;
   -moz-transition: ${playSec}s linear;
@@ -66,10 +63,12 @@ const Scrubber = styled.button<{
   width: 12px;
   height: 12px;
   padding: 0;
+  margin-left: 0%;
   ${({ isPlaying, playSec }) =>
     isPlaying
       ? `
-      margin-left: 100% !important;
+      transform: translateX(100%);
+      margin-left: calc(100% - 12px) !important;
     -webkit-transition: ${playSec}s linear;
     -moz-transition: ${playSec}s linear;
     -ms-transition: ${playSec}s linear;
@@ -77,7 +76,6 @@ const Scrubber = styled.button<{
     transition: ${playSec}s linear;
   `
       : ``}
-  margin-left: 0px;
   background-color: ${BLUE_GREEN[400]};
   border: none;
   border-radius: 999px;

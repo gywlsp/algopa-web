@@ -19,17 +19,23 @@ export const withCodeHistoryPlayerContext =
 
     const timelineRef = useRef(null);
     const scrubberRef = useRef(null);
-    const [isPlaying, setPlaying] = useState(false);
-    const [playRate, setPlayRate] = useState('0%');
-    const [playSpeed, setPlaySpeed] = useState(1);
-    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+    const progressBarRef = useRef(null);
 
-    const unitPercent = events?.length && 100 / events.length;
+    const [isPlaying, setPlaying] = useState(false);
+    const [playSpeed, setPlaySpeed] = useState(1);
+    const [playSec, setPlaySec] = useState(0);
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
     const unitSec = 0.15 / playSpeed;
-    const playSec = unitSec * (events?.length - selectedEventOrder + 1);
 
     useEffect(() => {
-      setPlayRate((selectedEventOrder - 1) * unitPercent + '%');
+      if ((!playSec && events && selectedEventOrder) || !isPlaying) {
+        setPlaySec(unitSec * (events?.length - selectedEventOrder + 1));
+      }
+    }, [events, selectedEventOrder, isPlaying]);
+
+    useEffect(() => {
+      const percent = 100 * ((selectedEventOrder - 1) / events?.length) + '%';
+      updateScrubberPos(percent);
     }, [selectedEventOrder]);
 
     useEffect(() => {
@@ -46,7 +52,8 @@ export const withCodeHistoryPlayerContext =
           setSelectedEventId(events[_currOrder++]?.id);
         }
         if (_currOrder === events.length) {
-          clearInterval(intervalId);
+          updateScrubberPos();
+          endPlayInterval(intervalId);
           setPlaying(false);
         }
       }, unitSec * 1000);
@@ -57,38 +64,18 @@ export const withCodeHistoryPlayerContext =
       clearInterval(intervalId);
     };
 
-    const skipEvent = (value: number) => {
-      if (isPlaying) {
-        setPlaying(false);
-      }
-      const prevOrder = selectedEventOrder;
-      const nextOrder =
-        value >= 0
-          ? Math.min(events.length, prevOrder + value)
-          : Math.max(1, prevOrder + value);
-      const nextId = events[nextOrder - 1]?.id;
-      setSelectedEventId(nextId);
-    };
-
-    const updateCurrentPlayRate = () => {
-      setPlayRate(
-        window
-          ?.getComputedStyle(scrubberRef.current)
-          ?.getPropertyValue('margin-left')
-      );
-    };
-
-    const updatePlaySpeed = (speed: number) => {
-      if (isPlaying) {
-        updateCurrentPlayRate();
-        setPlaying(false);
-      }
-      setPlaySpeed(speed);
+    const updateScrubberPos = (
+      marginLeft: string | number = window
+        ?.getComputedStyle(scrubberRef.current)
+        ?.getPropertyValue('margin-left')
+    ) => {
+      scrubberRef.current.style.marginLeft = marginLeft;
+      progressBarRef.current.style.width = marginLeft;
     };
 
     const togglePlaying = () => {
       if (isPlaying) {
-        updateCurrentPlayRate();
+        updateScrubberPos();
       }
       if (!isPlaying && selectedEventOrder === events.length) {
         return;
@@ -101,14 +88,32 @@ export const withCodeHistoryPlayerContext =
       setSelectedEventId(events[0].id);
     };
 
+    const skipEvent = (value: number) => {
+      togglePlaying();
+      const prevOrder = selectedEventOrder;
+      const nextOrder =
+        value >= 0
+          ? Math.min(events.length, prevOrder + value)
+          : Math.max(1, prevOrder + value);
+      const nextId = events[nextOrder - 1]?.id;
+      setSelectedEventId(nextId);
+    };
+
+    const updatePlaySpeed = (speed: number) => {
+      if (isPlaying) {
+        togglePlaying();
+      }
+      setPlaySpeed(speed);
+    };
+
     const codeHistoryPlayerStore = {
       state: {
         events,
         selectedEventOrder,
         timelineRef,
         scrubberRef,
+        progressBarRef,
         isPlaying,
-        playRate,
         playSpeed,
         playSec,
       },
