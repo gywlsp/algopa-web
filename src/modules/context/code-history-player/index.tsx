@@ -24,7 +24,6 @@ export const withCodeHistoryPlayerContext =
     const [isPlaying, setPlaying] = useState(false);
     const [playSpeed, setPlaySpeed] = useState(1);
     const [playSec, setPlaySec] = useState(0);
-    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
     const unitSec = 0.15 / playSpeed;
 
     useEffect(() => {
@@ -40,28 +39,21 @@ export const withCodeHistoryPlayerContext =
 
     useEffect(() => {
       if (isPlaying) {
-        setPlayInterval(selectedEventOrder);
-      } else {
-        endPlayInterval(intervalId);
+        return setPlayInterval(selectedEventOrder);
       }
     }, [isPlaying]);
 
     const setPlayInterval = (_currOrder: number) => {
       const _intervalId = setInterval(() => {
-        if (_currOrder < events.length) {
+        if (_currOrder < events?.length) {
           setSelectedEventId(events[_currOrder++]?.id);
         }
-        if (_currOrder === events.length) {
+        if (_currOrder === events?.length) {
           updateScrubberPos();
-          endPlayInterval(intervalId);
           setPlaying(false);
         }
       }, unitSec * 1000);
-      setIntervalId(_intervalId);
-    };
-
-    const endPlayInterval = (intervalId: NodeJS.Timeout) => {
-      clearInterval(intervalId);
+      return () => clearInterval(_intervalId);
     };
 
     const updateScrubberPos = (
