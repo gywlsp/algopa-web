@@ -30,7 +30,7 @@ export const withCodeHistoryPlayerContext =
       if ((!playSec && events && selectedEventOrder) || !isPlaying) {
         setPlaySec(unitSec * (events?.length - selectedEventOrder + 1));
       }
-    }, [events, selectedEventOrder, isPlaying]);
+    }, [events, selectedEventOrder, isPlaying, unitSec]);
 
     useEffect(() => {
       const percent = 100 * ((selectedEventOrder - 1) / events?.length) + '%';
