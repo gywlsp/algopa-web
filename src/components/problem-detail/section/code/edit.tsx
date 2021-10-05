@@ -9,7 +9,7 @@ export default function CodeEditSection() {
   return (
     <Editor
       className="code-editor"
-      options={{ fontSize: '14px' }}
+      options={{ fontSize: '14px', readOnly: false }}
       theme="vs-dark"
       height="calc(100% - 30rem)"
       language={code?.language}

@@ -13,8 +13,12 @@ export type CodeHistorySectionProps = {
 export default function CodeHistorySection({
   isShown,
 }: CodeHistorySectionProps) {
+  if (!isShown) {
+    return <></>;
+  }
+
   return (
-    <Wrapper isShown={isShown}>
+    <Wrapper>
       <Header />
       <Row>
         <EventSection />
@@ -24,8 +28,7 @@ export default function CodeHistorySection({
   );
 }
 
-const Wrapper = styled.div<CodeHistorySectionProps>`
-  display: ${({ isShown }) => (isShown ? 'block' : 'none')};
+const Wrapper = styled.div`
   position: relative;
   width: 66%;
   height: 100%;

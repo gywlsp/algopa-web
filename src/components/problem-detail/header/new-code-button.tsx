@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/common/button';
 
 import CodeService from 'src/services/api/code';
-import { problem } from 'src/modules/atoms/problem';
+import {
+  problem,
+  problemPageRightSectionType,
+} from 'src/modules/atoms/problem';
 
 export default function NewCodeButton() {
+  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
   const problemData = useRecoilValue(problem);
 
   const createNewCode = async () => {
@@ -15,6 +19,7 @@ export default function NewCodeButton() {
       return;
     }
     try {
+      setRightSectionType('code');
       await CodeService.create(problemData?.id);
     } catch (err) {
       alert('코드 생성 실패');
