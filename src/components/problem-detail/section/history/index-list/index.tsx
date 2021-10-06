@@ -1,17 +1,25 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import Header from './header';
-import EventIndexPreviewCard from './card';
+import EventIndexPreviewCard from 'src/components/common/card/index-preview';
 import { GREY } from 'src/constants/colors';
 
-import { selectedProblemCodeId } from 'src/modules/atoms/code';
+import {
+  selectedCodeEventId,
+  selectedProblemCodeId,
+} from 'src/modules/atoms/code';
 import { selectedCodeIndexedEvents } from 'src/modules/selectors/code';
 
 export default function CodeHistoryIndexListSection() {
   const codeId = useRecoilValue(selectedProblemCodeId);
   const indexedEvents = useRecoilValue(selectedCodeIndexedEvents);
+  const setSelectedCodeEventId = useSetRecoilState(selectedCodeEventId);
+
+  const handleCardClick = (eventId: string) => {
+    setSelectedCodeEventId(eventId);
+  };
 
   return (
     <Wrapper>
@@ -24,6 +32,9 @@ export default function CodeHistoryIndexListSection() {
             eventId={id}
             order={order}
             index={index}
+            onClick={() => {
+              handleCardClick(id);
+            }}
           />
         ))}
       </CardsWrapper>

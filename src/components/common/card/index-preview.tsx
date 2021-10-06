@@ -1,17 +1,16 @@
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
 
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
-import { selectedCodeEventId } from 'src/modules/atoms/code';
 
 export type EventIndexPreviewCardProps = {
   order: number;
   codeId: string;
   eventId: string;
   index?: string;
+  onClick: () => void;
 };
 
 export default function EventIndexPreviewCard({
@@ -19,13 +18,8 @@ export default function EventIndexPreviewCard({
   codeId,
   eventId,
   index,
+  onClick,
 }: EventIndexPreviewCardProps) {
-  const setSelectedCodeEventId = useSetRecoilState(selectedCodeEventId);
-
-  const handleCardClick = () => {
-    setSelectedCodeEventId(eventId);
-  };
-
   const handleDeleteButtonClick = async () => {
     if (!confirm('인덱스를 삭제하시겠습니까?')) {
       return;
@@ -38,12 +32,12 @@ export default function EventIndexPreviewCard({
       });
       alert('인덱스가 삭제되었습니다');
     } catch (err) {
-      alert('인덱스 생성에 실패하였습니다.');
+      alert('인덱스 삭제에 실패하였습니다.');
     }
   };
 
   return (
-    <Wrapper onClick={handleCardClick}>
+    <Wrapper onClick={onClick}>
       <DeleteButton onClick={handleDeleteButtonClick}>x</DeleteButton>
       <Order>{order}</Order>
       <Title>{index}</Title>
