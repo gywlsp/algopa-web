@@ -22,7 +22,7 @@ export default function CodeHistoryCodeTextSection() {
         options={{ fontSize: '14px', readOnly: true }}
         theme="vs-dark"
         language={code?.language}
-        value={text}
+        value={text || ''}
         onMount={handleEditorDidMount}
       />
     </Wrapper>
