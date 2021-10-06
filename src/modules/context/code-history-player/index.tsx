@@ -33,7 +33,13 @@ export const withCodeHistoryPlayerContext =
     }, [events, selectedEventOrder, isPlaying, unitSec]);
 
     useEffect(() => {
-      const percent = 100 * ((selectedEventOrder - 1) / events?.length) + '%';
+      if (events?.length === 1) {
+        updateScrubberPos('calc(100% - 12px)');
+        return;
+      }
+      const percent = `calc(${
+        100 * ((selectedEventOrder - 1) / (events?.length - 1))
+      }% - 12px)`;
       updateScrubberPos(percent);
     }, [selectedEventOrder]);
 
