@@ -48,10 +48,13 @@ export const useProblemCodes = () => {
     if (!isEqual(data, codes)) {
       setCodes(data);
     }
-    if (data && data[0]?.id !== selectedCodeId) {
+  }, [data]);
+
+  useEffect(() => {
+    if (data?.length && data[0]?.id !== selectedCodeId) {
       setSelectedCodeId(data[0]?.id);
     }
-  }, [data]);
+  }, [data?.length]);
 
   return { data: codes };
 };
