@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { OnChange } from '@monaco-editor/react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { isEqual, debounce } from 'lodash';
 import { useRouter } from 'next/router';
 
@@ -29,7 +29,9 @@ import useRequest from '.';
 export const useProblemCodes = () => {
   const router = useRouter();
   const [codes, setCodes] = useRecoilState(problemCodes);
-  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+  const resetRightSectionType = useResetRecoilState(
+    problemPageRightSectionType
+  );
   const [selectedCodeId, setSelectedCodeId] = useRecoilState(
     selectedProblemCodeId
   );
@@ -39,7 +41,7 @@ export const useProblemCodes = () => {
   );
 
   useEffect(() => {
-    setRightSectionType('code');
+    resetRightSectionType();
   }, [router?.query?.id]);
 
   useEffect(() => {
