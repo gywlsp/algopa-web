@@ -71,7 +71,7 @@ export const useSelectedCodeEdit = () => {
   const code = useRecoilValue(selectedProblemCode);
   const [text, setText] = useRecoilState(selectedProblemCodeText);
   const [lastEventId, setLastEventId] = useRecoilState(selectedCodeLastEventId);
-  const events = [];
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     if (code) {
@@ -85,7 +85,7 @@ export const useSelectedCodeEdit = () => {
       try {
         const { lastEventId } = await CodeService.createEvent(codeId, events);
         setLastEventId(lastEventId);
-        events.splice(0, events.length);
+        setEvents([]);
       } catch (err) {
         console.log(err);
       }
@@ -94,13 +94,22 @@ export const useSelectedCodeEdit = () => {
   );
 
   const handleTextChange: OnChange = (v, e) => {
-    events.push({
-      ...e,
-      modifiedText: v,
-      timestamp: new Date(),
-    });
     setText(v);
-    sendEvents(code?.id, events);
+    sendEvents(
+      code?.id,
+      events.concat({
+        ...e,
+        modifiedText: v,
+        timestamp: new Date(),
+      })
+    );
+    setEvents(
+      events.concat({
+        ...e,
+        modifiedText: v,
+        timestamp: new Date(),
+      })
+    );
   };
 
   return { code, text, lastEventId, onChange: handleTextChange };
