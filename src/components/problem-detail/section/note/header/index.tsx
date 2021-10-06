@@ -1,0 +1,126 @@
+import React from 'react';
+import styled from 'styled-components';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+
+import P from 'src/components/common/p';
+import ChevronLeftIcon from 'src/assets/icons/chevron/left';
+import { GREY, WHITE } from 'src/constants/colors';
+
+import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { selectedProblemCodeId } from 'src/modules/atoms/code';
+import CodeService from 'src/services/api/code';
+
+export type CodeNoteSectionHeaderProps = {
+  isEditing: boolean;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function CodeNoteSectionHeader({
+  isEditing,
+  setEditing,
+}: CodeNoteSectionHeaderProps) {
+  const selectedCodeId = useRecoilValue(selectedProblemCodeId);
+  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+
+  const hasNote = false;
+
+  const handleBackButtonClick = async () => {
+    try {
+      const events = await CodeService.eventList(selectedCodeId);
+      setRightSectionType(events?.length ? 'history' : 'code');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleStartButtonClick = () => {
+    setEditing(true);
+  };
+
+  const handleCancelButtonClick = () => {
+    setEditing(false);
+  };
+
+  return (
+    <Wrapper>
+      <BackButton onClick={handleBackButtonClick}>
+        <ChevronLeftIcon
+          style={{ width: '1.2rem', height: '1.2rem' }}
+          fill={WHITE}
+        />
+      </BackButton>
+      <Title>풀이 노트</Title>
+      {!isEditing && (
+        <>
+          <Button onClick={handleStartButtonClick}>
+            {hasNote ? '수정' : '추가'}
+          </Button>
+          {hasNote && (
+            <Button
+              onClick={() => {
+                console.log('onDelete');
+              }}
+            >
+              삭제
+            </Button>
+          )}
+        </>
+      )}
+      {isEditing && (
+        <>
+          <Button onClick={handleCancelButtonClick}>취소</Button>
+          <Button
+            onClick={() => {
+              console.log('onTempSubmit');
+            }}
+          >
+            임시저장
+          </Button>
+          <Button
+            onClick={() => {
+              console.log('onSubmit');
+            }}
+          >
+            저장
+          </Button>
+        </>
+      )}
+    </Wrapper>
+  );
+}
+
+const Wrapper = styled.header`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 4.4rem;
+  padding: 1.2rem;
+  border-bottom: 0.1rem solid ${GREY[900]};
+`;
+
+const BackButton = styled.button`
+  height: 1.2rem;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-right: 0.4rem;
+`;
+
+const Title = styled(P).attrs({ level: 2, color: GREY[400], fontWeight: 500 })`
+  margin-right: auto;
+`;
+
+const Button = styled.button`
+  font-size: 1.2rem;
+  color: ${GREY[400]};
+  padding: 0.6rem 0.8rem;
+  margin-left: 0.8rem;
+  border: 1px solid ${GREY[700]};
+  background-color: ${GREY[800]};
+  &:hover {
+    background-color: ${GREY[700]};
+    transition: all 0.2s;
+  }
+  border-radius: 0.2rem;
+  cursor: pointer;
+`;
