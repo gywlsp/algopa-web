@@ -31,8 +31,8 @@ export default function EventDetailSectionHeader({
       )}
       {isEditing && (
         <>
-          <Button onClick={onSubmit}>저장</Button>
           <Button onClick={onCancel}>취소</Button>
+          <Button onClick={onSubmit}>저장</Button>
         </>
       )}
     </Wrapper>
