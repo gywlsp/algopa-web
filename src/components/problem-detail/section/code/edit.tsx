@@ -1,5 +1,5 @@
 import React from 'react';
-import Editor from '@monaco-editor/react';
+import CodeEditor from '@monaco-editor/react';
 
 import { useSelectedCodeEdit } from 'src/hooks/api/code';
 
@@ -7,7 +7,7 @@ export default function CodeEditSection() {
   const { code, text, onChange } = useSelectedCodeEdit();
 
   return (
-    <Editor
+    <CodeEditor
       className="code-editor"
       options={{ fontSize: '14px', readOnly: false }}
       theme="vs-dark"
