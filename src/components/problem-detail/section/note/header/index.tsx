@@ -12,12 +12,18 @@ import CodeService from 'src/services/api/code';
 import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteSectionHeader() {
-  const {
-    state: { note, isEditing },
-    action: { onEditStart, onEditCancel },
-  } = useCodeNoteContext();
   const selectedCodeId = useRecoilValue(selectedProblemCodeId);
   const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+  const {
+    state: { note, isEditing },
+    action: {
+      onEditStart,
+      onEditCancel,
+      onEditSave,
+      onEditSubmit,
+      onNoteDelete,
+    },
+  } = useCodeNoteContext();
 
   const handleBackButtonClick = async () => {
     try {
@@ -40,20 +46,8 @@ export default function CodeNoteSectionHeader() {
       {isEditing && (
         <>
           <Button onClick={onEditCancel}>취소</Button>
-          <Button
-            onClick={() => {
-              console.log('onTempSubmit');
-            }}
-          >
-            임시저장
-          </Button>
-          <Button
-            onClick={() => {
-              console.log('onSubmit');
-            }}
-          >
-            저장
-          </Button>
+          <Button onClick={onEditSave}>임시저장</Button>
+          <Button onClick={onEditSubmit}>저장</Button>
         </>
       )}
       {!isEditing && (
@@ -61,15 +55,7 @@ export default function CodeNoteSectionHeader() {
           <Button onClick={onEditStart}>
             {note?.submitted ? '수정' : '추가'}
           </Button>
-          {note?.submitted && (
-            <Button
-              onClick={() => {
-                console.log('onDelete');
-              }}
-            >
-              삭제
-            </Button>
-          )}
+          {note?.submitted && <Button onClick={onNoteDelete}>삭제</Button>}
         </>
       )}
     </Wrapper>
