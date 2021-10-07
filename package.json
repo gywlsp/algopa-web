@@ -32,6 +32,7 @@
     "vis-network": "^9.0.5"
   },
   "devDependencies": {
+    "@types/draft-js": "^0.11.5",
     "@types/lodash": "^4.14.175",
     "@types/node": "^15.12.5",
     "@types/react": "^17.0.11",

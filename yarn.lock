@@ -266,6 +266,14 @@
   resolved "https://registry.yarnpkg.com/@types/component-emitter/-/component-emitter-1.2.10.tgz#ef5b1589b9f16544642e473db5ea5639107ef3ea"
   integrity sha512-bsjleuRKWmGqajMerkzox19aGbscQX5rmmvvXl3wlIp5gMG1HgkiwPxsN5p070fBDKTNSPgojVbuY1+HWMbFhg==
 
+"@types/draft-js@^0.11.5":
+  version "0.11.5"
+  resolved "https://registry.yarnpkg.com/@types/draft-js/-/draft-js-0.11.5.tgz#53e0c91b8c297b6ba88e6b1440a56efc81b6d70b"
+  integrity sha512-rf33PMmHMOcTR4HyUcdheTB+1Wpmj5bMLIEDSHoXMAYnkYPO58TLcUxYdDy5chrGyzwNrsFHxwFX2NvbEOQVWA==
+  dependencies:
+    "@types/react" "*"
+    immutable "~3.7.4"
+
 "@types/hoist-non-react-statics@*":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
