@@ -4,6 +4,7 @@ import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
+import { MouseEventHandler } from 'react';
 
 export type EventIndexPreviewCardProps = {
   order: number;
@@ -20,7 +21,10 @@ export default function EventIndexPreviewCard({
   index,
   onClick,
 }: EventIndexPreviewCardProps) {
-  const handleDeleteButtonClick = async () => {
+  const handleDeleteButtonClick: MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.stopPropagation();
     if (!confirm('인덱스를 삭제하시겠습니까?')) {
       return;
     }
