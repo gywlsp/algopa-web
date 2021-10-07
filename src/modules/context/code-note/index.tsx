@@ -41,7 +41,10 @@ export const withCodeNoteContext =
         setRawContent(rawContent);
         setEditorState(convertToEditorState(rawContent));
       }
-    }, [note, isEditing]);
+
+    useEffect(() => {
+      setEditing(false);
+    }, [selectedCodeId]);
 
     const convertToEditorState = (rawContent: RawDraftContentState) => {
       const content = convertFromRaw(rawContent);
