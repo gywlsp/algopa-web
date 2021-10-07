@@ -7,6 +7,7 @@ import ProblemContentSection from 'src/components/problem-detail/section/problem
 import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
 import ProblemCodeSection from 'src/components/problem-detail/section/code';
 import CodeHistorySection from 'src/components/problem-detail/section/history';
+import CodeNoteSection from 'src/components/problem-detail/section/note';
 import { GREY } from 'src/constants/colors';
 
 import { useRecentAuthTokens } from 'src/hooks/api/auth';
@@ -29,6 +30,7 @@ export default function ProblemDetailPage() {
         {!data && <ProblemContentSkeleton />}
         <ProblemCodeSection isShown={rightSectionType === 'code'} />
         <CodeHistorySection isShown={rightSectionType === 'history'} />
+        <CodeNoteSection isShown={rightSectionType === 'note'} />
       </ContentWrapper>
     </Wrapper>
   );
