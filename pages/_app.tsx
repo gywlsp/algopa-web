@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 
 import GlobalStyle from '../styles/global';
+import 'draft-js/dist/Draft.css';
 import '../styles/problem-content.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
