@@ -89,10 +89,16 @@ const updateNote = async (
   codeId: string,
   params: Partial<CodeNote>
 ): Promise<void> =>
-  axios(updateNoteConfig(codeId, params)).then((res) => res.data);
+  axios(updateNoteConfig(codeId, params)).then((res) => {
+    mutate(JSON.stringify(readNoteConfig(codeId)));
+    return res.data;
+  });
 
 const deleteNote = async (codeId: string): Promise<void> =>
-  axios(deleteNoteConfig(codeId)).then((res) => res.data);
+  axios(deleteNoteConfig(codeId)).then((res) => {
+    mutate(JSON.stringify(readNoteConfig(codeId)));
+    return res.data;
+  });
 
 const CodeService = {
   list,
