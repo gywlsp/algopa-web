@@ -26,6 +26,9 @@ const Input = styled.input`
   outline: none;
   color: ${GREY[400]};
   background: none;
+  :focus-within {
+    border-bottom: 1px solid ${GREY[400]};
+  }
   ::placeholder,
   ::-webkit-input-placeholder {
     color: ${GREY[500]};
