@@ -1,11 +1,19 @@
-import { RawDraftContentState } from 'draft-js';
+import {
+  convertFromRaw,
+  convertToRaw,
+  EditorState,
+  RawDraftContentState,
+  RichUtils,
+} from 'draft-js';
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CodeNoteSectionProps } from 'src/components/problem-detail/section/note';
-import { useNote } from 'src/hooks/api/note';
 
-import { selectedProblemCodeId } from 'src/modules/atoms/code';
+import { DRAFT_INLINE_STYLES } from 'src/data/note';
 import { ICodeNoteContext } from './ICodeNoteContext';
+import CodeService from 'src/services/api/code';
+import { selectedProblemCodeId } from 'src/modules/atoms/code';
+import { useNote } from 'src/hooks/api/note';
 
 const CodeNoteContext = createContext<ICodeNoteContext>(undefined);
 
@@ -16,6 +24,9 @@ export const withCodeNoteContext =
   (props: CodeNoteSectionProps) => {
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const { data: note } = useNote(selectedCodeId);
+    const [editorState, setEditorState] = useState(() =>
+      EditorState.createEmpty()
+    );
     const [isEditing, setEditing] = useState(false);
     const [editorNoteContentType, setEditorNoteContentType] = useState<
       'submitted' | 'tempSaved'
@@ -25,11 +36,17 @@ export const withCodeNoteContext =
 
     useEffect(() => {
       if (isEditing && note && note[editorNoteContentType]) {
-        const { title, content } = note[editorNoteContentType];
+        const { title, content: rawContent } = note[editorNoteContentType];
         setTitle(title);
-        setRawContent(content);
+        setRawContent(rawContent);
+        setEditorState(convertToEditorState(rawContent));
       }
     }, [note, isEditing]);
+
+    const convertToEditorState = (rawContent: RawDraftContentState) => {
+      const content = convertFromRaw(rawContent);
+      return EditorState.createWithContent(content);
+    };
 
     const handleEditStart = () => {
       if (note?.tempSaved && confirm('임시저장된 내용을 불러오시겠습니까?')) {
@@ -48,17 +65,83 @@ export const withCodeNoteContext =
       setTitle(e.target.value);
     };
 
-    const updateRawContent = (newRawContent: RawDraftContentState) => {
-      setRawContent(newRawContent);
+    const handleNoteDelete = async () => {
+      if (!confirm('풀이 노트를 삭제하시겠습니까?')) {
+        return;
+      }
+      try {
+        await CodeService.deleteNote(selectedCodeId);
+        alert('풀이 노트가 삭제되었습니다.');
+      } catch (err) {
+        alert('풀이 노트 삭제에 실패하였습니다.');
+      }
+    };
+
+    const handleEditorStateChange = (newEditorState: EditorState) => {
+      setEditorState(newEditorState);
+      setRawContent(convertToRaw(newEditorState.getCurrentContent()));
+    };
+
+    const toggleEditorStyle = (value: string) => {
+      const isInlineStyle = DRAFT_INLINE_STYLES.includes(value);
+      const toggleStyle = isInlineStyle
+        ? RichUtils.toggleInlineStyle
+        : RichUtils.toggleBlockType;
+      setEditorState(toggleStyle(editorState, value));
+    };
+
+    const handleEditSave = async () => {
+      if (!title && !rawContent) {
+        alert('제목이나 내용을 입력해주세요.');
+        return;
+      }
+      try {
+        await CodeService.updateNote(selectedCodeId, {
+          tempSaved: {
+            title,
+            content: rawContent,
+          },
+        });
+        alert('풀이 노트 변경 내역이 임시저장되었습니다.');
+      } catch (err) {
+        alert('풀이 노트 변경 내역 임시저장에 실패하였습니다.');
+      }
+    };
+
+    const handleEditSubmit = async () => {
+      if (!title) {
+        alert('제목을 입력해주세요.');
+        return;
+      }
+      if (!rawContent) {
+        alert('내용을 입력해주세요.');
+        return;
+      }
+      try {
+        await CodeService.updateNote(selectedCodeId, {
+          submitted: {
+            title,
+            content: rawContent,
+          },
+        });
+        alert('풀이 노트 변경 내역이 저장되었습니다.');
+        setEditing(false);
+      } catch (err) {
+        alert('풀이 노트 변경 내역 저장에 실패하였습니다.');
+      }
     };
 
     const codeNoteStore = {
-      state: { isEditing, note, title, rawContent },
+      state: { note, isEditing, editorState, title, rawContent },
       action: {
         onEditStart: handleEditStart,
         onEditCancel: handleEditCancel,
         onTitleChange: handleTitleChange,
-        updateRawContent,
+        onEditorStateChange: handleEditorStateChange,
+        toggleEditorStyle,
+        onEditSave: handleEditSave,
+        onEditSubmit: handleEditSubmit,
+        onNoteDelete: handleNoteDelete,
       },
     };
 
