@@ -35,12 +35,22 @@ export const withCodeNoteContext =
     const [rawContent, setRawContent] = useState<RawDraftContentState>();
 
     useEffect(() => {
-      if (isEditing && note && note[editorNoteContentType]) {
-        const { title, content: rawContent } = note[editorNoteContentType];
-        setTitle(title);
-        setRawContent(rawContent);
-        setEditorState(convertToEditorState(rawContent));
+      if (isEditing) {
+        if (note && note[editorNoteContentType]) {
+          const { title, content: rawContent } = note[editorNoteContentType];
+          setTitle(title);
+          setRawContent(rawContent);
+          setEditorState(convertToEditorState(rawContent));
+        } else {
+          setTitle('');
+          setRawContent(null);
+        }
       }
+    }, [
+      JSON.stringify(note && note[editorNoteContentType]),
+      isEditing,
+      editorNoteContentType,
+    ]);
 
     useEffect(() => {
       setEditing(false);
