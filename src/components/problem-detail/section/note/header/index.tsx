@@ -9,20 +9,15 @@ import { GREY, WHITE } from 'src/constants/colors';
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import CodeService from 'src/services/api/code';
+import { useCodeNoteContext } from 'src/modules/context/code-note';
 
-export type CodeNoteSectionHeaderProps = {
-  isEditing: boolean;
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export default function CodeNoteSectionHeader({
-  isEditing,
-  setEditing,
-}: CodeNoteSectionHeaderProps) {
+export default function CodeNoteSectionHeader() {
+  const {
+    state: { note, isEditing },
+    action: { onEditStart, onEditCancel },
+  } = useCodeNoteContext();
   const selectedCodeId = useRecoilValue(selectedProblemCodeId);
   const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
-
-  const hasNote = false;
 
   const handleBackButtonClick = async () => {
     try {
@@ -31,14 +26,6 @@ export default function CodeNoteSectionHeader({
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleStartButtonClick = () => {
-    setEditing(true);
-  };
-
-  const handleCancelButtonClick = () => {
-    setEditing(false);
   };
 
   return (
@@ -50,25 +37,9 @@ export default function CodeNoteSectionHeader({
         />
       </BackButton>
       <Title>풀이 노트</Title>
-      {!isEditing && (
-        <>
-          <Button onClick={handleStartButtonClick}>
-            {hasNote ? '수정' : '추가'}
-          </Button>
-          {hasNote && (
-            <Button
-              onClick={() => {
-                console.log('onDelete');
-              }}
-            >
-              삭제
-            </Button>
-          )}
-        </>
-      )}
       {isEditing && (
         <>
-          <Button onClick={handleCancelButtonClick}>취소</Button>
+          <Button onClick={onEditCancel}>취소</Button>
           <Button
             onClick={() => {
               console.log('onTempSubmit');
@@ -83,6 +54,22 @@ export default function CodeNoteSectionHeader({
           >
             저장
           </Button>
+        </>
+      )}
+      {!isEditing && (
+        <>
+          <Button onClick={onEditStart}>
+            {note?.submitted ? '수정' : '추가'}
+          </Button>
+          {note?.submitted && (
+            <Button
+              onClick={() => {
+                console.log('onDelete');
+              }}
+            >
+              삭제
+            </Button>
+          )}
         </>
       )}
     </Wrapper>

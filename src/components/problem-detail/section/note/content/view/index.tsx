@@ -4,12 +4,16 @@ import styled from 'styled-components';
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
-export default function CodeNoteContentView() {
-  const hasNote = false;
+import { useCodeNoteContext } from 'src/modules/context/code-note';
+
+export default function CodeNoteView() {
+  const {
+    state: { note },
+  } = useCodeNoteContext();
 
   return (
     <Wrapper>
-      {!hasNote && <GuideText>생성된 풀이노트가 없습니다.</GuideText>}
+      {!note?.submitted && <GuideText>생성된 풀이노트가 없습니다.</GuideText>}
     </Wrapper>
   );
 }
