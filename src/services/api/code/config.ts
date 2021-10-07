@@ -1,5 +1,5 @@
 import { ICodeExecuteDTO, ICodeUpdateDTO } from 'src/interfaces/code/ICode';
-import { CodeTextChangeEventCreateDTO } from 'src/types/code';
+import { CodeNote, CodeTextChangeEventCreateDTO } from 'src/types/code';
 import { baseConfig } from '..';
 
 export const listConfig = (problemId: number) =>
@@ -24,3 +24,12 @@ export const createEventConfig = (
 
 export const createEventIndexConfig = (eventId: string, index: string) =>
   baseConfig(true).patch(`/events/${eventId}`, { index });
+
+export const readNoteConfig = (codeId: string) =>
+  baseConfig(true).get(`/codes/${codeId}/notes`);
+
+export const updateNoteConfig = (codeId: string, params: Partial<CodeNote>) =>
+  baseConfig(true).patch(`/codes/${codeId}/notes`, params);
+
+export const deleteNoteConfig = (codeId: string) =>
+  baseConfig(true).delete(`/codes/${codeId}/notes`);

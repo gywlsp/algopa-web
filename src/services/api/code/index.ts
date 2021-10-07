@@ -6,10 +6,13 @@ import {
   createConfig,
   createEventConfig,
   createEventIndexConfig,
+  deleteNoteConfig,
   eventListConfig,
   executeConfig,
   listConfig,
+  readNoteConfig,
   updateConfig,
+  updateNoteConfig,
 } from './config';
 import {
   ICode,
@@ -18,6 +21,7 @@ import {
   ICodeUpdateDTO,
 } from 'src/interfaces/code/ICode';
 import {
+  CodeNote,
   CodeTextChangeEvent,
   CodeTextChangeEventCreateDTO,
 } from 'src/types/code';
@@ -78,6 +82,18 @@ const createEventIndex = async ({
     return res.data;
   });
 
+const readNote = async (codeId: string): Promise<CodeNote> =>
+  axios(readNoteConfig(codeId)).then((res) => res.data);
+
+const updateNote = async (
+  codeId: string,
+  params: Partial<CodeNote>
+): Promise<void> =>
+  axios(updateNoteConfig(codeId, params)).then((res) => res.data);
+
+const deleteNote = async (codeId: string): Promise<void> =>
+  axios(deleteNoteConfig(codeId)).then((res) => res.data);
+
 const CodeService = {
   list,
   create,
@@ -86,6 +102,9 @@ const CodeService = {
   eventList,
   createEvent,
   createEventIndex,
+  readNote,
+  updateNote,
+  deleteNote,
 };
 
 export default CodeService;
