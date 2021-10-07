@@ -31,3 +31,14 @@ export type CodeTextChangeEvent = {
 };
 
 export type CodeTextChangeEventCreateDTO = Omit<CodeTextChangeEvent, 'id'>;
+
+export type CodeNote = {
+  submitted: {
+    title: string;
+    content: string;
+  };
+  tempSaved: {
+    title: string;
+    content: string;
+  };
+};
