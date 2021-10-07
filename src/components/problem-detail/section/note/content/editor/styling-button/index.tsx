@@ -1,20 +1,31 @@
 import React from 'react';
-import { BLUE_GREEN, GREY } from 'src/constants/colors';
 import styled from 'styled-components';
 
-export type NoteEditorStylingButtonProps = {
+import { BLUE_GREEN, GREY } from 'src/constants/colors';
+
+import { useCodeNoteContext } from 'src/modules/context/code-note';
+
+export type NoteEditorStyleToggleButtonProps = {
   title: string;
-  onClick: () => void;
+  value: string;
 };
 
-export default function NoteEditorStylingButton({
+export default function NoteEditorStyleToggleButton({
   title,
-  onClick,
-}: NoteEditorStylingButtonProps) {
-  return <Wrapper onClick={onClick}>{title}</Wrapper>;
+  value,
+}: NoteEditorStyleToggleButtonProps) {
+  const {
+    action: { toggleEditorStyle },
+  } = useCodeNoteContext();
+
+  const handleClick = () => {
+    toggleEditorStyle(value);
+  };
+
+  return <Button onClick={handleClick}>{title}</Button>;
 }
 
-const Wrapper = styled.button`
+const Button = styled.button`
   flex: 1;
   padding: 1.2rem 2rem;
   height: 4.4rem;
