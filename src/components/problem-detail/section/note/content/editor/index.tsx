@@ -10,16 +10,20 @@ import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteEditor() {
   const {
-    state: { editorState, title },
+    state: { isEditing, editorState, title },
     action: { onTitleChange, onEditorStateChange },
   } = useCodeNoteContext();
 
   return (
     <Wrapper>
-      <StylingButtonList />
-      <ContentWrapper>
+      {isEditing && <StylingButtonList />}
+      <ContentWrapper isEditing={isEditing}>
         <NoteTitleInput value={title} onChange={onTitleChange} />
-        <Textarea editorState={editorState} onChange={onEditorStateChange} />
+        <Textarea
+          isEditing={isEditing}
+          editorState={editorState}
+          onChange={onEditorStateChange}
+        />
       </ContentWrapper>
     </Wrapper>
   );
@@ -30,9 +34,9 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{ isEditing: boolean }>`
   flex: 1;
-  height: calc(100% - 4.4rem);
+  height: ${({ isEditing }) => (isEditing ? 'calc(100% - 4.4rem)' : '100%')};
   padding: 2rem;
   overflow-y: scroll;
   -ms-overflow-style: auto;
