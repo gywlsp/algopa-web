@@ -2,6 +2,7 @@ import {
   convertFromRaw,
   convertToRaw,
   EditorState,
+  Modifier,
   RawDraftContentState,
   RichUtils,
 } from 'draft-js';
@@ -14,6 +15,7 @@ import { ICodeNoteContext } from './ICodeNoteContext';
 import CodeService from 'src/services/api/code';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import { useNote } from 'src/hooks/api/note';
+import { selectedProblemCode } from 'src/modules/selectors/code';
 
 const CodeNoteContext = createContext<ICodeNoteContext>(undefined);
 
@@ -24,6 +26,7 @@ export const withCodeNoteContext =
   (props: CodeNoteSectionProps) => {
     const editorRef = useRef(null);
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
+    const selectedCode = useRecoilValue(selectedProblemCode);
     const { data: note } = useNote(selectedCodeId);
     const [editorState, setEditorState] = useState(() =>
       EditorState.createEmpty()
@@ -146,6 +149,52 @@ export const withCodeNoteContext =
       }
     };
 
+    const focusEditor = () => {
+      editorRef?.current?.focus();
+    };
+
+    const insertEventIndexData = (index: string, modifiedText: string) => {
+      const selectionState = editorState.getSelection();
+      const indexInsertedEditorState = insertText({
+        editorState,
+        text: `${selectedCode?.language === 'python' ? '#' : '//'} ${index}\n`,
+      });
+      const codeTextInsertedEditorState = insertText({
+        editorState: indexInsertedEditorState,
+        text: modifiedText + '\n',
+      });
+      const styledEditorState = RichUtils.toggleBlockType(
+        codeTextInsertedEditorState,
+        'code-block'
+      );
+      const codeTextSelectedEditorState = EditorState.forceSelection(
+        styledEditorState,
+        selectionState
+      );
+      handleEditorStateChange(codeTextSelectedEditorState);
+    };
+
+    const insertText = ({ editorState, text }) => {
+      const contentState = editorState.getCurrentContent();
+      const selectionState = editorState.getSelection();
+
+      const newContentState = Modifier.insertText(
+        contentState,
+        selectionState,
+        text
+      );
+      const newEditorState = EditorState.createWithContent(newContentState);
+      const newSelectionState = selectionState.merge({
+        anchorOffset: text.length,
+        focusOffset: text.length,
+      });
+      const newSelectedEditorState = EditorState.forceSelection(
+        newEditorState,
+        newSelectionState
+      );
+      return newSelectedEditorState;
+    };
+
     const codeNoteStore = {
       state: { note, isEditing, editorRef, editorState, title, rawContent },
       action: {
@@ -157,6 +206,8 @@ export const withCodeNoteContext =
         onEditSave: handleEditSave,
         onEditSubmit: handleEditSubmit,
         onNoteDelete: handleNoteDelete,
+        focusEditor,
+        insertEventIndexData,
       },
     };
 

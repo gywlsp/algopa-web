@@ -20,5 +20,7 @@ export interface ICodeNoteContext {
     onEditSave: () => Promise<void>;
     onEditSubmit: () => Promise<void>;
     onNoteDelete: () => Promise<void>;
+    focusEditor: () => void;
+    insertEventIndexData: (index: string, modifiedText: string) => void;
   };
 }
