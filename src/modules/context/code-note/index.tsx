@@ -37,13 +37,13 @@ export const withCodeNoteContext =
     useEffect(() => {
       if (note && note[noteType]) {
         const { title, content: rawContent } = note[noteType];
-          setTitle(title);
-          setRawContent(rawContent);
-          setEditorState(convertToEditorState(rawContent));
-        } else {
-          setTitle('');
-          setRawContent(null);
-        }
+        setTitle(title);
+        setRawContent(rawContent);
+        setEditorState(convertToEditorState(rawContent));
+      } else {
+        setTitle('');
+        setRawContent(null);
+      }
     }, [JSON.stringify(note && note[noteType])]);
 
     useEffect(() => {
@@ -66,6 +66,7 @@ export const withCodeNoteContext =
 
     const handleEditCancel = () => {
       setEditing(false);
+      setNoteType('submitted');
     };
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
