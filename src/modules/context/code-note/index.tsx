@@ -28,16 +28,15 @@ export const withCodeNoteContext =
       EditorState.createEmpty()
     );
     const [isEditing, setEditing] = useState(false);
-    const [editorNoteContentType, setEditorNoteContentType] = useState<
-      'submitted' | 'tempSaved'
-    >('submitted');
+    const [noteType, setNoteType] = useState<'submitted' | 'tempSaved'>(
+      'submitted'
+    );
     const [title, setTitle] = useState('');
     const [rawContent, setRawContent] = useState<RawDraftContentState>();
 
     useEffect(() => {
-      if (isEditing) {
-        if (note && note[editorNoteContentType]) {
-          const { title, content: rawContent } = note[editorNoteContentType];
+      if (note && note[noteType]) {
+        const { title, content: rawContent } = note[noteType];
           setTitle(title);
           setRawContent(rawContent);
           setEditorState(convertToEditorState(rawContent));
@@ -45,12 +44,7 @@ export const withCodeNoteContext =
           setTitle('');
           setRawContent(null);
         }
-      }
-    }, [
-      JSON.stringify(note && note[editorNoteContentType]),
-      isEditing,
-      editorNoteContentType,
-    ]);
+    }, [JSON.stringify(note && note[noteType])]);
 
     useEffect(() => {
       setEditing(false);
@@ -63,9 +57,9 @@ export const withCodeNoteContext =
 
     const handleEditStart = () => {
       if (note?.tempSaved && confirm('임시저장된 내용을 불러오시겠습니까?')) {
-        setEditorNoteContentType('tempSaved');
+        setNoteType('tempSaved');
       } else if (note?.submitted) {
-        setEditorNoteContentType('submitted');
+        setNoteType('submitted');
       }
       setEditing(true);
     };
