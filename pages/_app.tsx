@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../styles/global';
 import 'draft-js/dist/Draft.css';
 import '../styles/problem-content.css';
+import '../styles/note.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
