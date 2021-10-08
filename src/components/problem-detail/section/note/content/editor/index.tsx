@@ -15,10 +15,16 @@ export default function CodeNoteEditor() {
     action: { onTitleChange, onEditorStateChange },
   } = useCodeNoteContext();
 
+  const handleContentWrapperClick = () => {
+    if (isEditing) {
+      textareaRef?.current?.focus();
+    }
+  };
+
   return (
     <Wrapper>
       {isEditing && <StylingButtonList />}
-      <ContentWrapper isEditing={isEditing}>
+      <ContentWrapper isEditing={isEditing} onClick={handleContentWrapperClick}>
         <NoteTitleInput value={title} onChange={onTitleChange} />
         <Textarea
           ref={textareaRef}
