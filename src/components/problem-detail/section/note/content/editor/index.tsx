@@ -11,12 +11,12 @@ import { useCodeNoteContext } from 'src/modules/context/code-note';
 export default function CodeNoteEditor() {
   const {
     state: { isEditing, editorRef, editorState, title },
-    action: { onTitleChange, onEditorStateChange },
+    action: { onTitleChange, onEditorStateChange, focusEditor },
   } = useCodeNoteContext();
 
   const handleContentWrapperClick = () => {
     if (isEditing) {
-      editorRef?.current?.focus();
+      focusEditor();
     }
   };
 
