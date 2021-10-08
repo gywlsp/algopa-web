@@ -17,19 +17,10 @@ export type CodeNoteEditorTextareaProps = {
   onChange: (newEditorState: EditorState) => void;
 };
 
-const styleMap: DraftStyleMap = {
-  CODE: {
-    backgroundColor: GREY[750],
-    padding: '0.2rem 0.4rem',
-    borderRadius: '0.2rem',
-  },
-};
-
-export default function CodeNoteEditorTextarea({
-  isEditing,
-  editorState,
-  onChange,
-}: CodeNoteEditorTextareaProps) {
+function CodeNoteEditorTextarea(
+  { isEditing, editorState, onChange }: CodeNoteEditorTextareaProps,
+  ref
+) {
   const blockStyleFn = (block: ContentBlock) => {
     const blockClassName = DRAFT_BLOCK_STYLES.reduce(
       (acc, value) => ({ ...acc, [value]: `note-edit` }),
@@ -41,6 +32,7 @@ export default function CodeNoteEditorTextarea({
   return (
     <Wrapper>
       <NoteEditor
+        ref={ref}
         readOnly={!isEditing}
         editorState={editorState}
         onChange={onChange}
@@ -50,6 +42,16 @@ export default function CodeNoteEditorTextarea({
     </Wrapper>
   );
 }
+
+export default React.forwardRef(CodeNoteEditorTextarea);
+
+const styleMap: DraftStyleMap = {
+  CODE: {
+    backgroundColor: GREY[750],
+    padding: '0.2rem 0.4rem',
+    borderRadius: '0.2rem',
+  },
+};
 
 const Wrapper = styled.div`
   flex: 1;

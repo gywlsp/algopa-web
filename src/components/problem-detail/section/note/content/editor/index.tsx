@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import StylingButtonList from './styling-button/list';
@@ -9,6 +9,7 @@ import { GREY } from 'src/constants/colors';
 import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteEditor() {
+  const textareaRef = useRef(null);
   const {
     state: { isEditing, editorState, title },
     action: { onTitleChange, onEditorStateChange },
@@ -20,6 +21,7 @@ export default function CodeNoteEditor() {
       <ContentWrapper isEditing={isEditing}>
         <NoteTitleInput value={title} onChange={onTitleChange} />
         <Textarea
+          ref={textareaRef}
           isEditing={isEditing}
           editorState={editorState}
           onChange={onEditorStateChange}
