@@ -8,25 +8,33 @@ import { GREY } from 'src/constants/colors';
 
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import { selectedCodeIndexedEvents } from 'src/modules/selectors/code';
+import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteIndexListSection() {
   const codeId = useRecoilValue(selectedProblemCodeId);
   const indexedEvents = useRecoilValue(selectedCodeIndexedEvents);
+  const {
+    action: { insertEventIndexData },
+  } = useCodeNoteContext();
+
+  const handleIndexCardClick = (index: string, modifiedText: string) => () => {
+    if (confirm('에디터에 해당 인덱스와 코드를 추가하시겠습니까?')) {
+      insertEventIndexData(index, modifiedText);
+    }
+  };
 
   return (
     <Wrapper>
       <Header />
       <CardsWrapper>
-        {indexedEvents?.map(({ id, order, index }) => (
+        {indexedEvents?.map(({ id, order, index, modifiedText }) => (
           <EventIndexPreviewCard
             key={id}
             codeId={codeId}
             eventId={id}
             order={order}
             index={index}
-            onClick={() => {
-              console.log('에디터에 코드 & 인덱스 추가');
-            }}
+            onClick={handleIndexCardClick(index, modifiedText)}
           />
         ))}
       </CardsWrapper>
