@@ -22,6 +22,7 @@ export const useCodeNoteContext = () => useContext(CodeNoteContext);
 export const withCodeNoteContext =
   (WrappedComponent: React.FunctionComponent<any>) =>
   (props: CodeNoteSectionProps) => {
+    const editorRef = useRef(null);
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const { data: note } = useNote(selectedCodeId);
     const [editorState, setEditorState] = useState(() =>
@@ -140,7 +141,7 @@ export const withCodeNoteContext =
     };
 
     const codeNoteStore = {
-      state: { note, isEditing, editorState, title, rawContent },
+      state: { note, isEditing, editorRef, editorState, title, rawContent },
       action: {
         onEditStart: handleEditStart,
         onEditCancel: handleEditCancel,

@@ -1,10 +1,12 @@
 import { EditorState, RawDraftContentState } from 'draft-js';
+import { MutableRefObject } from 'react';
 import { CodeNote } from 'src/types/code';
 
 export interface ICodeNoteContext {
   state: {
     note: CodeNote;
     isEditing: boolean;
+    editorRef: MutableRefObject<any>;
     editorState: EditorState;
     title: string;
     rawContent: RawDraftContentState;

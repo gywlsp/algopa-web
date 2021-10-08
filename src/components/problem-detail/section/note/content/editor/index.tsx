@@ -9,15 +9,14 @@ import { GREY } from 'src/constants/colors';
 import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteEditor() {
-  const textareaRef = useRef(null);
   const {
-    state: { isEditing, editorState, title },
+    state: { isEditing, editorRef, editorState, title },
     action: { onTitleChange, onEditorStateChange },
   } = useCodeNoteContext();
 
   const handleContentWrapperClick = () => {
     if (isEditing) {
-      textareaRef?.current?.focus();
+      editorRef?.current?.focus();
     }
   };
 
@@ -27,7 +26,7 @@ export default function CodeNoteEditor() {
       <ContentWrapper isEditing={isEditing} onClick={handleContentWrapperClick}>
         <NoteTitleInput value={title} onChange={onTitleChange} />
         <Textarea
-          ref={textareaRef}
+          ref={editorRef}
           isEditing={isEditing}
           editorState={editorState}
           onChange={onEditorStateChange}

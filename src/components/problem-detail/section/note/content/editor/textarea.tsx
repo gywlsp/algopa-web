@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import styled from 'styled-components';
 import {
   ContentBlock,
@@ -19,7 +19,7 @@ export type CodeNoteEditorTextareaProps = {
 
 function CodeNoteEditorTextarea(
   { isEditing, editorState, onChange }: CodeNoteEditorTextareaProps,
-  ref
+  ref: MutableRefObject<any>
 ) {
   const blockStyleFn = (block: ContentBlock) => {
     const blockClassName = DRAFT_BLOCK_STYLES.reduce(
