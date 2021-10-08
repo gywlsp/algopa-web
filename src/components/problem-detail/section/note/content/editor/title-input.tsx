@@ -18,10 +18,15 @@ export default function NoteTitleInput({
     state: { isEditing },
   } = useCodeNoteContext();
 
+  const handleClick: React.MouseEventHandler<HTMLInputElement> = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <Input
       value={value}
       onChange={onChange}
+      onClick={handleClick}
       placeholder="제목"
       readOnly={!isEditing}
     />
