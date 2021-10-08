@@ -51,6 +51,12 @@ export const withCodeNoteContext =
       setEditing(false);
     }, [selectedCodeId]);
 
+    useEffect(() => {
+      if (isEditing) {
+        focusEditor();
+      }
+    }, [isEditing]);
+
     const convertToEditorState = (rawContent: RawDraftContentState) => {
       const content = convertFromRaw(rawContent);
       return EditorState.createWithContent(content);
