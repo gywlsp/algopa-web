@@ -48,17 +48,11 @@ export const withCodeNoteContext =
         setTitle('');
         setRawContent(null);
       }
-    }, [JSON.stringify(note && note[noteType])]);
+    }, [JSON.stringify(note && note[noteType]), isEditing]);
 
     useEffect(() => {
       setEditing(false);
     }, [selectedCodeId]);
-
-    useEffect(() => {
-      if (isEditing) {
-        focusEditor();
-      }
-    }, [isEditing]);
 
     const convertToEditorState = (rawContent: RawDraftContentState) => {
       const content = convertFromRaw(rawContent);
