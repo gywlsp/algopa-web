@@ -11,7 +11,7 @@ export const selectedProblemCode = selector({
   get: ({ get }) => {
     const codes = get(problemCodes);
     const selectedCodeId = get(selectedProblemCodeId);
-    return codes?.find((code) => code.id === selectedCodeId);
+    return codes && codes.find((code) => code.id === selectedCodeId);
   },
 });
 

@@ -14,7 +14,7 @@ export default function CodeSelect() {
   const { data: codes } = useProblemCodes();
   const { id: selectedCodeId, select } = useSelectedCode();
   const rightSectionType = useRecoilValue(problemPageRightSectionType);
-  const selectOptions = codes?.map(({ id, tryCount }) => ({
+  const selectOptions = (codes || [])?.map(({ id, tryCount }) => ({
     key: id,
     label: `try_${tryCount}`,
     value: id,
