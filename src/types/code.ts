@@ -18,6 +18,7 @@ export type CodeTextChange = {
 
 export type CodeRunOutput = { success: boolean; result: string };
 
+export type CodeSubmitOutput = CodeRunOutput & { isSolved: boolean };
 
 export type CodeTextChangeEvent = {
   id: string;
