@@ -16,7 +16,8 @@ export type CodeTextChange = {
   rangeOffset: number;
 };
 
-export type RunOutput = { success: boolean; result: string };
+export type CodeRunOutput = { success: boolean; result: string };
+
 
 export type CodeTextChangeEvent = {
   id: string;

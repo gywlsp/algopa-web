@@ -5,13 +5,13 @@ import Modal from 'src/components/common/modal';
 import { GREY } from 'src/constants/colors';
 
 import { ICode } from 'src/interfaces/code/ICode';
-import { RunOutput } from 'src/types/code';
+import { CodeRunOutput } from 'src/types/code';
 import { useCodeRun } from 'src/hooks/api/code';
 
 export type CodeRunInputModalProps = Pick<ICode, 'id' | 'text'> & {
   isOpen: boolean;
   onClose: () => void;
-  setRunOutput: React.Dispatch<React.SetStateAction<RunOutput>>;
+  setRunOutput: React.Dispatch<React.SetStateAction<CodeRunOutput>>;
 };
 
 export default function CodeRunInputModal() {

@@ -22,6 +22,7 @@ import {
 } from 'src/interfaces/code/ICode';
 import {
   CodeNote,
+  CodeRunOutput,
   CodeTextChangeEvent,
   CodeTextChangeEventCreateDTO,
 } from 'src/types/code';
@@ -46,7 +47,7 @@ const update = async (codeId: string, params: ICodeUpdateDTO): Promise<ICode> =>
 const execute = async (
   codeId: string,
   params: ICodeExecuteDTO
-): Promise<{ success: boolean; result: string }> =>
+): Promise<CodeRunOutput> =>
   axios(executeConfig(codeId, params)).then((res) => {
     return res.data;
   });
