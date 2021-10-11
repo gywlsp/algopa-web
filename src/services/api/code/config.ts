@@ -1,4 +1,8 @@
-import { ICodeExecuteDTO, ICodeUpdateDTO } from 'src/interfaces/code/ICode';
+import {
+  ICodeExecuteDTO,
+  ICodeSubmitDTO,
+  ICodeUpdateDTO,
+} from 'src/interfaces/code/ICode';
 import { CodeNote, CodeTextChangeEventCreateDTO } from 'src/types/code';
 import { baseConfig } from '..';
 
@@ -13,6 +17,9 @@ export const updateConfig = (codeId: string, params: ICodeUpdateDTO) =>
 
 export const executeConfig = (codeId: string, params: ICodeExecuteDTO) =>
   baseConfig(true).patch(`/codes/execute/${codeId}`, params);
+
+export const submitConfig = (codeId: string, params: ICodeSubmitDTO) =>
+  baseConfig(true).patch(`/codes/submit/${codeId}`, params);
 
 export const eventListConfig = (codeId: string) =>
   baseConfig(true).get(`/codes/${codeId}/events`);

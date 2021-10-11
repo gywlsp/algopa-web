@@ -11,6 +11,7 @@ import {
   executeConfig,
   listConfig,
   readNoteConfig,
+  submitConfig,
   updateConfig,
   updateNoteConfig,
 } from './config';
@@ -18,11 +19,13 @@ import {
   ICode,
   ICodeExecuteDTO,
   ICodeReadDTO,
+  ICodeSubmitDTO,
   ICodeUpdateDTO,
 } from 'src/interfaces/code/ICode';
 import {
   CodeNote,
   CodeRunOutput,
+  CodeSubmitOutput,
   CodeTextChangeEvent,
   CodeTextChangeEventCreateDTO,
 } from 'src/types/code';
@@ -49,6 +52,14 @@ const execute = async (
   params: ICodeExecuteDTO
 ): Promise<CodeRunOutput> =>
   axios(executeConfig(codeId, params)).then((res) => {
+    return res.data;
+  });
+
+const submit = async (
+  codeId: string,
+  params: ICodeSubmitDTO
+): Promise<CodeSubmitOutput> =>
+  axios(submitConfig(codeId, params)).then((res) => {
     return res.data;
   });
 
@@ -106,6 +117,7 @@ const CodeService = {
   create,
   update,
   execute,
+  submit,
   eventList,
   createEvent,
   createEventIndex,
