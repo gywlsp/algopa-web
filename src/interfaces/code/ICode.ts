@@ -12,4 +12,6 @@ export type ICodeReadDTO = ICode & { lastEventId: string };
 
 export type ICodeUpdateDTO = Partial<Pick<ICode, 'text' | 'language'>>;
 
-export type ICodeExecuteDTO = Pick<ICode, 'text'> & { input: string };
+export type ICodeSubmitDTO = Pick<ICode, 'text'>;
+
+export type ICodeExecuteDTO = ICodeSubmitDTO & { input: string };
