@@ -16,7 +16,7 @@ export default function CodeNoteContentSection() {
       {!isEditing && !note?.submitted && (
         <GuideText>생성된 풀이노트가 없습니다.</GuideText>
       )}
-      <CodeNoteEditor />
+      {(isEditing || note?.submitted) && <CodeNoteEditor />}
     </Wrapper>
   );
 }
