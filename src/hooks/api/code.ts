@@ -148,6 +148,15 @@ export const useCodeRun = () => {
     }
   };
 
+  const handleCodeSubmit = async () => {
+    try {
+      const data = await CodeService.submit(codeId, { text });
+      setRunOutput(data);
+    } catch (err) {
+      setRunOutput({ success: false, result: '코드 채점 실패' });
+    }
+  };
+
   return {
     input,
     isModalOpen,
@@ -156,6 +165,7 @@ export const useCodeRun = () => {
     closeModal,
     onInputChange: handleInputChange,
     onCodeRun: handleCodeRun,
+    onCodeSubmit: handleCodeSubmit,
   };
 };
 
