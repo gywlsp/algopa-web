@@ -6,6 +6,7 @@ import P from 'src/components/common/p';
 import Logo from 'src/components/common/logo';
 import CodeSelect from './code-select';
 import NewCodeButton from './new-code-button';
+import CodeSubmitButton from './code-submit-button';
 import ChevronRightIcon from 'src/assets/icons/chevron/right';
 import { BLUE_GREEN } from 'src/constants/colors';
 
@@ -31,6 +32,7 @@ export default function ProblemDetailHeader() {
         )}
       </Title>
       <CodeSelect />
+      <CodeSubmitButton />
       <NewCodeButton />
     </Wrapper>
   );
