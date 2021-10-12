@@ -8,14 +8,15 @@ import { useCodeRun } from 'src/hooks/api/code';
 
 export default function CodeRunOutputSection() {
   const {
-    runOutput: { success, result },
+    runOutput: { success, result, isSolved = undefined },
   } = useCodeRun();
 
-  const textColor = success
-    ? SUCCESS_BLUE
-    : success === false
-    ? FAILURE_RED
-    : GREY[600];
+  const textColor =
+    success === true && isSolved !== false
+      ? SUCCESS_BLUE
+      : success === false || isSolved === false
+      ? FAILURE_RED
+      : GREY[600];
 
   return (
     <Wrapper>
