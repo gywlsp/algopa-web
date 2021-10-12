@@ -106,6 +106,20 @@ export const withCodeNoteContext =
       setRawContent(convertToRaw(newEditorState.getCurrentContent()));
     };
 
+    const handleTab = (e: any) => {
+      e.preventDefault();
+      const tabCharacter = '    ';
+      const { content, selection } = getEditorData();
+      const newEditorState = Modifier.replaceText(
+        content,
+        selection,
+        tabCharacter
+      );
+      setEditorState(
+        EditorState.push(editorState, newEditorState, 'insert-characters')
+      );
+    };
+
     const getSyntaxDataAddedEditor = (editor = editorState) => {
       const { content, selection, block } = getEditorData(editor);
       const newData = block.getData().merge({ syntax: selectedCode?.language });
@@ -225,6 +239,7 @@ export const withCodeNoteContext =
         onEditCancel: handleEditCancel,
         onTitleChange: handleTitleChange,
         onEditorStateChange: handleEditorStateChange,
+        onTab: handleTab,
         toggleEditorStyle,
         onEditSave: handleEditSave,
         onEditSubmit: handleEditSubmit,

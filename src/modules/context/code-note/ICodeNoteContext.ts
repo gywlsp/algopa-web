@@ -16,6 +16,7 @@ export interface ICodeNoteContext {
     onEditCancel: () => void;
     onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onEditorStateChange: (newEditorState: EditorState) => void;
+    onTab: (e: any) => void;
     toggleEditorStyle: (value: string) => void;
     onEditSave: () => Promise<void>;
     onEditSubmit: () => Promise<void>;
