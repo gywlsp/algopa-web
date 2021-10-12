@@ -6,6 +6,8 @@ import {
   RawDraftContentState,
   RichUtils,
 } from 'draft-js';
+import Prism from 'prismjs';
+import PrimsDecorator from 'draft-js-prism';
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CodeNoteSectionProps } from 'src/components/problem-detail/section/note';
@@ -14,8 +16,8 @@ import { DRAFT_INLINE_STYLES } from 'src/data/note';
 import { ICodeNoteContext } from './ICodeNoteContext';
 import CodeService from 'src/services/api/code';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
-import { useNote } from 'src/hooks/api/note';
 import { selectedProblemCode } from 'src/modules/selectors/code';
+import { useNote } from 'src/hooks/api/note';
 
 const CodeNoteContext = createContext<ICodeNoteContext>(undefined);
 
@@ -25,11 +27,12 @@ export const withCodeNoteContext =
   (WrappedComponent: React.FunctionComponent<any>) =>
   (props: CodeNoteSectionProps) => {
     const editorRef = useRef(null);
+    const decorator = new PrimsDecorator({ prism: Prism });
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const selectedCode = useRecoilValue(selectedProblemCode);
     const { data: note } = useNote(selectedCodeId);
     const [editorState, setEditorState] = useState(() =>
-      EditorState.createEmpty()
+      EditorState.createEmpty(decorator)
     );
     const [isEditing, setEditing] = useState(false);
     const [noteType, setNoteType] = useState<'submitted' | 'tempSaved'>(
