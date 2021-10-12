@@ -15,6 +15,7 @@ export default function NoteEditorStyleToggleButton({
   value,
 }: NoteEditorStyleToggleButtonProps) {
   const {
+    state: { editorState },
     action: { toggleEditorStyle },
   } = useCodeNoteContext();
 
@@ -22,15 +23,29 @@ export default function NoteEditorStyleToggleButton({
     toggleEditorStyle(value);
   };
 
-  return <Button onClick={handleClick}>{title}</Button>;
+  const currSelection = editorState?.getSelection();
+  const currBlockType = editorState
+    ?.getCurrentContent()
+    ?.getBlockForKey(currSelection?.getStartKey())
+    ?.getType();
+  const currInlineStyle = editorState?.getCurrentInlineStyle();
+
+  return (
+    <Button
+      active={currBlockType === value || currInlineStyle.has(value)}
+      onClick={handleClick}
+    >
+      {title}
+    </Button>
+  );
 }
 
-const Button = styled.button`
+const Button = styled.button<{ active: boolean }>`
   flex: 1;
   padding: 1.2rem 2rem;
   height: 4.4rem;
   font-size: 1.2rem;
-  color: ${BLUE_GREEN[200]};
+  color: ${({ active }) => BLUE_GREEN[active ? 400 : 200]};
   background: none;
   border: 1px solid ${GREY[900]};
   cursor: pointer;
