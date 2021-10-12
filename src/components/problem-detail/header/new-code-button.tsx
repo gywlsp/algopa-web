@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import Button from 'src/components/common/button';
+import { BLUE_GREEN } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
 import {
@@ -41,5 +42,6 @@ export default function NewCodeButton() {
 
 const StyledButton = styled(Button)`
   margin-left: 1.2rem;
+  background-color: ${BLUE_GREEN[700]};
   cursor: pointer;
 `;
