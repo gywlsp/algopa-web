@@ -46,3 +46,7 @@ pre.public-DraftStyleDefault-pre {
   background-color: #333;
   padding: 1.2rem;
 }
+
+.prism-token {
+  background: none !important;
+}
