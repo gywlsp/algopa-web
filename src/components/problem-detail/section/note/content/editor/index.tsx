@@ -10,8 +10,8 @@ import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteEditor() {
   const {
-    state: { isEditing, editorRef, editorState, title },
-    action: { onTitleChange, onEditorStateChange, focusEditor },
+    state: { isEditing, title },
+    action: { onTitleChange, focusEditor },
   } = useCodeNoteContext();
 
   const handleContentWrapperClick = () => {
@@ -25,12 +25,7 @@ export default function CodeNoteEditor() {
       {isEditing && <StylingButtonList />}
       <ContentWrapper isEditing={isEditing} onClick={handleContentWrapperClick}>
         <NoteTitleInput value={title} onChange={onTitleChange} />
-        <Textarea
-          ref={editorRef}
-          isEditing={isEditing}
-          editorState={editorState}
-          onChange={onEditorStateChange}
-        />
+        <Textarea />
       </ContentWrapper>
     </Wrapper>
   );

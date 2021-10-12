@@ -1,26 +1,18 @@
-import React, { MutableRefObject } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {
-  ContentBlock,
-  DraftStyleMap,
-  Editor as NoteEditor,
-  EditorState,
-} from 'draft-js';
+import { ContentBlock, DraftStyleMap, Editor as NoteEditor } from 'draft-js';
 
 import { GREY } from 'src/constants/colors';
 
 import { DRAFT_BLOCK_STYLES } from 'src/data/note';
+import { useCodeNoteContext } from 'src/modules/context/code-note';
 
-export type CodeNoteEditorTextareaProps = {
-  isEditing: boolean;
-  editorState: EditorState;
-  onChange: (newEditorState: EditorState) => void;
-};
+export default function CodeNoteEditorTextarea() {
+  const {
+    state: { isEditing, editorRef, editorState },
+    action: { onEditorStateChange, onTab },
+  } = useCodeNoteContext();
 
-function CodeNoteEditorTextarea(
-  { isEditing, editorState, onChange }: CodeNoteEditorTextareaProps,
-  ref: MutableRefObject<any>
-) {
   const blockStyleFn = (block: ContentBlock) => {
     const blockClassName = DRAFT_BLOCK_STYLES.reduce(
       (acc, value) => ({ ...acc, [value]: `note-edit` }),
@@ -32,18 +24,17 @@ function CodeNoteEditorTextarea(
   return (
     <Wrapper>
       <NoteEditor
-        ref={ref}
+        ref={editorRef}
         readOnly={!isEditing}
         editorState={editorState}
-        onChange={onChange}
+        onChange={onEditorStateChange}
+        onTab={onTab}
         customStyleMap={styleMap}
         blockStyleFn={blockStyleFn}
       />
     </Wrapper>
   );
 }
-
-export default React.forwardRef(CodeNoteEditorTextarea);
 
 const styleMap: DraftStyleMap = {
   CODE: {
