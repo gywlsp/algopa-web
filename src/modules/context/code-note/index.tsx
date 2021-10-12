@@ -62,6 +62,13 @@ export const withCodeNoteContext =
       const content = convertFromRaw(rawContent);
       return EditorState.createWithContent(content, decorator);
     };
+
+    const getEditorData = (editor = editorState) => {
+      const content = editor.getCurrentContent();
+      const selection = editor.getSelection();
+      const blockKey = selection?.getStartKey();
+      const block = editor?.getCurrentContent()?.getBlockForKey(blockKey);
+      return { content, selection, blockKey, block };
     };
 
     const handleEditStart = () => {
