@@ -99,12 +99,29 @@ export const withCodeNoteContext =
       setRawContent(convertToRaw(newEditorState.getCurrentContent()));
     };
 
-    const toggleEditorStyle = (value: string) => {
+    const getSyntaxDataAddedEditor = (editor = editorState) => {
+      const { content, selection, block } = getEditorData(editor);
+      const newData = block.getData().merge({ syntax: selectedCode?.language });
+      const newContent = Modifier.setBlockData(content, selection, newData);
+      const newEditor = EditorState.push(
+        editor,
+        newContent,
+        'change-block-data'
+      );
+      return newEditor;
+    };
+
+    const toggleEditorStyle = (value: string, editor = editorState) => {
       const isInlineStyle = DRAFT_INLINE_STYLES.includes(value);
       const toggleStyle = isInlineStyle
         ? RichUtils.toggleInlineStyle
         : RichUtils.toggleBlockType;
-      setEditorState(toggleStyle(editorState, value));
+      const newEditorState = toggleStyle(
+        value === 'code-block' ? getSyntaxDataAddedEditor(editor) : editor,
+        value
+      );
+      setEditorState(newEditorState);
+      return newEditorState;
     };
 
     const handleEditSave = async () => {
