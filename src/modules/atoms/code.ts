@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
-import { CodeTextChangeEvent, CodeRunOutput } from 'src/types/code';
+import { CodeTextChangeEvent, CodeSubmitOutput } from 'src/types/code';
 
 export const problemCodes = atom<ICodeReadDTO[]>({
   key: 'problemCodes',
@@ -28,7 +28,7 @@ export const isCodeRunInputModalOpen = atom<boolean>({
   default: false,
 });
 
-export const codeRunOutput = atom<CodeRunOutput>({
+export const codeRunOutput = atom<CodeSubmitOutput>({
   key: 'codeRunOutput',
   default: {
     success: undefined,
