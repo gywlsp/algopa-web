@@ -60,7 +60,8 @@ export const withCodeNoteContext =
 
     const convertToEditorState = (rawContent: RawDraftContentState) => {
       const content = convertFromRaw(rawContent);
-      return EditorState.createWithContent(content);
+      return EditorState.createWithContent(content, decorator);
+    };
     };
 
     const handleEditStart = () => {
