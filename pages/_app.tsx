@@ -6,6 +6,7 @@ import { RecoilRoot } from 'recoil';
 
 import GlobalStyle from '../styles/global';
 import 'draft-js/dist/Draft.css';
+import 'prismjs/themes/prism.css';
 import '../styles/problem-content.css';
 import '../styles/note.css';
 
