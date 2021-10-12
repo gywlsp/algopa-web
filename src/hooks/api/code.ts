@@ -137,7 +137,7 @@ export const useCodeRun = () => {
     setModalOpen(false);
   };
 
-  const handleSubmit = async () => {
+  const handleCodeRun = async () => {
     try {
       const data = await CodeService.execute(codeId, { text, input });
       setRunOutput(data);
@@ -155,7 +155,7 @@ export const useCodeRun = () => {
     openModal,
     closeModal,
     onInputChange: handleInputChange,
-    onCodeSubmit: handleSubmit,
+    onCodeRun: handleCodeRun,
   };
 };
 

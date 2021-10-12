@@ -15,7 +15,7 @@ export type CodeRunInputModalProps = Pick<ICode, 'id' | 'text'> & {
 };
 
 export default function CodeRunInputModal() {
-  const { input, onInputChange, isModalOpen, closeModal, onCodeSubmit } =
+  const { input, onInputChange, isModalOpen, closeModal, onCodeRun } =
     useCodeRun();
 
   return (
@@ -24,7 +24,7 @@ export default function CodeRunInputModal() {
       isOpen={isModalOpen}
       onClose={closeModal}
       okText="코드 실행"
-      onOk={onCodeSubmit}
+      onOk={onCodeRun}
       theme="dark"
     >
       <Textarea
