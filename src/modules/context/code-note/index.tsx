@@ -50,6 +50,7 @@ export const withCodeNoteContext =
       } else {
         setTitle('');
         setRawContent(null);
+        setEditorState(EditorState.createEmpty(decorator));
       }
     }, [JSON.stringify(note && note[noteType]), isEditing]);
 
