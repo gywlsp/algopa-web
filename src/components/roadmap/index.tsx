@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 const Graph: any = dynamic(() => import('react-graph-vis'), {
@@ -11,69 +10,21 @@ import ProblemInfoModal from './problem-modal';
 import { GREY, WHITE } from 'src/constants/colors';
 
 import { GRAPH_OPTIONS } from 'src/data/roadmap';
-import { getNodes } from 'src/lib/utils/roadmap';
-import { useGraph, useRoadmap } from 'src/hooks/api/roadmap';
+import { useGraph } from 'src/hooks/api/roadmap';
 
 export default function Roadmap() {
-  const { graph } = useGraph();
-  const { data: roadmapData } = useRoadmap();
-  const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const { nodes, categoryNodes, problemNodes } = getNodes(roadmapData);
-  const edges = roadmapData?.edges;
-  const selectedCategoryNodeId = categoryNodes?.find(
-    ({ id }) => id === selectedNodeId
-  )?.nodeId;
-  const selectedProblemNode = problemNodes?.find(
-    ({ id }) => id === selectedNodeId
-  );
-
-  const setInitialGraph = (network) => {
-    network.moveTo({ scale: 0.7 });
-    network.focus(nodes[0]?.id, {
-      scale: 1,
-      animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
-    });
-    graph.current = network;
-  };
-
-  const selectNode = (nodeId: string) => {
-    setSelectedNodeId(nodeId);
-    graph?.current?.selectNodes([nodeId]);
-    graph?.current?.focus(nodeId, {
-      scale: 1,
-      animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
-    });
-  };
-
-  const handleNodeClick = ({ nodes }) => {
-    selectNode(nodes[0]);
-  };
-
-  const handleNodeDoubleClick = ({ nodes }) => {
-    if (!selectedProblemNode || !nodes?.length) {
-      return;
-    }
-    if (selectedNodeId !== nodes[0]) {
-      setSelectedNodeId(nodes[0]);
-    }
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const graphData = {
-    nodes,
-    edges,
-  };
-
-  const events = {
-    selectNode: handleNodeClick,
-    doubleClick: handleNodeDoubleClick,
-  };
+  const {
+    initGraph,
+    isFetched,
+    graphData,
+    categoryNodes,
+    events,
+    selectedCategoryNodeId,
+    selectedProblemNode,
+    selectNode,
+    isModalOpen,
+    closeModal,
+  } = useGraph();
 
   return (
     <>
@@ -83,12 +34,12 @@ export default function Roadmap() {
         selectNode={selectNode}
       />
       <GraphWrapper>
-        {roadmapData && (
+        {isFetched && (
           <Graph
             graph={graphData}
             events={events}
             options={GRAPH_OPTIONS}
-            getNetwork={setInitialGraph}
+            getNetwork={initGraph}
           />
         )}
       </GraphWrapper>
