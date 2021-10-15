@@ -106,17 +106,16 @@ export const withCodeNoteContext =
       setRawContent(convertToRaw(newEditorState.getCurrentContent()));
     };
 
-    const handleTab = (e: any) => {
-      e.preventDefault();
-      const tabCharacter = '    ';
-      const { content, selection } = getEditorData();
-      const newEditorState = Modifier.replaceText(
+    const handleTab = (_editorState = editorState) => {
+      const tabCharacter = '        ';
+      const { content, selection } = getEditorData(_editorState);
+      const newContentState = Modifier.replaceText(
         content,
         selection,
         tabCharacter
       );
-      setEditorState(
-        EditorState.push(editorState, newEditorState, 'insert-characters')
+      handleEditorStateChange(
+        EditorState.push(editorState, newContentState, 'insert-characters')
       );
     };
 
