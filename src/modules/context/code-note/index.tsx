@@ -195,51 +195,44 @@ export const withCodeNoteContext =
       editorRef?.current?.focus();
     };
 
-    const insertEventIndexData = (index: string, modifiedText: string) => {
-      const selectionState = editorState.getSelection();
-      const indexInsertedEditorState = insertText({
-        editorState,
-        text: `${selectedCode?.language === 'python' ? '#' : '//'} ${index}\n`,
-      });
-      const codeTextInsertedEditorState = insertText({
-        editorState: indexInsertedEditorState,
-        text: modifiedText + '\n',
-      });
-      const styledEditorState = RichUtils.toggleBlockType(
-        codeTextInsertedEditorState,
-        'code-block'
-      );
-      const codeTextSelectedEditorState = EditorState.forceSelection(
-        styledEditorState,
-        selectionState
-      );
-      handleEditorStateChange(codeTextSelectedEditorState);
-    };
-
     const insertText = ({ editorState, text }) => {
-      const contentState = editorState.getCurrentContent();
-      const selectionState = editorState.getSelection();
+      const { content, selection } = getEditorData(editorState);
+      const prevAnchorOffset = selection.getAnchorOffset();
+      const prevFocusOffset = selection.getFocusOffset();
 
-      const newContentState = Modifier.insertText(
-        contentState,
-        selectionState,
-        text
+      const newContent = Modifier.insertText(content, selection, text);
+      const newEditorState = EditorState.createWithContent(
+        newContent,
+        decorator
       );
-      const newEditorState = EditorState.createWithContent(newContentState);
-      const newSelectionState = selectionState.merge({
-        anchorOffset: text.length,
-        focusOffset: text.length,
+      const newSelection = selection.merge({
+        anchorOffset: prevAnchorOffset + text.length,
+        focusOffset: prevFocusOffset + text.length,
       });
       const newSelectedEditorState = EditorState.forceSelection(
         newEditorState,
-        newSelectionState
+        newSelection
       );
       return newSelectedEditorState;
+    };
+
+    const insertEventIndexData = (index: string, modifiedText: string) => {
+      const dataInsertedEditorState = insertText({
+        editorState,
+        text: `${
+          selectedCode?.language === 'python' ? '#' : '//'
+        } ${index}\n${modifiedText}`,
+      });
+      const newEditorState = RichUtils.insertSoftNewline(
+        dataInsertedEditorState
+      );
+      toggleEditorStyle('code-block', newEditorState);
     };
 
     const codeNoteStore = {
       state: { note, isEditing, editorRef, editorState, title, rawContent },
       action: {
+        setEditorState,
         onEditStart: handleEditStart,
         onEditCancel: handleEditCancel,
         onTitleChange: handleTitleChange,
