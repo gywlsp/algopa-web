@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ContentBlock, DraftStyleMap, Editor as NoteEditor } from 'draft-js';
+import {
+  ContentBlock,
+  DraftHandleValue,
+  DraftStyleMap,
+  Editor as NoteEditor,
+  EditorState,
+  RichUtils,
+} from 'draft-js';
 
 import { GREY } from 'src/constants/colors';
 
@@ -10,7 +17,7 @@ import { useCodeNoteContext } from 'src/modules/context/code-note';
 export default function CodeNoteEditorTextarea() {
   const {
     state: { isEditing, editorRef, editorState },
-    action: { onEditorStateChange, onTab },
+    action: { setEditorState, onEditorStateChange, onTab },
   } = useCodeNoteContext();
 
   const blockStyleFn = (block: ContentBlock) => {
@@ -21,6 +28,23 @@ export default function CodeNoteEditorTextarea() {
     return blockClassName[block.getType()] || null;
   };
 
+  const handleKeyCommand = (
+    command: string,
+    editorState: EditorState
+  ): DraftHandleValue => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      setEditorState(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  };
+
+  const handleTab = (e: any) => {
+    e.preventDefault();
+    onTab();
+  };
+
   return (
     <Wrapper>
       <NoteEditor
@@ -28,8 +52,9 @@ export default function CodeNoteEditorTextarea() {
         readOnly={!isEditing}
         editorState={editorState}
         onChange={onEditorStateChange}
-        onTab={onTab}
+        onTab={handleTab}
         customStyleMap={styleMap}
+        handleKeyCommand={handleKeyCommand}
         blockStyleFn={blockStyleFn}
       />
     </Wrapper>
