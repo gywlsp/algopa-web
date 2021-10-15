@@ -66,7 +66,7 @@ export const withCodeNoteContext =
     const getEditorData = (editor = editorState) => {
       const content = editor.getCurrentContent();
       const selection = editor.getSelection();
-      const blockKey = selection?.getStartKey();
+      const blockKey = selection?.getAnchorKey();
       const block = editor?.getCurrentContent()?.getBlockForKey(blockKey);
       return { content, selection, blockKey, block };
     };
