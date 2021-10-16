@@ -115,27 +115,19 @@ export const withCodeNoteContext =
     const handleTab = (_editorState = editorState) => {
       const tabCharacter = '        ';
       const { content, selection } = getEditorData(_editorState);
-      const newContentState = Modifier.replaceText(
-        content,
-        selection,
-        tabCharacter
-      );
+      const newContent = Modifier.replaceText(content, selection, tabCharacter);
       handleEditorStateChange(
-        EditorState.push(editorState, newContentState, 'insert-characters')
+        EditorState.push(editorState, newContent, 'insert-characters')
       );
     };
 
     const getSyntaxAddedEditorState = (_editorState = editorState) => {
       const { content, selection, block } = getEditorData(_editorState);
       const newData = block.getData().merge({ syntax: selectedCode?.language });
-      const newContentState = Modifier.setBlockData(
-        content,
-        selection,
-        newData
-      );
+      const newContent = Modifier.setBlockData(content, selection, newData);
       const newEditorState = EditorState.push(
         _editorState,
-        newContentState,
+        newContent,
         'change-block-data'
       );
       return newEditorState;
