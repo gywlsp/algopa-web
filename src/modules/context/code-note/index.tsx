@@ -43,20 +43,28 @@ export const withCodeNoteContext =
 
     useEffect(() => {
       if (note && note[noteType]) {
-        const { title, content: rawContent } = note[noteType];
-        setTitle(title);
-        setRawContent(rawContent);
-        setEditorState(convertToEditorState(rawContent));
+        const { title, content } = note[noteType];
+        initEditor(title, content);
       } else {
-        setTitle('');
-        setRawContent(null);
-        setEditorState(EditorState.createEmpty(decorator));
+        resetEditor();
       }
     }, [JSON.stringify(note && note[noteType]), isEditing]);
 
     useEffect(() => {
       setEditing(false);
     }, [selectedCodeId]);
+
+    const initEditor = (title: string, rawContent: RawDraftContentState) => {
+      setTitle(title);
+      setRawContent(rawContent);
+      setEditorState(convertToEditorState(rawContent));
+    };
+
+    const resetEditor = () => {
+      setTitle('');
+      setRawContent(null);
+      setEditorState(EditorState.createEmpty(decorator));
+    };
 
     const convertToEditorState = (rawContent: RawDraftContentState) => {
       const content = convertFromRaw(rawContent);
