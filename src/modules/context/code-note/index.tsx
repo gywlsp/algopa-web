@@ -39,7 +39,8 @@ export const withCodeNoteContext =
       'submitted'
     );
     const [title, setTitle] = useState('');
-    const [rawContent, setRawContent] = useState<RawDraftContentState>();
+    const content = editorState?.getCurrentContent();
+    const rawContent = content ? convertToRaw(content) : null;
 
     useEffect(() => {
       if (note && note[noteType]) {
@@ -56,13 +57,11 @@ export const withCodeNoteContext =
 
     const initEditor = (title: string, rawContent: RawDraftContentState) => {
       setTitle(title);
-      setRawContent(rawContent);
       setEditorState(convertToEditorState(rawContent));
     };
 
     const resetEditor = () => {
       setTitle('');
-      setRawContent(null);
       setEditorState(EditorState.createEmpty(decorator));
     };
 
@@ -71,11 +70,11 @@ export const withCodeNoteContext =
       return EditorState.createWithContent(content, decorator);
     };
 
-    const getEditorData = (editor = editorState) => {
-      const content = editor.getCurrentContent();
-      const selection = editor.getSelection();
+    const getEditorData = (_editorState = editorState) => {
+      const content = _editorState.getCurrentContent();
+      const selection = _editorState.getSelection();
       const blockKey = selection?.getAnchorKey();
-      const block = editor?.getCurrentContent()?.getBlockForKey(blockKey);
+      const block = content?.getBlockForKey(blockKey);
       return { content, selection, blockKey, block };
     };
 
@@ -111,7 +110,6 @@ export const withCodeNoteContext =
 
     const handleEditorStateChange = (newEditorState: EditorState) => {
       setEditorState(newEditorState);
-      setRawContent(convertToRaw(newEditorState.getCurrentContent()));
     };
 
     const handleTab = (_editorState = editorState) => {
