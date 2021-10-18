@@ -6,11 +6,13 @@ import Button from 'src/components/common/button';
 
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import { BLUE_GREEN } from 'src/constants/colors';
-import { useCodeRun } from 'src/hooks/api/code';
+import { useCodeRunContext } from 'src/modules/context/code-run';
 
 export default function CodeSubmitButton() {
   const rightSectionType = useRecoilValue(problemPageRightSectionType);
-  const { onCodeSubmit } = useCodeRun();
+  const {
+    action: { onCodeSubmit },
+  } = useCodeRunContext();
 
   const submitCode = async () => {
     if (!confirm('코드를 제출하고 채점하시겠습니까?')) {

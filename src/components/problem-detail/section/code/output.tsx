@@ -5,13 +5,15 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 import P from 'src/components/common/p';
 import { FAILURE_RED, GREY, SUCCESS_BLUE } from 'src/constants/colors';
 
-import { useCodeRun } from 'src/hooks/api/code';
+import { useCodeRunContext } from 'src/modules/context/code-run';
 
 export default function CodeRunOutputSection() {
   const {
-    runOutput: { success, result, isSolved = undefined },
-    isLoading: { status, guideText },
-  } = useCodeRun();
+    state: {
+      runOutput: { success, result, isSolved = undefined },
+      isRunOutputLoading: { status, guideText },
+    },
+  } = useCodeRunContext();
 
   const textColor =
     success === true && isSolved !== false

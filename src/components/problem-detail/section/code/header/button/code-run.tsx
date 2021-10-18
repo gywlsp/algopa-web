@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import PlayIcon from 'src/assets/icons/play';
 import { GREY } from 'src/constants/colors';
 
-import { useCodeRun } from 'src/hooks/api/code';
+import { useCodeRunContext } from 'src/modules/context/code-run';
 
 export default function CodeRunButton() {
-  const { openModal } = useCodeRun();
+  const {
+    action: { openInputModal },
+  } = useCodeRunContext();
 
   return (
-    <Button onClick={openModal}>
+    <Button onClick={openInputModal}>
       <PlayIcon
         style={{ width: '1.2rem', height: '1.2rem', marginRight: '0.6rem' }}
       />

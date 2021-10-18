@@ -14,12 +14,13 @@ import { useRecentAuthTokens } from 'src/hooks/api/auth';
 import { useProblem } from 'src/hooks/api/problem';
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import { useCodeEvents } from 'src/hooks/api/code';
+import { withCodeRunContext } from 'src/modules/context/code-run';
 
-export default function ProblemDetailPage() {
-  useRecentAuthTokens(true);
+function ProblemDetailPage() {
   const router = useRouter();
   const { data } = useProblem(+router.query.id);
   const rightSectionType = useRecoilValue(problemPageRightSectionType);
+  useRecentAuthTokens(true);
   useCodeEvents();
 
   return (
@@ -35,6 +36,8 @@ export default function ProblemDetailPage() {
     </Wrapper>
   );
 }
+
+export default withCodeRunContext(ProblemDetailPage);
 
 const Wrapper = styled.div`
   width: 100vw;

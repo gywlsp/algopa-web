@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 import { ICodeReadDTO } from 'src/interfaces/code/ICode';
-import { CodeTextChangeEvent, CodeSubmitOutput } from 'src/types/code';
+import { CodeTextChangeEvent } from 'src/types/code';
 
 export const problemCodes = atom<ICodeReadDTO[]>({
   key: 'problemCodes',
@@ -23,19 +23,6 @@ export const selectedCodeLastEventId = atom<string>({
   default: undefined,
 });
 
-export const isCodeRunInputModalOpen = atom<boolean>({
-  key: 'isCodeRunInputModalOpen',
-  default: false,
-});
-
-export const codeRunOutput = atom<CodeSubmitOutput>({
-  key: 'codeRunOutput',
-  default: {
-    success: undefined,
-    result: '',
-  },
-});
-
 export const codeEvents = atom<CodeTextChangeEvent[]>({
   key: 'codeEvents',
   default: undefined,
@@ -44,9 +31,4 @@ export const codeEvents = atom<CodeTextChangeEvent[]>({
 export const selectedCodeEventId = atom<string>({
   key: 'selectedCodeEventId',
   default: undefined,
-});
-
-export const isRunOutputLoading = atom<{ status: boolean; guideText: string }>({
-  key: 'isRunOutputLoading',
-  default: { status: false, guideText: '' },
 });

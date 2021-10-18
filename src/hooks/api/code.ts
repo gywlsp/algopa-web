@@ -12,9 +12,6 @@ import { CodeTextChangeEvent } from 'src/types/code';
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import {
   codeEvents,
-  codeRunOutput,
-  isCodeRunInputModalOpen,
-  isRunOutputLoading,
   problemCodes,
   selectedCodeEventId,
   selectedCodeLastEventId,
@@ -117,63 +114,6 @@ export const useSelectedCodeEdit = () => {
   };
 
   return { code, text, lastEventId, onChange: handleTextChange };
-};
-
-export const useCodeRun = () => {
-  const codeId = useRecoilValue(selectedProblemCodeId);
-  const text = useRecoilValue(selectedProblemCodeText);
-  const [input, setInput] = useState('');
-  const [isModalOpen, setModalOpen] = useRecoilState(isCodeRunInputModalOpen);
-  const [isLoading, setLoading] = useRecoilState(isRunOutputLoading);
-  const [runOutput, setRunOutput] = useRecoilState(codeRunOutput);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(e.target.value);
-  };
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleCodeRun = async () => {
-    try {
-      setLoading({ status: true, guideText: '코드 실행 중 ...' });
-      const data = await CodeService.execute(codeId, { text, input });
-      setRunOutput(data);
-      setInput('');
-      closeModal();
-    } catch (err) {
-      setRunOutput({ success: false, result: '코드 실행 실패' });
-    }
-    setLoading({ status: false, guideText: '' });
-  };
-
-  const handleCodeSubmit = async () => {
-    try {
-      setLoading({ status: true, guideText: '코드 채점 중 ...' });
-      const data = await CodeService.submit(codeId, { text });
-      setRunOutput(data);
-    } catch (err) {
-      setRunOutput({ success: false, result: '코드 채점 실패' });
-    }
-    setLoading({ status: false, guideText: '' });
-  };
-
-  return {
-    input,
-    isLoading,
-    isModalOpen,
-    runOutput,
-    openModal,
-    closeModal,
-    onInputChange: handleInputChange,
-    onCodeRun: handleCodeRun,
-    onCodeSubmit: handleCodeSubmit,
-  };
 };
 
 export const useCodeEvents = () => {
