@@ -45,3 +45,8 @@ export const selectedCodeEventId = atom<string>({
   key: 'selectedCodeEventId',
   default: undefined,
 });
+
+export const isRunOutputLoading = atom<{ status: boolean; guideText: string }>({
+  key: 'isRunOutputLoading',
+  default: { status: false, guideText: '' },
+});
