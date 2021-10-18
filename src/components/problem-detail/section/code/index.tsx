@@ -5,6 +5,7 @@ import Header from './header';
 import EditSection from './edit';
 import OutputSection from './output';
 import InputModal from './modal/input';
+import SolveCompleteModal from './modal/solve-complete';
 import { GREY } from 'src/constants/colors';
 
 export type ProblemCodeSectionProps = {
@@ -20,6 +21,7 @@ export default function ProblemCodeSection({
       <EditSection />
       <InputModal />
       <OutputSection />
+      <SolveCompleteModal />
     </Wrapper>
   );
 }
