@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { GREY } from 'src/constants/colors';
 import P from './p';
 
+import { Theme } from 'src/types';
+
 export type SectionSize = 'large' | 'medium' | 'small';
 
 export type SectionProps = {
@@ -11,6 +13,7 @@ export type SectionProps = {
   size?: SectionSize;
   children: ReactNode | ReactNodeArray;
   className?: string;
+  theme?: Theme;
 };
 
 const TitleLevel = {
@@ -19,14 +22,20 @@ const TitleLevel = {
   small: 4,
 };
 
-function Section({ title, size = 'large', children, className }: SectionProps) {
+function Section({
+  title,
+  size = 'large',
+  children,
+  className,
+  theme = 'light',
+}: SectionProps) {
   return (
     <Wrapper className={className}>
       <Title
         sectionSize={size}
         level={TitleLevel[size]}
         fontWeight={500}
-        color={GREY[800]}
+        color={GREY[theme === 'light' ? 800 : 400]}
       >
         {title}
       </Title>
