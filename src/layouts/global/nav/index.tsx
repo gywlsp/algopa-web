@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import GlobalNavDropdown from './dropdown';
+import CompanyRadio from 'src/components/common/company-radio';
 import Button from 'src/components/common/button';
 import ChevronDownIcon from 'src/assets/icons/chevron/down';
 import ChevronUpIcon from 'src/assets/icons/chevron/up';
@@ -24,9 +25,7 @@ export default function GlobalNav() {
       <Ul>
         {userData && (
           <>
-            {/* <Li>
-              <Button title="대시보드" href="/dashboard" />
-            </Li> */}
+            <CompanyRadio />
             <Li>
               <Button
                 title={userData?.nickname}
