@@ -4,18 +4,23 @@ import styled from 'styled-components';
 import Skeleton from 'src/components/common/skeleton';
 import { GREY } from 'src/constants/colors';
 
+import { Theme } from 'src/types';
+
 export type ProblemCardSkeletonProps = {
   isLast: boolean;
+  theme?: Theme;
 };
 
 export default function ProblemCardSkeleton({
   isLast,
+  theme = 'light',
 }: ProblemCardSkeletonProps) {
+  const _Skeleton = theme === 'light' ? Skeleton : DarkSkeleton;
   return (
     <Wrapper isLast={isLast}>
-      <Skeleton width="100%" height="14rem" mb="2rem" />
-      <Skeleton width="10rem" height="2.4rem" mb="1.2rem" />
-      <Skeleton width="12rem" height="2.4rem" mb="1.2rem" />
+      <_Skeleton width="100%" height="14rem" mb="2rem" />
+      <_Skeleton width="10rem" height="2.4rem" mb="1.2rem" />
+      <_Skeleton width="12rem" height="2.4rem" mb="1.2rem" />
     </Wrapper>
   );
 }
@@ -31,3 +36,5 @@ const Wrapper = styled.div<ProblemCardSkeletonProps>`
   padding: 2rem 2rem 1.2rem;
   border: 1px solid ${GREY[400]};
 `;
+
+const DarkSkeleton = styled(Skeleton).attrs({ theme: 'dark' })``;
