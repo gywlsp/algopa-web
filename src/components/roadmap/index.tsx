@@ -5,7 +5,7 @@ const Graph: any = dynamic(() => import('react-graph-vis'), {
   ssr: false,
 });
 
-import RoadmapCategoryRadio from './radio';
+import RoadmapCategoryRadio from './category-radio';
 import ProblemInfoModal from './problem-modal';
 import { GREY, WHITE } from 'src/constants/colors';
 
