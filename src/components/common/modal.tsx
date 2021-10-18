@@ -7,8 +7,10 @@ import XIcon from 'src/assets/icons/x';
 import { GREY, WHITE } from 'src/constants/colors';
 
 export type Theme = 'dark' | 'light';
+export type ModalSize = 'large' | 'default';
 
 export type ModalProps = {
+  size?: ModalSize;
   title: string;
   isOpen: boolean;
   onClose: () => void;
@@ -22,6 +24,7 @@ export type ModalProps = {
 };
 
 function Modal({
+  size = 'default',
   title,
   isOpen,
   onClose,
@@ -45,6 +48,7 @@ function Modal({
   return (
     <Overlay isOpen={isOpen} onClick={onClose}>
       <Wrapper
+        size={size}
         isOpen={isOpen}
         onClick={handleWrapperClick}
         style={{ backgroundColor }}
@@ -102,9 +106,9 @@ const Overlay = styled.div<{ isOpen: boolean }>`
   transition: all 0.3s;
 `;
 
-const Wrapper = styled.div<{ isOpen: boolean }>`
+const Wrapper = styled.div<{ isOpen: boolean; size: ModalSize }>`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-  width: 480px;
+  width: ${({ size }) => (size === 'large' ? 720 : 480)}px;
   z-index: 700;
 `;
 
