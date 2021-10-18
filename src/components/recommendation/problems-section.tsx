@@ -11,7 +11,7 @@ import { ProblemListRequestParams } from 'src/types/problem';
 
 export type RecommendedProblemsSectionProps = Pick<
   ProblemListRequestParams,
-  'type'
+  'type' | 'problemId'
 >;
 
 const SECTION_TITLE = {
@@ -21,19 +21,23 @@ const SECTION_TITLE = {
 };
 
 export default function RecommendedProblemsSection({
-  type,
+  type = 'next',
+  problemId,
 }: RecommendedProblemsSectionProps) {
-  const { data: problems } = useRecommendedProblemList({ limit: 8, type });
+  const { data: problems } = useRecommendedProblemList(
+    problemId ? { limit: 4, problemId } : { limit: 8, type }
+  );
+  const theme = problemId ? 'dark' : 'light';
 
   return (
-    <Section size="medium" title={SECTION_TITLE[type]}>
+    <Section size="medium" title={SECTION_TITLE[type]} theme={theme}>
       <HorizontalScrollable>
         {problems?.map((problem, i) => (
-          <StyledProblemCard key={i} index={i + 1} {...problem} />
+          <StyledProblemCard key={i} index={i + 1} {...problem} theme={theme} />
         ))}
         {!problems &&
           [...Array(8)].map((_, i) => (
-            <ProblemCardSkeleton key={i} isLast={i === 7} />
+            <ProblemCardSkeleton key={i} isLast={i === 7} theme={theme} />
           ))}
       </HorizontalScrollable>
     </Section>
