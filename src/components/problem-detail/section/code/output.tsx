@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LoadingOverlay from 'react-loading-overlay-ts';
 
 import P from 'src/components/common/p';
 import { FAILURE_RED, GREY, SUCCESS_BLUE } from 'src/constants/colors';
@@ -9,6 +10,7 @@ import { useCodeRun } from 'src/hooks/api/code';
 export default function CodeRunOutputSection() {
   const {
     runOutput: { success, result, isSolved = undefined },
+    isLoading: { status, guideText },
   } = useCodeRun();
 
   const textColor =
@@ -19,17 +21,20 @@ export default function CodeRunOutputSection() {
       : GREY[600];
 
   return (
-    <Wrapper>
-      <Title>실행 결과</Title>
-      <Content color={textColor}>
-        {result.split('\n').map((v) => (
-          <React.Fragment key={v}>
-            {v}
-            <br />
-          </React.Fragment>
-        )) || '실행 결과가 여기에 표시됩니다.'}
-      </Content>
-    </Wrapper>
+    <>
+      {status && <StyledLoadingOverlay active spinner text={guideText} />}
+      <Wrapper>
+        <Title>실행 결과</Title>
+        <Content color={textColor}>
+          {result.split('\n').map((v) => (
+            <React.Fragment key={v}>
+              {v}
+              <br />
+            </React.Fragment>
+          )) || '실행 결과가 여기에 표시됩니다.'}
+        </Content>
+      </Wrapper>
+    </>
   );
 }
 
@@ -70,4 +75,19 @@ const Content = styled(P).attrs({ level: 2 })`
   &::-webkit-scrollbar-track {
     background: none;
   }
+`;
+
+const StyledLoadingOverlay = styled(LoadingOverlay)`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  font-size: 1.4rem;
+  background-color: rgba(0, 0, 0, 0.1);
 `;
