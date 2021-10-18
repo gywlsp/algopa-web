@@ -1,7 +1,12 @@
 import { atom } from 'recoil';
 
 import { IProblemReadDTO } from 'src/interfaces/problem/IProblem';
-import { ProblemPageRightSectionType } from 'src/types/problem';
+import { Company, ProblemPageRightSectionType } from 'src/types/problem';
+
+export const selectedCompany = atom<Company>({
+  key: 'selectedCompany',
+  default: undefined,
+});
 
 export const problem = atom<IProblemReadDTO>({
   key: 'problem',
