@@ -24,7 +24,7 @@ export default function CompanyRadioButton({
   const isSelected = company === _company;
 
   const handleButtonClick = () => {
-    setCompany(company);
+    setCompany(_company);
   };
 
   return (
