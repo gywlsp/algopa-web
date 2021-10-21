@@ -1,3 +1,5 @@
+import { Company } from 'src/types/problem';
 import { baseConfig } from '..';
 
-export const readConfig = () => baseConfig(true).get('/problems/roadmap');
+export const readConfig = (company: Company) =>
+  baseConfig(true).get(`/problems/roadmap${company ? `?type=${company}` : ''}`);

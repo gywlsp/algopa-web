@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { Company } from 'src/types/problem';
 
 import { RoadmapDTO } from 'src/types/roadmap';
 import { readConfig } from './config';
 
-const read = async (): Promise<RoadmapDTO[]> =>
-  axios(readConfig()).then((res) => {
+const read = async (company: Company): Promise<RoadmapDTO[]> =>
+  axios(readConfig(company)).then((res) => {
     return res.data;
   });
 

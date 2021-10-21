@@ -3,9 +3,13 @@ import useRequest from '.';
 
 import { readConfig } from 'src/services/api/roadmap/config';
 import { RoadmapDTO } from 'src/types/roadmap';
+import { Company } from 'src/types/problem';
 import { getNodes } from 'src/lib/utils/roadmap';
+import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 
-export const useRoadmap = () => useRequest<RoadmapDTO>(readConfig());
+export const useRoadmap = (company: Company) => {
+  return useRequest<RoadmapDTO>(readConfig(company), VALIDATE_DISABLE_OPTIONS);
+};
 
 export const useGraph = () => {
   const { data: roadmapData } = useRoadmap();
