@@ -1,4 +1,4 @@
-import { IUser } from 'src/interfaces/user/IUser';
+import { IUser, IUserInputDTO } from 'src/interfaces/user/IUser';
 import { Provider } from 'src/types/user';
 import { baseConfig } from '..';
 
@@ -17,10 +17,8 @@ export const getBojAuthTokenConfig = (bojId: string) =>
 export const authenticateBojIdConfig = (bojId: string) =>
   baseConfig().get(`/auth/authentication/boj/${bojId}`);
 
-export const joinConfig = (
-  data: Pick<IUser, 'email' | 'nickname' | 'provider' | 'bojId'>,
-  token: string
-) => baseConfig(true, token).post(`/auth/join/${data.provider}`, data);
+export const joinConfig = (data: IUserInputDTO, token: string) =>
+  baseConfig(true, token).post(`/auth/join/${data.provider}`, data);
 
 export const refreshConfig = (refreshToken: string) =>
   baseConfig(true, refreshToken).get('/auth/refresh');

@@ -5,13 +5,9 @@ export interface IUser {
   email: string;
   provider?: string;
   nickname: string;
-  bojId?: string;
 }
 
-export type IUserInputDTO = Pick<
-  IUser,
-  'email' | 'provider' | 'nickname' | 'bojId'
->;
+export type IUserInputDTO = Pick<IUser, 'email' | 'provider' | 'nickname'>;
 
-export type IUserReadDTO = Pick<IUser, 'email' | 'nickname' | 'bojId'> &
+export type IUserReadDTO = Pick<IUser, 'email' | 'nickname'> &
   Partial<AuthTokens>;
