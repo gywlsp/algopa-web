@@ -53,7 +53,7 @@ export default function Roadmap() {
 }
 
 const GraphWrapper = styled.div`
-  height: 100vh;
+  height: calc(100vh - 10rem);
   border: 1px solid ${GREY[400]};
   background-color: ${WHITE};
 `;
