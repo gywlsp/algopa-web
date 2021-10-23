@@ -24,7 +24,7 @@ export const withCodeHistoryPlayerContext =
     const [isPlaying, setPlaying] = useState(false);
     const [playSpeed, setPlaySpeed] = useState(1);
     const [playSec, setPlaySec] = useState(0);
-    const unitSec = 0.15 / playSpeed;
+    const unitSec = 0.075 / playSpeed;
 
     useEffect(() => {
       if ((!playSec && events && selectedEventOrder) || !isPlaying) {
