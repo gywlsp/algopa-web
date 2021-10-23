@@ -6,7 +6,7 @@ import { GREY } from 'src/constants/colors';
 
 import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
-const PLAY_SPEED_LIST = [0.5, 1, 1.5, 2];
+const PLAY_SPEED_LIST = [8, 4, 2, 1.5, 1, 0.5];
 
 export default function CodeHistoryPlayerSpeedSelect() {
   const {
