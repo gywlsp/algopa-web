@@ -14,7 +14,7 @@ export default function ProblemsPreviewSection() {
   const { data: recommendedProblems } = useRecommendedProblemList({ limit: 4 });
 
   const sectionTitle = userData
-    ? `${userData.nickname}님을 위한 추천 문제`
+    ? `${userData.nickname}님을 위한 추천 문제 🔍`
     : '이런 문제 어때요?';
 
   return (

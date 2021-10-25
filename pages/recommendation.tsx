@@ -17,7 +17,7 @@ export default function RecommendationPage() {
 
   return (
     <GlobalLayout>
-      <Section title={`${userData?.nickname || '회원'}님을 위한 추천 문제`}>
+      <Section title={`${userData?.nickname || '회원'}님을 위한 추천 문제 🔍`}>
         <RecommendedProblemsSection type="next" />
         <RecommendedProblemsSection type="wrong" />
         <RecommendedProblemsSection type="less" />
