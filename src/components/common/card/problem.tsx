@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Img from '../img';
 import P from '../p';
+import HorizontalScrollable from '../horizontal-scrollable';
 import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
 import { IProblem } from 'src/interfaces/problem/IProblem';
@@ -26,6 +27,7 @@ function ProblemCard(props: ProblemCardProps) {
     problemLevel,
     title = '문제 제목',
     theme = 'light',
+    categories,
   } = props;
 
   const levelImgSrc = `https://static.solved.ac/tier_small/${
@@ -46,6 +48,11 @@ function ProblemCard(props: ProblemCardProps) {
       </ImgWrapper>
       <StyledP theme={theme}>{id}</StyledP>
       <StyledP theme={theme}>{title}</StyledP>
+      <HorizontalScrollable>
+        {categories?.map((category) => (
+          <Tag key={category}>#{category}</Tag>
+        ))}
+      </HorizontalScrollable>
     </ContentWrapper>
   );
 }
@@ -72,9 +79,8 @@ const StyledLink = styled(Link)<{ theme: Theme }>`
   flex-direction: column;
   flex: 1;
   min-width: 22.4rem;
-  height: 27.2rem;
   margin-right: 1.2rem;
-  padding: 2rem 2rem 0.8rem;
+  padding: 2rem;
   border: 1px solid ${({ theme }) => GREY[theme === 'light' ? 400 : 850]};
 `;
 
@@ -118,4 +124,14 @@ const StyledP = styled(P).attrs({
 })<{ theme: Theme }>`
   margin-bottom: 1.2rem;
   color: ${({ theme }) => GREY[theme === 'light' ? 800 : 400]};
+`;
+
+const Tag = styled(P).attrs({
+  level: 2,
+})`
+  color: ${BLUE_GREEN[400]};
+  margin: 0.2rem 0.8rem 0 0;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid ${BLUE_GREEN[400]};
+  border-radius: 0.4rem;
 `;

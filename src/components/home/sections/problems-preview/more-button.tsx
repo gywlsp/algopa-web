@@ -47,7 +47,6 @@ const Wrapper = styled(Link)`
   justify-content: center;
   flex: 1;
   min-width: 24rem;
-  height: 27.2rem;
   padding: 2rem;
   border: 1px solid ${GREY[400]};
   background-color: rgba(0, 0, 0, 0.4);
