@@ -6,13 +6,13 @@ import IndexListSection from './index-list';
 import EventSection from './event';
 import { GREY } from 'src/constants/colors';
 
+import { withCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
+
 export type CodeHistorySectionProps = {
   isShown: boolean;
 };
 
-export default function CodeHistorySection({
-  isShown,
-}: CodeHistorySectionProps) {
+function CodeHistorySection({ isShown }: CodeHistorySectionProps) {
   if (!isShown) {
     return <></>;
   }
@@ -27,6 +27,8 @@ export default function CodeHistorySection({
     </Wrapper>
   );
 }
+
+export default withCodeHistoryPlayerContext(CodeHistorySection);
 
 const Wrapper = styled.div`
   position: relative;

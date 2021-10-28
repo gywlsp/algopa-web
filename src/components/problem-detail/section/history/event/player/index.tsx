@@ -7,9 +7,7 @@ import ControlButtonList from './control-button/list';
 import SpeedSelect from './speed-select';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { withCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
-
-function CodeHistoryPlayer() {
+export default function CodeHistoryPlayer() {
   return (
     <>
       <Timeline />
@@ -21,8 +19,6 @@ function CodeHistoryPlayer() {
     </>
   );
 }
-
-export default withCodeHistoryPlayerContext(CodeHistoryPlayer);
 
 const Wrapper = styled.div`
   display: flex;
