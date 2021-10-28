@@ -44,12 +44,20 @@ export const useGraph = () => {
     };
   }, []);
 
-  const initGraph = (network) => {
-    network.moveTo({ scale: 0.7 });
-    network.focus(nodes[0]?.id, {
+  useEffect(() => {
+    focusFirstNode(graph?.current);
+  }, [company]);
+
+  const focusFirstNode = (network = graph?.current) => {
+    network?.moveTo({ scale: 0.7 });
+    network?.focus(nodes[0]?.id, {
       scale: 1,
       animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
     });
+  };
+
+  const initGraph = (network) => {
+    focusFirstNode(network);
     graph.current = network;
   };
 
