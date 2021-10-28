@@ -15,7 +15,7 @@ export interface ICodeHistoryPlayerContext {
   action: {
     updatePlaySpeed: (speed: number) => void;
     skipEvent: (value: number) => void;
-    togglePlaying: () => void;
+    togglePlaying: (actionType?: 'start' | 'stop') => void;
     initPlaying: () => void;
   };
 }
