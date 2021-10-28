@@ -69,6 +69,9 @@ export const withCodeHistoryPlayerContext =
         ?.getComputedStyle(scrubberRef.current)
         ?.getPropertyValue('margin-left')
     ) => {
+      if (!scrubberRef?.current || !progressBarRef?.current) {
+        return;
+      }
       scrubberRef.current.style.marginLeft = marginLeft;
       progressBarRef.current.style.width = marginLeft;
     };
