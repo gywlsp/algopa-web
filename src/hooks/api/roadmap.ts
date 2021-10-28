@@ -1,10 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import useRequest from '.';
+import { useRecoilValue } from 'recoil';
 
 import { readConfig } from 'src/services/api/roadmap/config';
 import { RoadmapDTO } from 'src/types/roadmap';
 import { Company } from 'src/types/problem';
 import { getNodes } from 'src/lib/utils/roadmap';
+import { selectedCompany } from 'src/modules/atoms/problem';
 import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 
 export const useRoadmap = (company: Company) => {
@@ -12,7 +14,8 @@ export const useRoadmap = (company: Company) => {
 };
 
 export const useGraph = () => {
-  const { data: roadmapData } = useRoadmap();
+  const company = useRecoilValue(selectedCompany);
+  const { data: roadmapData } = useRoadmap(company);
   const graph = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
