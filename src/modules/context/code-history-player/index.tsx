@@ -1,5 +1,6 @@
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { CodeHistorySectionProps } from 'src/components/problem-detail/section/history';
 
 import { selectedCodeEventId, codeEvents } from 'src/modules/atoms/code';
 import { selectedCodeEventOrder } from 'src/modules/selectors/code';
@@ -12,7 +13,8 @@ export const useCodeHistoryPlayerContext = () =>
   useContext(CodeHistoryPlayerContext);
 
 export const withCodeHistoryPlayerContext =
-  (WrappedComponent: React.FunctionComponent<any>) => () => {
+  (WrappedComponent: React.FunctionComponent<CodeHistorySectionProps>) =>
+  (props: CodeHistorySectionProps) => {
     const events = useRecoilValue(codeEvents);
     const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
     const setSelectedEventId = useSetRecoilState(selectedCodeEventId);
@@ -134,7 +136,7 @@ export const withCodeHistoryPlayerContext =
 
     return (
       <CodeHistoryPlayerContext.Provider value={codeHistoryPlayerStore}>
-        <WrappedComponent />
+        <WrappedComponent {...props} />
       </CodeHistoryPlayerContext.Provider>
     );
   };
