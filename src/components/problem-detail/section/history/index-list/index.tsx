@@ -11,14 +11,19 @@ import {
   selectedProblemCodeId,
 } from 'src/modules/atoms/code';
 import { selectedCodeIndexedEvents } from 'src/modules/selectors/code';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
 export default function CodeHistoryIndexListSection() {
   const codeId = useRecoilValue(selectedProblemCodeId);
   const indexedEvents = useRecoilValue(selectedCodeIndexedEvents);
   const setSelectedCodeEventId = useSetRecoilState(selectedCodeEventId);
+  const {
+    action: { togglePlaying },
+  } = useCodeHistoryPlayerContext();
 
   const handleCardClick = (eventId: string) => {
     setSelectedCodeEventId(eventId);
+    togglePlaying('stop');
   };
 
   return (
