@@ -29,7 +29,7 @@ export default function CompanyRadioButton({
 
   return (
     <Wrapper onClick={handleButtonClick}>
-      <Logo
+      <StyledImg
         src={`/images/${COMPANY_IMAGES[_company]}`}
         alt={_company}
         isSelected={isSelected}
@@ -49,14 +49,13 @@ const Wrapper = styled.button`
   border: none;
 `;
 
-const Logo = styled(Img).attrs({
+const StyledImg = styled(Img).attrs({
   width: '2.8rem',
   height: '2.8rem',
   circle: true,
   cover: true,
 })<{ isSelected: boolean }>`
-  border: 1px solid
-    ${({ isSelected }) => (isSelected ? BLUE_GREEN[500] : GREY[500])};
+  border: 1px solid ${({ isSelected }) => (isSelected ? GREY[900] : GREY[400])};
   &:hover {
     border: 1px solid ${GREY[800]};
     transition: all 0.2s;
