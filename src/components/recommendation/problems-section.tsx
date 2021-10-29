@@ -6,6 +6,7 @@ import Section from 'src/components/common/section';
 import ProblemCard from 'src/components/common/card/problem';
 import ProblemCardSkeleton from '../skeletons/card/problem';
 import HorizontalScrollable from 'src/components/common/horizontal-scrollable';
+import ProblemCategorySwitch from '../common/category/switch';
 import P from 'src/components/common/p';
 
 import { useRecommendedProblemList } from 'src/hooks/api/problem';
@@ -36,7 +37,12 @@ export default function RecommendedProblemsSection({
   const theme = problemId ? 'dark' : 'light';
 
   return (
-    <Section size="medium" title={SECTION_TITLE[type]} theme={theme}>
+    <Section
+      size="medium"
+      title={SECTION_TITLE[type]}
+      theme={theme}
+      rightComponent={theme === 'dark' ? <ProblemCategorySwitch /> : undefined}
+    >
       <HorizontalScrollable>
         {problems?.map((problem, i) => (
           <StyledProblemCard key={i} index={i + 1} {...problem} theme={theme} />
