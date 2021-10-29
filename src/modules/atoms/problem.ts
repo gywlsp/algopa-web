@@ -17,3 +17,8 @@ export const problemPageRightSectionType = atom<ProblemPageRightSectionType>({
   key: 'problemPageRightSectionType',
   default: 'code',
 });
+
+export const isProblemCategoryShown = atom<boolean>({
+  key: 'isCategoryShown',
+  default: false,
+});
