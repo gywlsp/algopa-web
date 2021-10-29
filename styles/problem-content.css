@@ -1,21 +1,8 @@
 .problem-content {
   color: #d8d8d8;
-  background-color: #222;
-  padding: 1.2rem;
   font-size: 1.6rem;
-  overflow-y: scroll;
-  height: 100vh;
-  -ms-overflow-style: auto;
-}
-
-.problem-content::-webkit-scrollbar {
-  display: flex;
-  width: 0.4rem;
-  background: none;
-}
-
-.problem-content::-webkit-scrollbar-thumb {
-  background: #333;
+  flex: 1;
+  margin-bottom: 1.2rem;
 }
 
 .problem-content .problem-menu,
