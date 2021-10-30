@@ -14,8 +14,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>algopa-web</title>
-        {/* <link rel="icon" href="/favicon.png" /> */}
+        <title>알고파 - 개인 맞춤 코딩테스트 학습 서비스</title>
+        <link rel="icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
