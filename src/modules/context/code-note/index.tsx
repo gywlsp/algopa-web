@@ -6,8 +6,7 @@ import {
   RawDraftContentState,
   RichUtils,
 } from 'draft-js';
-import Prism from 'prismjs';
-import PrimsDecorator from 'draft-js-prism';
+import PrimsDecorator from 'src/modules/prism-decorator';
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CodeNoteSectionProps } from 'src/components/problem-detail/section/note';
@@ -28,7 +27,7 @@ export const withCodeNoteContext =
   (WrappedComponent: React.FunctionComponent<any>) =>
   (props: CodeNoteSectionProps) => {
     const editorRef = useRef(null);
-    const decorator = new PrimsDecorator({ prism: Prism });
+    const decorator = new PrimsDecorator();
     const rightSectionType = useRecoilValue(problemPageRightSectionType);
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const selectedCode = useRecoilValue(selectedProblemCode);
