@@ -45,7 +45,7 @@ const Wrapper = styled.div`
   bottom: 0;
   right: 0;
   width: 100%;
-  height: 27.6rem;
+  height: 17.2rem;
   border-top: 0.1rem solid ${GREY[900]};
   z-index: 99;
   background-color: ${GREY[850]};
