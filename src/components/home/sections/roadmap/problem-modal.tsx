@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ProblemCard from '../common/card/problem';
-import Modal from '../common/modal';
+import ProblemCard from 'src/components/common/card/problem';
+import Modal from 'src/components/common/modal';
 
 import { RoadmapProblemNode } from 'src/types/roadmap';
 
