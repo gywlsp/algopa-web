@@ -1,5 +1,6 @@
-// draft-js-prism 라이브러리에서 syntax python 동작 안 되는 것 수정
+// draft-js-prism 라이브러리에서 syntax python 동작 안 되는 것 수정: https://github.com/SamyPesse/draft-js-prism/blob/master/lib/index.js
 // 코드 참고: https://github.com/ianstormtaylor/slate/blob/main/site/examples/code-highlighting.tsx
+
 import Immutable from 'immutable';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-python';
@@ -23,19 +24,19 @@ export default function PrismDecorator() {
  * @return {List<String>}
  */
 PrismDecorator.prototype.getDecorations = function (block) {
-  var tokens,
+  let tokens,
     token,
     tokenId,
     resultId,
     offset = 0,
     tokenCount = 0;
-  var filter = this.options.get('filter');
-  var getSyntax = this.options.get('getSyntax');
-  var blockKey = block.getKey();
-  var blockText = block.getText();
-  var decorations = Array(blockText.length).fill(null);
-  var Prism = this.options.get('prism');
-  var highlighted = this.highlighted;
+  let filter = this.options.get('filter');
+  let getSyntax = this.options.get('getSyntax');
+  let blockKey = block.getKey();
+  let blockText = block.getText();
+  let decorations = Array(blockText.length).fill(null);
+  let Prism = this.options.get('prism');
+  let highlighted = this.highlighted;
 
   highlighted[blockKey] = {};
 
@@ -43,7 +44,7 @@ PrismDecorator.prototype.getDecorations = function (block) {
     return Immutable.List(decorations);
   }
 
-  var syntax = getSyntax(block) || this.options.get('defaultSyntax');
+  let syntax = getSyntax(block) || this.options.get('defaultSyntax');
 
   // Allow for no syntax highlighting
   if (syntax == null) {
@@ -51,7 +52,7 @@ PrismDecorator.prototype.getDecorations = function (block) {
   }
 
   // Parse text using Prism
-  var grammar = Prism.languages[syntax];
+  let grammar = Prism.languages[syntax];
   tokens = Prism.tokenize(blockText, grammar);
 
   function processToken(decorations, token, offset) {
@@ -64,15 +65,15 @@ PrismDecorator.prototype.getDecorations = function (block) {
     highlighted[blockKey][tokenId] = token;
     occupySlice(decorations, offset, offset + token.length, resultId);
     //Then recurse through the child tokens, overwriting the parent
-    var childOffset = offset;
-    for (var i = 0; i < token.content.length; i++) {
-      var childToken = token.content[i];
+    let childOffset = offset;
+    for (let i = 0; i < token.content.length; i++) {
+      let childToken = token.content[i];
       processToken(decorations, childToken, childOffset);
       childOffset += childToken.length;
     }
   }
 
-  for (var i = 0; i < tokens.length; i++) {
+  for (let i = 0; i < tokens.length; i++) {
     token = tokens[i];
     processToken(decorations, token, offset);
     offset += token.length;
@@ -98,10 +99,10 @@ PrismDecorator.prototype.getComponentForKey = function (key) {
  * @return {Object}
  */
 PrismDecorator.prototype.getPropsForKey = function (key) {
-  var parts = key.split('-');
-  var blockKey = parts[0];
-  var tokId = parts[1];
-  var token = this.highlighted[blockKey][tokId];
+  let parts = key.split('-');
+  let blockKey = parts[0];
+  let tokId = parts[1];
+  let token = this.highlighted[blockKey][tokId];
 
   return {
     type: token.type,
@@ -109,7 +110,7 @@ PrismDecorator.prototype.getPropsForKey = function (key) {
 };
 
 function occupySlice(targetArr, start, end, componentKey) {
-  for (var ii = start; ii < end; ii++) {
+  for (let ii = start; ii < end; ii++) {
     targetArr[ii] = componentKey;
   }
 }

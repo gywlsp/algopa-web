@@ -40,7 +40,7 @@ function defaultRender(props) {
   );
 }
 
-var PrismOptions = Immutable.Record({
+const PrismOptions = Immutable.Record({
   // Default language to use
   defaultSyntax: null,
 
@@ -57,4 +57,4 @@ var PrismOptions = Immutable.Record({
   prism: Prism,
 });
 
-module.exports = PrismOptions;
+export default PrismOptions;
