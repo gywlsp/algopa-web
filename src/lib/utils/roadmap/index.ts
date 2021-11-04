@@ -73,7 +73,8 @@ const getCategoryNodeStyle = (category: RoadmapCategoryDTO) => {
     },
     borderWidth: 2,
     borderWidthSelected: 3,
-    shape: 'circle',
+    shape: 'box',
+    margin: 10,
     font: { size: 16 },
   };
 };
