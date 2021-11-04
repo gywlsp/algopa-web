@@ -61,7 +61,8 @@ export const getNodes = (
 const getCategoryNodeStyle = (category: RoadmapCategoryDTO) => {
   const background = category?.progressRate
     ? FAILURE_RATE_COLORS[Math.floor(3 * category.failureRate)]
-    : BLUE_GREEN[200];
+    : BLUE_GREEN[100];
+
   return {
     color: {
       background,
@@ -81,10 +82,10 @@ const getCategoryNodeStyle = (category: RoadmapCategoryDTO) => {
 
 const getProblemNodeStyle = (problem: RoadmapProblemDTO) => ({
   color: {
-    background: BLUE_GREEN[100],
+    background: GREY[300],
     border: problem?.isSolved ? SUCCESS_BLUE : GREY[500],
     highlight: {
-      background: BLUE_GREEN[100],
+      background: GREY[300],
       border: problem?.isSolved ? SUCCESS_BLUE : GREY[500],
     },
   },
