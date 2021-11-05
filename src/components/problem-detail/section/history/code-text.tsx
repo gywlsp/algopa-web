@@ -19,7 +19,11 @@ export default function CodeHistoryCodeTextSection() {
     <Wrapper>
       <CodeEditor
         className="code-editor"
-        options={{ fontSize: '14px', readOnly: true }}
+        options={{
+          fontSize: '14px',
+          readOnly: true,
+          minimap: { enabled: false },
+        }}
         theme="vs-dark"
         language={code?.language}
         value={text || ''}
