@@ -4,7 +4,7 @@ import RadioButton from './button';
 
 import { Company } from 'src/types/problem';
 
-const COMPANY_DATA: Company[] = [undefined, 'kakao', 'samsung'];
+const COMPANY_DATA: Company[] = [undefined, 'samsung', 'kakao'];
 
 export default function CompanyRadio() {
   return (
