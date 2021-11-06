@@ -11,7 +11,7 @@ export type CompanyRadioButtonProps = {
   company: Company;
 };
 
-const COMPANY_IMAGES = {
+export const COMPANY_IMAGES = {
   undefined: 'rocket.png',
   kakao: 'kakao.jpeg',
   samsung: 'samsung.png',
