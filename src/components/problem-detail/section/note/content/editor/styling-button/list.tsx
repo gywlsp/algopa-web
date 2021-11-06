@@ -8,8 +8,13 @@ import { DRAFT_STYLE_BUTTONS } from 'src/data/note';
 export default function NoteEditorStyleToggleButtonList() {
   return (
     <Wrapper>
-      {DRAFT_STYLE_BUTTONS.map(({ title, value }) => (
-        <StyleToggleButton key={value} title={title} value={value} />
+      {DRAFT_STYLE_BUTTONS.map(({ title, Icon, value }) => (
+        <StyleToggleButton
+          key={value}
+          title={title}
+          Icon={Icon}
+          value={value}
+        />
       ))}
     </Wrapper>
   );
