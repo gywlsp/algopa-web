@@ -13,6 +13,7 @@ export type SectionProps = {
   size?: SectionSize;
   children: ReactNode | ReactNodeArray;
   rightComponent?: ReactNode | ReactNodeArray;
+  rightComponentAlign?: 'left' | 'right';
   className?: string;
   theme?: Theme;
 };
@@ -28,12 +29,13 @@ function Section({
   size = 'large',
   children,
   rightComponent,
+  rightComponentAlign = 'right',
   className,
   theme = 'light',
 }: SectionProps) {
   return (
     <Wrapper className={className}>
-      <TitleRow sectionSize={size}>
+      <TitleRow sectionSize={size} rightComponentAlign={rightComponentAlign}>
         <P
           level={TitleLevel[size]}
           fontWeight={500}
@@ -55,11 +57,15 @@ const Wrapper = styled.div`
   margin: 2rem 0;
 `;
 
-const TitleRow = styled.div<{ sectionSize: SectionSize }>`
+const TitleRow = styled.div<{
+  sectionSize: SectionSize;
+  rightComponentAlign: 'left' | 'right';
+}>`
   width: 100%;
   display: flex;
+  justify-content: ${({ rightComponentAlign }) =>
+    rightComponentAlign === 'right' ? 'space-between' : 'flex-start'};
   align-items: center;
-  justify-content: space-between;
   margin-bottom: ${({ sectionSize }) =>
     sectionSize === 'large'
       ? '2rem'

@@ -4,21 +4,20 @@ import { useRecoilValue } from 'recoil';
 
 import { readConfig } from 'src/services/api/roadmap/config';
 import { RoadmapDTO } from 'src/types/roadmap';
-import { Company } from 'src/types/problem';
 import { getNodes } from 'src/lib/utils/roadmap';
 import { selectedCompany } from 'src/modules/atoms/problem';
 import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 
-export const useRoadmap = (company: Company) => {
-  return useRequest<RoadmapDTO>(readConfig(company), VALIDATE_DISABLE_OPTIONS);
-};
-
-export const useGraph = () => {
+export const useRoadmap = () => {
   const company = useRecoilValue(selectedCompany);
-  const { data: roadmapData } = useRoadmap(company);
+  const { data: roadmapData } = useRequest<RoadmapDTO>(
+    readConfig(company),
+    VALIDATE_DISABLE_OPTIONS
+  );
   const graph = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isGuideModalOpen, setGuideModalOpen] = useState(false);
+  const [isProblemModalOpen, setProblemModalOpen] = useState(false);
   const { nodes, categoryNodes, problemNodes } = getNodes(roadmapData);
   const edges = roadmapData?.edges;
   const selectedCategoryNodeId = categoryNodes?.find(
@@ -81,11 +80,19 @@ export const useGraph = () => {
     if (selectedNodeId !== nodes[0]) {
       setSelectedNodeId(nodes[0]);
     }
-    setModalOpen(true);
+    setProblemModalOpen(true);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeProblemModal = () => {
+    setProblemModalOpen(false);
+  };
+
+  const openGuideModal = () => {
+    setGuideModalOpen(true);
+  };
+
+  const closeGuideModal = () => {
+    setGuideModalOpen(false);
   };
 
   const events = {
@@ -109,7 +116,10 @@ export const useGraph = () => {
     selectedCategoryNodeId,
     selectedProblemNode,
     selectNode,
-    isModalOpen,
-    closeModal,
+    isProblemModalOpen,
+    closeProblemModal,
+    isGuideModalOpen,
+    openGuideModal,
+    closeGuideModal,
   };
 };
