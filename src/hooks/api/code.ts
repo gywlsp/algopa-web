@@ -23,6 +23,7 @@ import {
   selectedProblemCode,
 } from 'src/modules/selectors/code';
 import useRequest from '.';
+import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
 export const useProblemCodes = () => {
   const router = useRouter();
@@ -207,6 +208,9 @@ export const useEventIndexEdit = () => {
   const [index, setIndex] = useState('');
   const hasIndex = selectedEvent?.index !== undefined;
   const [isEditing, setEditing] = useState(false);
+  const {
+    action: { initPlaying },
+  } = useCodeHistoryPlayerContext();
 
   useEffect(() => {
     if (isEditing) {
@@ -237,6 +241,7 @@ export const useEventIndexEdit = () => {
       });
       alert(hasIndex ? '인덱스가 수정되었습니다.' : '인덱스가 생성되었습니다.');
       handleEditCancel();
+      initPlaying();
     } catch (err) {
       alert('인덱스 생성에 실패하였습니다.');
     }
