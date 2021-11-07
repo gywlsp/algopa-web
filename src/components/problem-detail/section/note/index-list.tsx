@@ -18,7 +18,7 @@ export default function CodeNoteIndexListSection() {
   } = useCodeNoteContext();
 
   const handleIndexCardClick = (index: string, modifiedText: string) => () => {
-    if (confirm('에디터에 해당 인덱스와 코드를 추가하시겠습니까?')) {
+    if (confirm('에디터에 해당 인덱스 정보(코드, 메모)를 추가하시겠습니까?')) {
       insertEventIndexData(index, modifiedText);
     }
   };
