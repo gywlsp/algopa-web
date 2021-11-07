@@ -24,7 +24,7 @@
 }
 #problem-info th,
 #problem-info td {
-  line-height: 1.8;
+  line-height: 3rem;
 }
 #problem-info :nth-child(3),
 #problem-info :nth-child(4),
@@ -43,11 +43,57 @@
 
 .problem-content p,
 .problem-content a {
-  line-height: 1.8;
+  line-height: 3rem;
+}
+
+.problem-content p {
+  margin-bottom: 1rem;
+  background-color: #222 !important;
 }
 
 .problem-content a {
   color: #097380;
+}
+
+.problem-content ol,
+.problem-content ul {
+  display: block;
+  margin-bottom: 1rem;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 4rem;
+}
+
+.problem-content ol {
+  list-style-type: decimal;
+}
+
+.problem-content ul {
+  list-style-type: disc;
+}
+
+.problem-content li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.problem-content img {
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+.problem-content blockquote {
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  border-left: 5px solid #aaa;
+}
+
+.problem-content .problem-text blockquote,
+.problem-text blockquote p {
+  font-size: medium;
 }
 
 .problem-content pre {
@@ -55,6 +101,7 @@
   background-color: #333;
   overflow-x: scroll;
   line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
 .problem-content pre::-webkit-scrollbar {
@@ -65,4 +112,46 @@
 
 .problem-content pre::-webkit-scrollbar-thumb {
   background: #444;
+}
+
+.problem-content .problem-text {
+  line-height: 2;
+}
+
+.problem-content .table {
+  max-width: 100%;
+  margin-bottom: 2rem;
+}
+
+table.table-center-35 {
+  width: 35%;
+  margin-left: 32%;
+  margin-right: 33%;
+}
+
+.problem-content .table-bordered {
+  border: 1px solid #aaa;
+}
+.problem-content .table-bordered > thead > tr > th,
+.problem-content .table-bordered > tbody > tr > th,
+.problem-content .table-bordered > tfoot > tr > th,
+.problem-content .table-bordered > thead > tr > td,
+.problem-content .table-bordered > tbody > tr > td,
+.problem-content .table-bordered > tfoot > tr > td {
+  border: 1px solid #aaa;
+}
+.problem-content .table > thead > tr > th,
+.problem-content .table > tbody > tr > th,
+.problem-content .table > tfoot > tr > th,
+.problem-content .table > thead > tr > td,
+.problem-content .table > tbody > tr > td,
+.problem-content .table > tfoot > tr > td {
+  padding: 0.8rem;
+  line-height: 1.4;
+  vertical-align: top;
+  border-top: 1px solid #aaa;
+}
+
+.problem-content table.td-center td {
+  text-align: center !important;
 }
