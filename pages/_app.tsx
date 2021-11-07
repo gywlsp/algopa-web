@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>알고파 - 개인 맞춤 코딩테스트 학습 서비스</title>
-        <link rel="icon" href="/logo/app.png" />
+        <link rel="icon" href="/images/logo/app.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
