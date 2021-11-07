@@ -3,6 +3,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { CodeHistorySectionProps } from 'src/components/problem-detail/section/history';
 
 import { selectedCodeEventId, codeEvents } from 'src/modules/atoms/code';
+import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import { selectedCodeEventOrder } from 'src/modules/selectors/code';
 import { ICodeHistoryPlayerContext } from './ICodeHistoryPlayerContext';
 
@@ -15,6 +16,7 @@ export const useCodeHistoryPlayerContext = () =>
 export const withCodeHistoryPlayerContext =
   (WrappedComponent: React.FunctionComponent<CodeHistorySectionProps>) =>
   (props: CodeHistorySectionProps) => {
+    const rightSectionType = useRecoilValue(problemPageRightSectionType);
     const events = useRecoilValue(codeEvents);
     const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
     const setSelectedEventId = useSetRecoilState(selectedCodeEventId);
@@ -27,6 +29,10 @@ export const withCodeHistoryPlayerContext =
     const [playSpeed, setPlaySpeed] = useState(1);
     const [playSec, setPlaySec] = useState(0);
     const unitSec = 0.075 / playSpeed;
+
+    useEffect(() => {
+      initPlaying();
+    }, [rightSectionType]);
 
     useEffect(() => {
       if ((!playSec && events && selectedEventOrder) || !isPlaying) {
@@ -92,7 +98,10 @@ export const withCodeHistoryPlayerContext =
 
     const initPlaying = () => {
       setPlaying(false);
-      setSelectedEventId(events[0].id);
+      if (!events) {
+        return;
+      }
+      setSelectedEventId(events[0]?.id);
     };
 
     const skipEvent = (value: number) => {
