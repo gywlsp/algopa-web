@@ -6,7 +6,13 @@ import {
   RawDraftContentState,
   RichUtils,
 } from 'draft-js';
-import PrimsDecorator from 'src/modules/prism-decorator';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-python';
+Prism.languages.python = Prism.languages.extend('python', {});
+Prism.languages.insertBefore('python', 'prolog', {
+  comment: { pattern: /##[^\n]*/, alias: 'comment' },
+});
+import PrimsDecorator from 'draft-js-prism';
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CodeNoteSectionProps } from 'src/components/problem-detail/section/note';
@@ -27,7 +33,7 @@ export const withCodeNoteContext =
   (WrappedComponent: React.FunctionComponent<any>) =>
   (props: CodeNoteSectionProps) => {
     const editorRef = useRef(null);
-    const decorator = new PrimsDecorator();
+    const decorator = new PrimsDecorator({ prism: Prism });
     const rightSectionType = useRecoilValue(problemPageRightSectionType);
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const selectedCode = useRecoilValue(selectedProblemCode);
