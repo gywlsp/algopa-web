@@ -1,31 +1,21 @@
 import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Header from './header';
 import EventIndexPreviewCard from 'src/components/common/card/index-preview';
 import { GREY } from 'src/constants/colors';
 
-import {
-  selectedCodeEventId,
-  selectedProblemCodeId,
-} from 'src/modules/atoms/code';
+import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import { selectedCodeIndexedEvents } from 'src/modules/selectors/code';
 import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
 
 export default function CodeHistoryIndexListSection() {
   const codeId = useRecoilValue(selectedProblemCodeId);
   const indexedEvents = useRecoilValue(selectedCodeIndexedEvents);
-  const setSelectedCodeEventId = useSetRecoilState(selectedCodeEventId);
   const {
-    action: { togglePlaying },
+    action: { onIndexCardClick },
   } = useCodeHistoryPlayerContext();
-
-  const handleCardClick = (eventId: string) => {
-    setSelectedCodeEventId(eventId);
-    togglePlaying('stop');
-  };
-
   return (
     <Wrapper>
       <Header />
@@ -38,7 +28,7 @@ export default function CodeHistoryIndexListSection() {
             order={order}
             index={index}
             onClick={() => {
-              handleCardClick(id);
+              onIndexCardClick(order);
             }}
           />
         ))}
