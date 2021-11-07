@@ -39,7 +39,7 @@ export default function IndexTitleInput() {
         <StyledInput
           value={indexTitle}
           onChange={handleChange}
-          placeholder="Message (optional)"
+          placeholder="메세지(optional)를 입력해 현 시점의 코드를 인덱싱해보세요."
         />
       </InputWrapper>
       <Button onClick={handleSubmit}>
