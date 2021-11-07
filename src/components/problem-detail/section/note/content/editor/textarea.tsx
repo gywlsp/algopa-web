@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import {
   ContentBlock,
@@ -19,6 +19,18 @@ export default function CodeNoteEditorTextarea() {
     state: { isEditing, editorRef, editorState },
     action: { setEditorState, onEditorStateChange, onTab },
   } = useCodeNoteContext();
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    if (isEditing) {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+      return () =>
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+    }
+  }, [isEditing]);
 
   const blockStyleFn = (block: ContentBlock) => {
     const blockClassName = DRAFT_BLOCK_STYLES.reduce(
