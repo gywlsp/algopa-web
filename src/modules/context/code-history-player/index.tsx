@@ -1,8 +1,13 @@
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
+import { DraggableEventHandler } from 'react-draggable';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { CodeHistorySectionProps } from 'src/components/problem-detail/section/history';
 
-import { selectedCodeEventId, codeEvents } from 'src/modules/atoms/code';
+import {
+  selectedCodeEventId,
+  codeEvents,
+  selectedProblemCodeId,
+} from 'src/modules/atoms/code';
 import { problemPageRightSectionType } from 'src/modules/atoms/problem';
 import { selectedCodeEventOrder } from 'src/modules/selectors/code';
 import { ICodeHistoryPlayerContext } from './ICodeHistoryPlayerContext';
@@ -17,71 +22,53 @@ export const withCodeHistoryPlayerContext =
   (WrappedComponent: React.FunctionComponent<CodeHistorySectionProps>) =>
   (props: CodeHistorySectionProps) => {
     const rightSectionType = useRecoilValue(problemPageRightSectionType);
+    const codeId = useRecoilValue(selectedProblemCodeId);
     const events = useRecoilValue(codeEvents);
     const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
     const setSelectedEventId = useSetRecoilState(selectedCodeEventId);
 
     const timelineRef = useRef(null);
-    const scrubberRef = useRef(null);
-    const progressBarRef = useRef(null);
 
     const [isPlaying, setPlaying] = useState(false);
     const [playSpeed, setPlaySpeed] = useState(1);
-    const [playSec, setPlaySec] = useState(0);
     const unitSec = 0.075 / playSpeed;
+
+    const [draggablePos, setDraggablePos] = useState({ x: 0, y: 0 });
+    const timelineBound = timelineRef?.current?.clientWidth - 12;
+    const fragmentCnt = events?.length - 1;
+    const fragmentWidth = timelineBound / (fragmentCnt || 1);
+    const [isPlayingBeforeDrag, setPlayingBeforeDrag] = useState(false);
 
     useEffect(() => {
       initPlaying();
-    }, [rightSectionType]);
-
-    useEffect(() => {
-      if ((!playSec && events && selectedEventOrder) || !isPlaying) {
-        setPlaySec(unitSec * (events?.length - selectedEventOrder + 1));
-      }
-    }, [events, selectedEventOrder, isPlaying, unitSec]);
-
-    useEffect(() => {
-      if (events?.length === 1) {
-        updateScrubberPos('calc(100% - 12px)');
-      } else if (selectedEventOrder === 1) {
-        updateScrubberPos('0%');
-      } else {
-        const percent = `calc(${
-          100 * ((selectedEventOrder - 1) / (events?.length - 1))
-        }% - 12px)`;
-        updateScrubberPos(percent);
-      }
-    }, [events, selectedEventOrder]);
+    }, [rightSectionType, codeId]);
 
     useEffect(() => {
       if (isPlaying) {
         return setPlayInterval(selectedEventOrder);
       }
-    }, [isPlaying]);
+    }, [isPlaying, playSpeed]);
+
+    const handleSelectedEventChange = ({ order }: { order: number }) => {
+      if (!events) {
+        return;
+      }
+      const newId = events[order - 1]?.id;
+      const newX = fragmentWidth * (order - 1);
+      setSelectedEventId(newId);
+      setDraggablePos({ x: newX, y: 0 });
+    };
 
     const setPlayInterval = (_currOrder: number) => {
       const _intervalId = setInterval(() => {
         if (_currOrder < events?.length) {
-          setSelectedEventId(events[_currOrder++]?.id);
+          handleSelectedEventChange({ order: ++_currOrder });
         }
         if (_currOrder === events?.length) {
-          updateScrubberPos();
           setPlaying(false);
         }
       }, unitSec * 1000);
       return () => clearInterval(_intervalId);
-    };
-
-    const updateScrubberPos = (
-      marginLeft: string | number = window
-        ?.getComputedStyle(scrubberRef.current)
-        ?.getPropertyValue('margin-left')
-    ) => {
-      if (!scrubberRef?.current || !progressBarRef?.current) {
-        return;
-      }
-      scrubberRef.current.style.marginLeft = marginLeft;
-      progressBarRef.current.style.width = marginLeft;
     };
 
     const togglePlaying = (
@@ -91,17 +78,13 @@ export const withCodeHistoryPlayerContext =
         setPlaying(true);
       }
       if (actionType === 'stop') {
-        updateScrubberPos();
         setPlaying(false);
       }
     };
 
     const initPlaying = () => {
       setPlaying(false);
-      if (!events) {
-        return;
-      }
-      setSelectedEventId(events[0]?.id);
+      handleSelectedEventChange({ order: 1 });
     };
 
     const skipEvent = (value: number) => {
@@ -113,15 +96,39 @@ export const withCodeHistoryPlayerContext =
         value >= 0
           ? Math.min(events.length, prevOrder + value)
           : Math.max(1, prevOrder + value);
-      const nextId = events[nextOrder - 1]?.id;
-      setSelectedEventId(nextId);
+      handleSelectedEventChange({ order: nextOrder });
     };
 
     const updatePlaySpeed = (speed: number) => {
-      if (isPlaying) {
-        togglePlaying('stop');
-      }
       setPlaySpeed(speed);
+    };
+
+    const handleDragStart: DraggableEventHandler = (e, data) => {
+      if (!isPlaying) {
+        return;
+      }
+      setPlayingBeforeDrag(true);
+      togglePlaying('stop');
+    };
+
+    const handleDrag: DraggableEventHandler = (e, data) => {
+      const { y } = draggablePos;
+      const newX = data.x;
+      setDraggablePos({ x: newX, y: y });
+      setSelectedEventId(events[Math.round(newX / fragmentWidth)]?.id);
+    };
+
+    const handleDragStop: DraggableEventHandler = (e, data) => {
+      if (!isPlayingBeforeDrag) {
+        return;
+      }
+      setPlayingBeforeDrag(false);
+      togglePlaying('start');
+    };
+
+    const handleIndexCardClick = (eventOrder: number) => {
+      togglePlaying('stop');
+      handleSelectedEventChange({ order: eventOrder });
     };
 
     const codeHistoryPlayerStore = {
@@ -129,17 +136,21 @@ export const withCodeHistoryPlayerContext =
         events,
         selectedEventOrder,
         timelineRef,
-        scrubberRef,
-        progressBarRef,
         isPlaying,
         playSpeed,
-        playSec,
+        draggablePos,
+        timelineBound,
+        fragmentWidth,
       },
       action: {
         updatePlaySpeed,
         skipEvent,
         togglePlaying,
         initPlaying,
+        onDragStart: handleDragStart,
+        onDrag: handleDrag,
+        onDragStop: handleDragStop,
+        onIndexCardClick: handleIndexCardClick,
       },
     };
 

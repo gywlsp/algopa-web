@@ -1,23 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
+import Draggable from 'react-draggable';
+import { useRecoilValue } from 'recoil';
 
 import { BLUE_GREEN, GREY } from 'src/constants/colors';
 
 import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';
+import { codeEvents } from 'src/modules/atoms/code';
 
 export default function CodeHistoryPlayerTimeline() {
+  const events = useRecoilValue(codeEvents);
   const {
-    state: { timelineRef, scrubberRef, progressBarRef, playSec, isPlaying },
+    state: { timelineRef, timelineBound, draggablePos, fragmentWidth },
+    action: { onDragStart, onDrag, onDragStop },
   } = useCodeHistoryPlayerContext();
 
   return (
     <Wrapper ref={timelineRef}>
-      <ProgressBar
-        ref={progressBarRef}
-        playSec={playSec}
-        isPlaying={isPlaying}
-      />
-      <Scrubber ref={scrubberRef} playSec={playSec} isPlaying={isPlaying} />
+      <Progressbar style={{ width: draggablePos?.x }} />
+      <Draggable
+        axis="x"
+        defaultPosition={{ x: 0, y: 0 }}
+        grid={[fragmentWidth, 0]}
+        bounds={{ left: 0, right: timelineBound }}
+        position={draggablePos}
+        onStart={onDragStart}
+        onDrag={onDrag}
+        onStop={onDragStop}
+        offsetParent={timelineRef?.current}
+        disabled={events?.length === 1}
+      >
+        <Scrubber />
+      </Draggable>
     </Wrapper>
   );
 }
@@ -31,51 +45,18 @@ const Wrapper = styled.div`
   overflow: visible;
 `;
 
-const ProgressBar = styled.div<{
-  isPlaying: boolean;
-  playSec: number;
-}>`
+const Progressbar = styled.div`
   position: absolute;
   left: 0;
-  width: 0%;
   height: 0.4rem;
   background-color: ${BLUE_GREEN[400]};
-  ${({ isPlaying, playSec }) =>
-    isPlaying
-      ? `
-      transform: scaleX(100%);
-      width: 100% !important;
-  -webkit-transition: ${playSec}s linear;
-  -moz-transition: ${playSec}s linear;
-  -ms-transition: ${playSec}s linear;
-  -o-transition: ${playSec}s linear;
-  transition: ${playSec}s linear;
-`
-      : ``}
 `;
 
-const Scrubber = styled.button<{
-  isPlaying: boolean;
-  playSec: number;
-}>`
+const Scrubber = styled.div`
   position: relative;
   top: -4px;
   width: 12px;
   height: 12px;
-  padding: 0;
-  margin-left: 0%;
-  ${({ isPlaying, playSec }) =>
-    isPlaying
-      ? `
-      transform: translateX(100%);
-      margin-left: calc(100% - 12px) !important;
-    -webkit-transition: ${playSec}s linear;
-    -moz-transition: ${playSec}s linear;
-    -ms-transition: ${playSec}s linear;
-    -o-transition: ${playSec}s linear;
-    transition: ${playSec}s linear;
-  `
-      : ``}
   background-color: ${BLUE_GREEN[400]};
   border: none;
   border-radius: 999px;
