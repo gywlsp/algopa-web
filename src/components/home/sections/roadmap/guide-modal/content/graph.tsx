@@ -20,10 +20,14 @@ export default function RoadmapGuideModalGraphContent() {
           각 <Strong>유형별로 속해있는 문제들을 확인</Strong>할 수 있어요.
         </Li>
         <Li>
+          로그인시 유형별로 <Strong>푼 문제</Strong>와 <Strong>오답률</Strong>을
+          확인할 수 있어요.
+        </Li>
+        <Li>
           유형 <Strong>오답률</Strong>에 따라 유형 노드의 배경색이 달라져요.
         </Li>
         <Li>
-          <Strong>푼 문제는 파란색 테두리</Strong>로 표시돼요.
+          <Strong>푼 문제는 문제 노드에 파란색 테두리</Strong>로 표시돼요.
         </Li>
         <Li>
           노드를 <Strong>클릭하면 그래프가 해당 노드로 이동</Strong>해요.
