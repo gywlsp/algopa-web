@@ -26,7 +26,7 @@ export default function RoadmapGuideModalFailureRateContent() {
       </UL>
       <ColorsWrapper>
         {COLOR_DATA.map(({ color, label }) => (
-          <Row>
+          <Row key={label}>
             <Circle backgroundColor={color} />
             <P level={2}>{label}</P>
           </Row>
@@ -38,13 +38,13 @@ export default function RoadmapGuideModalFailureRateContent() {
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 `;
 
 const ColorsWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 0.8rem;
+  margin-top: 0.4rem;
   margin-left: 2rem;
 `;
 
@@ -58,7 +58,7 @@ const Title = styled(P).attrs({
   level: 4,
   fontWeight: 500,
 })`
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 `;
 
 const UL = styled.ul``;
