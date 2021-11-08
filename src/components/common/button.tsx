@@ -118,23 +118,15 @@ const Wrapper = styled.button<{
   ${
     !disabled &&
     `&:hover {
-    ${buttonType === 'primary' ? 'background-color' : 'color'}: ${
+      ${buttonType === 'primary' ? 'background-color' : 'color'}: ${
       BLUE_GREEN[700]
-    }
-  }`
+    }; 
+      border-color: ${BLUE_GREEN[700]};
+    }`
   }
   border: ${
     disabled || buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`
   };
-  &:hover {
-    border-color: ${BLUE_GREEN[700]};
-    ${
-      !disabled &&
-      `${buttonType === 'primary' ? 'background-color' : 'color'}: ${
-        BLUE_GREEN[700]
-      };`
-    }
-  }
 `}
   display: flex;
   justify-content: center;
@@ -152,44 +144,38 @@ const StyledLink = styled(Link)<{
   hasPadding: boolean;
 }>`
   ${({ size, disabled, buttonType, block, hasPadding }) => `
-width: ${block ? '100%' : 'fit-content'};
-height: ${{ large: '5.2rem', medium: '4rem', small: 'fit-content' }[size]};
-padding:  ${
+  width: ${block ? '100%' : 'fit-content'};
+  height: ${{ large: '5.2rem', medium: '4rem', small: 'fit-content' }[size]};
+  padding:  ${
     hasPadding || buttonType !== 'text'
       ? size === 'small'
         ? '0.5rem 0.8rem'
         : '1rem 1.6rem'
       : 0
   };
-font-size: ${{ large: '1.8rem', medium: '1.6rem', small: '1.4rem' }[size]};
-font-weight: ${size === 'large' ? 500 : 400};
-cursor: ${disabled ? 'default' : 'pointer'};
-color: ${
+  font-size: ${{ large: '1.8rem', medium: '1.6rem', small: '1.4rem' }[size]};
+  font-weight: ${size === 'large' ? 500 : 400};
+  cursor: ${disabled ? 'default' : 'pointer'};
+  color: ${
     (disabled && GREY[500]) ||
     (buttonType === 'primary' ? WHITE : BLUE_GREEN[500])
   };
-background-color: ${
+  background-color: ${
     (disabled && GREY[300]) ||
     (buttonType === 'primary' ? BLUE_GREEN[500] : WHITE)
   };
-${
-  !disabled &&
-  `&:hover {
-  ${buttonType === 'primary' ? 'background-color' : 'color'}: ${BLUE_GREEN[700]}
-}`
-}
-border: ${
-    disabled || buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`
-  };
-&:hover {
-  border-color: ${BLUE_GREEN[700]};
   ${
     !disabled &&
-    `${buttonType === 'primary' ? 'background-color' : 'color'}: ${
+    `&:hover {
+      ${buttonType === 'primary' ? 'background-color' : 'color'}: ${
       BLUE_GREEN[700]
-    };`
+    }; 
+      border-color: ${BLUE_GREEN[700]};
+    }`
   }
-}
+  border: ${
+    disabled || buttonType === 'text' ? 'none' : `1px solid ${BLUE_GREEN[500]}`
+  };
 `}
   display: flex;
   justify-content: center;
