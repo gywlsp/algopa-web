@@ -28,12 +28,6 @@ const GlobalStyle = createGlobalStyle`
     background: #333;
   }
 
-  @font-face {
-    font-family: 'Comfortaa';
-    font-weight: 500;
-    src: url('/fonts/Comfortaa-Medium.ttf');
-  }
-
   @media (max-width: 481px) {
     html {
       font-size: 8px;
