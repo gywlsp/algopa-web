@@ -2,7 +2,7 @@
 
 <img src="https://user-images.githubusercontent.com/47051596/140640554-4c79d5a8-55a0-4576-bb0d-a1e93d9dd9a8.png" style = "margin: 15px"/>
 
-- 서비스 링크 : https://www.algopa.io/
+- [서비스 링크](https://www.algopa.io/)
 
 <br />
 
@@ -14,14 +14,14 @@
 
 ## 서비스 컨셉 소개 💁🏻‍♀️
 
-- 영상 1: https://youtu.be/qS8zA6FZyqI
-- 영상 2: https://youtu.be/RLMPpKEhj2c
+- [영상 1](https://youtu.be/qS8zA6FZyqI)
+- [영상 2](https://youtu.be/RLMPpKEhj2c)
 
 <br />
 
 ## 서비스 기능 소개 ✨
 
-- 영상: https://youtu.be/rzRRqRK5rVo
+- [영상](https://youtu.be/rzRRqRK5rVo)
 
 1. 코딩테스트 준비 로드맵
 2. 쉽게 파악하는 취약 유형
