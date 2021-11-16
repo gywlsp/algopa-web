@@ -30,7 +30,9 @@ export default function CodeHistoryPlayerTimeline() {
         offsetParent={timelineRef?.current}
         disabled={events?.length === 1}
       >
-        <Scrubber />
+        <span>
+          <Scrubber />
+        </span>
       </Draggable>
     </Wrapper>
   );
