@@ -60,4 +60,9 @@ const Scrubber = styled.div`
   background-color: ${BLUE_GREEN[400]};
   border: none;
   border-radius: 999px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.5);
+    transition: all 0.2s;
+  }
 `;
