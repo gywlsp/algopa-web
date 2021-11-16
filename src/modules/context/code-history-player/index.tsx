@@ -113,7 +113,7 @@ export const withCodeHistoryPlayerContext =
 
     const handleDrag: DraggableEventHandler = (e, data) => {
       const { y } = draggablePos;
-      const newX = data.x;
+      const newX = data.x || 0;
       setDraggablePos({ x: newX, y: y });
       setSelectedEventId(events[Math.round(newX / fragmentWidth)]?.id);
     };
