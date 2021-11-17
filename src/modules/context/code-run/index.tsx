@@ -32,6 +32,13 @@ export const withCodeRunContext =
     });
 
     useEffect(() => {
+      setRunOutput({
+        success: undefined,
+        result: '',
+      });
+    }, [codeId]);
+
+    useEffect(() => {
       if (runOutput?.success && runOutput?.isSolved) {
         setCompleteModalOpen(true);
       }
