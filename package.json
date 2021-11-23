@@ -30,7 +30,6 @@
     "react-loading-overlay-ts": "^1.0.4",
     "react-switch": "^6.0.0",
     "recoil": "^0.4.1",
-    "socket.io-client": "^4.2.0",
     "styled-components": "^5.3.0",
     "styled-normalize": "^8.0.7",
     "styled-reset": "^4.3.4",
