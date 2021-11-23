@@ -71,7 +71,18 @@
 
 ## 기술 스택 🛠
 
-- [기술 스택](./package.json)
+- 언어
+  - TypeScript
+- 주요 프레임워크/라이브러리
+  - React
+  - Next.js
+  - Recoil
+  - SWR
+  - styled-components
+  - @monaco-editor/react
+  - Draft.js
+  - PrismJS
+  - vis-network
 
 ## 프로젝트 참여자 역할 👨‍💻👩‍💻
 
