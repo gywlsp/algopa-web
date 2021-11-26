@@ -13,11 +13,11 @@ const CodeSection = dynamic(
 );
 import { GREY } from 'src/constants/colors';
 
-import { useRecentAuthTokens } from 'src/hooks/api/auth';
+import { useAuth } from 'src/hooks/api/auth';
 import { withCodeRunContext } from 'src/modules/context/code-run';
 
 function ProblemDetailPage() {
-  useRecentAuthTokens(true);
+  useAuth({ isLoginRequired: true });
 
   return (
     <Wrapper>

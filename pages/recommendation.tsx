@@ -10,11 +10,11 @@ const ProblemCategorySwitch = dynamic(
 );
 const Section = dynamic(() => import('src/components/common/section'));
 
-import { useRecentAuthTokens } from 'src/hooks/api/auth';
+import { useAuth } from 'src/hooks/api/auth';
 import { useMe } from 'src/hooks/api/user';
 
 export default function ProblemRecommendationPage() {
-  useRecentAuthTokens(true);
+  useAuth({ isLoginRequired: true });
   const { data: userData, error } = useMe();
 
   if (error) {

@@ -9,10 +9,10 @@ const ProblemsPreviewSection = dynamic(
   () => import('src/components/home/sections/problems-preview')
 );
 
-import { useRecentAuthTokens } from 'src/hooks/api/auth';
+import { useAuth } from 'src/hooks/api/auth';
 
 export default function HomePage() {
-  useRecentAuthTokens();
+  useAuth();
 
   return (
     <GlobalLayout>

@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
-import useSWR from 'swr';
-import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { authTokens } from 'src/modules/atoms/auth';
 import { removeAuthCookie, setAuthCookie } from 'src/lib/utils/auth';
-import { meReadConfig } from 'src/services/api/user/config';
 import AuthService from 'src/services/api/auth';
+import { authTokens } from 'src/modules/atoms/auth';
 import { AuthTokens } from 'src/types/user';
+import { useMe } from './user';
 
 export const useLoginRedirect = () => {
   const router = useRouter();
@@ -51,43 +49,56 @@ export const useLoginRedirect = () => {
   }, [router.query]);
 };
 
-export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
-  const router = useRouter();
+export const useAuthTokens = () => {
   const [tokens, setTokens] = useRecoilState(authTokens);
-  const { accessToken, refreshToken } = tokens;
 
-  const { error } = useSWR('/api/user', () => axios(meReadConfig()));
+  const setAuthTokens = (authTokens: AuthTokens) => {
+    setTokens(authTokens);
+  };
+
+  const removeAuthTokens = () => {
+    setTokens({
+      accessToken: null,
+      refreshToken: null,
+    });
+  };
+
+  return { authTokens: tokens, setAuthTokens, removeAuthTokens };
+};
+
+export const useAuth = (params?: { isLoginRequired: boolean }) => {
+  const router = useRouter();
+  const { error } = useMe();
+  const { authTokens, setAuthTokens, removeAuthTokens } = useAuthTokens();
+  const { accessToken, refreshToken } = authTokens;
 
   useEffect(() => {
     if (error?.response?.status === 401 && accessToken) {
-      const updateAuthTokens = (authTokens: AuthTokens) => {
-        setTokens(authTokens);
+      const updateAuth = (authTokens: AuthTokens) => {
+        setAuthTokens(authTokens);
         setAuthCookie(authTokens);
       };
 
-      const removeAuthTokens = () => {
-        setTokens({
-          accessToken: null,
-          refreshToken: null,
-        });
+      const removeAuth = () => {
+        removeAuthTokens();
         removeAuthCookie();
       };
 
-      const refreshAuthTokens = async () => {
+      const refreshAuth = async () => {
         try {
           const newAuthTokens = await AuthService.refresh(refreshToken);
-          updateAuthTokens(newAuthTokens);
+          updateAuth(newAuthTokens);
         } catch (error) {
-          removeAuthTokens();
+          removeAuth();
         }
       };
 
-      refreshAuthTokens();
-    } else if (isLoginRequired && error) {
+      refreshAuth();
+    } else if (params?.isLoginRequired && error) {
       alert('로그인이 필요한 기능입니다.');
       router.push('/login');
     }
   }, [error]);
 
-  return tokens;
+  return authTokens;
 };

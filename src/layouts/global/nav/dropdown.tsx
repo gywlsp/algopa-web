@@ -4,14 +4,16 @@ import { useRouter } from 'next/dist/client/router';
 
 import Button from 'src/components/common/button';
 
-import { removeCookie } from 'src/lib/utils/cookie';
+import { removeAuthCookie } from 'src/lib/utils/auth';
+import { useAuthTokens } from 'src/hooks/api/auth';
 
 export default function GlobalNavDropdown() {
   const router = useRouter();
+  const { removeAuthTokens } = useAuthTokens();
 
   const logout = () => {
-    removeCookie('ACCESS_TOKEN');
-    removeCookie('REFRESH_TOKEN');
+    removeAuthCookie();
+    removeAuthTokens();
     router.reload();
     alert('로그아웃되었습니다.');
   };

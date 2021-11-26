@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import useSWR, { SWRResponse, SWRConfiguration } from 'swr';
-import { useRecentAuthTokens } from './auth';
+import { useAuthTokens } from './auth';
 
 export type GetRequest = AxiosRequestConfig | null;
 
@@ -25,7 +25,9 @@ export default function useRequest<Data = unknown, Error = unknown>(
   request: GetRequest,
   config: Config<Data, Error> = {}
 ): Return<Data, Error> {
-  const { accessToken } = useRecentAuthTokens();
+  const {
+    authTokens: { accessToken },
+  } = useAuthTokens();
   const authedRequest = {
     ...request,
     headers: {
