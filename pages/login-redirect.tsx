@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
 
 import { setCookie } from 'src/lib/utils/cookie';
-import { getEncryptedString } from 'src/lib/utils/crypto';
 import AuthService from 'src/services/api/auth';
 
 export default function LoginRedirectPage() {
@@ -30,10 +29,9 @@ export default function LoginRedirectPage() {
           //   @401 메세지 필요시 추가
           case 404:
             const { accessToken, email } = err?.response?.data;
-            const encryptedAccessToken = getEncryptedString(accessToken);
             alert('가입되지 않은 계정입니다. 회원가입 페이지로 이동합니다.');
             router.push(
-              `/join?email=${email}&pv=${provider}&at=${encryptedAccessToken}`
+              `/join?email=${email}&pv=${provider}&at=${accessToken}`
             );
             break;
           default:

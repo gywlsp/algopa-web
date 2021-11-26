@@ -6,13 +6,11 @@ import styled from 'styled-components';
 const NicknameInput = dynamic(() => import('./inputs/nickname'));
 import Button from 'src/components/common/button';
 
-import { getDecryptedString } from 'src/lib/utils/crypto';
 import AuthService from 'src/services/api/auth';
 
 export default function JoinForm() {
   const router = useRouter();
-  const { email, pv: provider, at } = router.query;
-  const accessToken = getDecryptedString(at as string);
+  const { email, pv: provider, at: accessToken } = router.query;
 
   const [nickname, setNickname] = useState('');
   const [isNicknameDuplicated, setNicknameDuplicated] = useState<boolean>();
