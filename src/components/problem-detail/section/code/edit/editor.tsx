@@ -11,7 +11,7 @@ export default function CodeEditSectionEditor() {
       className="code-editor"
       options={{ fontSize: '14px', readOnly: false }}
       theme="vs-dark"
-      height="calc(100% - 19.6rem)"
+      height="calc(100% - 21.6rem)"
       language={code?.language}
       value={text}
       onChange={onChange}
