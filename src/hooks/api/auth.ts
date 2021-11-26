@@ -1,16 +1,18 @@
+import { useEffect } from 'react';
 import useSWR from 'swr';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { authTokens } from 'src/modules/atoms/auth';
-import { removeCookie, setCookie } from 'src/lib/utils/cookie';
+import { removeAuthCookie, setAuthCookie } from 'src/lib/utils/auth';
 import { meReadConfig } from 'src/services/api/user/config';
 import AuthService from 'src/services/api/auth';
+import { AuthTokens } from 'src/types/user';
 
 export const useLoginRedirect = () => {
   const router = useRouter();
+  const setAuthTokens = useSetRecoilState(authTokens);
 
   useEffect(() => {
     const login = async () => {
@@ -24,14 +26,12 @@ export const useLoginRedirect = () => {
           provider,
           code as string
         );
-        setCookie('ACCESS_TOKEN', accessToken);
-        setCookie('REFRESH_TOKEN', refreshToken);
+        setAuthTokens({ accessToken, refreshToken });
+        setAuthCookie({ accessToken, refreshToken });
         alert('로그인 성공!');
         router.push('/');
       } catch (err) {
         switch (err?.response?.status) {
-          // case 401:
-          //   @401 메세지 필요시 추가
           case 404:
             const { accessToken, email } = err?.response?.data;
             alert('가입되지 않은 계정입니다. 회원가입 페이지로 이동합니다.');
@@ -60,13 +60,9 @@ export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
 
   useEffect(() => {
     if (error?.response?.status === 401 && accessToken) {
-      const updateAuthTokens = ({ accessToken, refreshToken }) => {
-        setTokens({
-          accessToken,
-          refreshToken,
-        });
-        setCookie('ACCESS_TOKEN', accessToken);
-        setCookie('REFRESH_TOKEN', refreshToken);
+      const updateAuthTokens = (authTokens: AuthTokens) => {
+        setTokens(authTokens);
+        setAuthCookie(authTokens);
       };
 
       const removeAuthTokens = () => {
@@ -74,18 +70,13 @@ export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
           accessToken: null,
           refreshToken: null,
         });
-        removeCookie('ACCESS_TOKEN');
-        removeCookie('REFRESH_TOKEN');
+        removeAuthCookie();
       };
 
       const refreshAuthTokens = async () => {
         try {
-          const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-            await AuthService.refresh(refreshToken);
-          updateAuthTokens({
-            accessToken: newAccessToken,
-            refreshToken: newRefreshToken,
-          });
+          const newAuthTokens = await AuthService.refresh(refreshToken);
+          updateAuthTokens(newAuthTokens);
         } catch (error) {
           removeAuthTokens();
         }
@@ -98,5 +89,5 @@ export const useRecentAuthTokens = (isLoginRequired?: boolean) => {
     }
   }, [error]);
 
-  return { accessToken, refreshToken };
+  return tokens;
 };
