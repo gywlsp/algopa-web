@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
-import useRequest from '.';
 import { useRecoilValue } from 'recoil';
+import useRequest from '.';
 
 import { readConfig } from 'src/services/api/roadmap/config';
 import { RoadmapDTO } from 'src/types/roadmap';
@@ -8,18 +8,18 @@ import { getNodes } from 'src/lib/utils/roadmap';
 import { selectedCompany } from 'src/modules/atoms/problem';
 import { VALIDATE_DISABLE_OPTIONS } from 'src/data/swr';
 
-export const useRoadmap = () => {
+const useRoadmapGraph = () => {
   const company = useRecoilValue(selectedCompany);
-  const { data: roadmapData } = useRequest<RoadmapDTO>(
+  const graph = useRef(null);
+  const { data } = useRequest<RoadmapDTO>(
     readConfig(company),
     VALIDATE_DISABLE_OPTIONS
   );
-  const graph = useRef(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [isGuideModalOpen, setGuideModalOpen] = useState(false);
-  const [isProblemModalOpen, setProblemModalOpen] = useState(false);
-  const { nodes, categoryNodes, problemNodes } = getNodes(roadmapData);
-  const edges = roadmapData?.edges;
+  const [isProblemInfoModalOpen, setProblemInfoModalOpen] = useState(false);
+
+  const { nodes, categoryNodes, problemNodes } = getNodes(data);
+  const edges = data?.edges;
   const selectedCategoryNodeId = categoryNodes?.find(
     ({ id }) => id === selectedNodeId
   )?.nodeId;
@@ -28,23 +28,22 @@ export const useRoadmap = () => {
   );
 
   useEffect(() => {
-    const changeNetworkSize = () => {
+    if (graph?.current) {
+      focusFirstNode(graph?.current);
+    }
+    const changeGraphSize = () => {
       // Haven't resized in 100ms!
       graph?.current?.redraw();
     };
     let doIt;
     const onResize = () => {
       clearTimeout(doIt);
-      doIt = setTimeout(changeNetworkSize, 100);
+      doIt = setTimeout(changeGraphSize, 100);
     };
     window.addEventListener('resize', onResize);
     return () => {
       window.removeEventListener('resize', onResize);
     };
-  }, []);
-
-  useEffect(() => {
-    focusFirstNode(graph?.current);
   }, [company]);
 
   const focusFirstNode = (network = graph?.current) => {
@@ -56,6 +55,7 @@ export const useRoadmap = () => {
   };
 
   const initGraph = (network) => {
+    console.log('ho');
     focusFirstNode(network);
     graph.current = network;
   };
@@ -80,12 +80,40 @@ export const useRoadmap = () => {
     if (selectedNodeId !== nodes[0]) {
       setSelectedNodeId(nodes[0]);
     }
-    setProblemModalOpen(true);
+    setProblemInfoModalOpen(true);
   };
 
-  const closeProblemModal = () => {
-    setProblemModalOpen(false);
+  const closeProblemInfoModal = () => {
+    setProblemInfoModalOpen(false);
   };
+
+  const graphData = {
+    nodes,
+    edges,
+  };
+
+  const events = {
+    selectNode: handleNodeClick,
+    doubleClick: handleNodeDoubleClick,
+  };
+
+  return {
+    isDataFetched: !!data,
+    graphData,
+    initGraph,
+    categoryNodes,
+    events,
+    selectedCategoryNodeId,
+    selectedProblemNode,
+    selectNode,
+    isProblemInfoModalOpen,
+    closeProblemInfoModal,
+  };
+};
+
+export const useRoadmap = () => {
+  const graph = useRoadmapGraph();
+  const [isGuideModalOpen, setGuideModalOpen] = useState(false);
 
   const openGuideModal = () => {
     setGuideModalOpen(true);
@@ -95,29 +123,8 @@ export const useRoadmap = () => {
     setGuideModalOpen(false);
   };
 
-  const events = {
-    selectNode: handleNodeClick,
-    doubleClick: handleNodeDoubleClick,
-  };
-
-  const graphData = {
-    nodes,
-    edges,
-  };
-
-  const isFetched = !!roadmapData;
-
   return {
-    initGraph,
-    isFetched,
-    graphData,
-    categoryNodes,
-    events,
-    selectedCategoryNodeId,
-    selectedProblemNode,
-    selectNode,
-    isProblemModalOpen,
-    closeProblemModal,
+    ...graph,
     isGuideModalOpen,
     openGuideModal,
     closeGuideModal,

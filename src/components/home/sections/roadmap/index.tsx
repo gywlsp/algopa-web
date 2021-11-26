@@ -22,15 +22,15 @@ export default function RoadmapSection() {
   const company = useRecoilValue(selectedCompany);
   const {
     initGraph,
-    isFetched,
+    isDataFetched,
     graphData,
     categoryNodes,
     events,
     selectedCategoryNodeId,
     selectedProblemNode,
     selectNode,
-    isProblemModalOpen,
-    closeProblemModal,
+    isProblemInfoModalOpen,
+    closeProblemInfoModal,
     isGuideModalOpen,
     openGuideModal,
     closeGuideModal,
@@ -57,15 +57,15 @@ export default function RoadmapSection() {
         selectNode={selectNode}
       />
       <RoadmapGraph
-        isFetched={isFetched}
+        isFetched={isDataFetched}
         graphData={graphData}
         initGraph={initGraph}
         events={events}
       />
       <ProblemInfoModal
         {...selectedProblemNode}
-        isOpen={isProblemModalOpen}
-        onClose={closeProblemModal}
+        isOpen={isProblemInfoModalOpen}
+        onClose={closeProblemInfoModal}
       />
     </Section>
   );
