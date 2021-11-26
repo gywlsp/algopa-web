@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/dist/client/router';
 import styled from 'styled-components';
 
-import NicknameInput from './inputs/nickname';
+const NicknameInput = dynamic(() => import('./inputs/nickname'));
 import Button from 'src/components/common/button';
 
 import { getDecryptedString } from 'src/lib/utils/crypto';

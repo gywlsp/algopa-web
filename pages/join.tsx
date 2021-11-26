@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
+const Form = dynamic(() => import('src/components/join/form'));
 import Logo from 'src/components/common/logo';
-import Form from 'src/components/join/form';
 import { GREY } from 'src/constants/colors';
 
 export default function JoinPage() {
