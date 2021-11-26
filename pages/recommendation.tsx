@@ -1,9 +1,14 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import GlobalLayout from 'src/layouts/global';
-import Section from 'src/components/common/section';
-import RecommendedProblemsSection from 'src/components/recommendation/problems-section';
-import ProblemCategorySwitch from 'src/components/common/category/switch';
+const GlobalLayout = dynamic(() => import('src/layouts/global'));
+const RecommendedProblemsSection = dynamic(
+  () => import('src/components/recommendation/problems-section')
+);
+const ProblemCategorySwitch = dynamic(
+  () => import('src/components/common/category/switch')
+);
+const Section = dynamic(() => import('src/components/common/section'));
 
 import { useRecentAuthTokens } from 'src/hooks/api/auth';
 import { useMe } from 'src/hooks/api/user';
