@@ -21,7 +21,7 @@ export default function CodeSubmitButton() {
     await onCodeSubmit();
   };
 
-  if (codeSectionType !== 'code') {
+  if (codeSectionType !== 'edit') {
     return <></>;
   }
 

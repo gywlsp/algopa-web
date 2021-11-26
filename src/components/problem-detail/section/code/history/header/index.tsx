@@ -13,7 +13,7 @@ export default function CodeHistorySectionHeader() {
   const setCodeSectionType = useSetRecoilState(CodeSectionType);
 
   const handleBackButtonClick = () => {
-    setCodeSectionType('code');
+    setCodeSectionType('edit');
   };
 
   return (

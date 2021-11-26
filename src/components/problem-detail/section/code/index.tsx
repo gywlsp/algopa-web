@@ -14,7 +14,7 @@ export default function CodeSection() {
 
   return (
     <>
-      <EditSection isShown={codeSectionType === 'code'} />
+      <EditSection isShown={codeSectionType === 'edit'} />
       <HistorySection isShown={codeSectionType === 'history'} />
       <NoteSection isShown={codeSectionType === 'note'} />
     </>

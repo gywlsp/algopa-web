@@ -15,7 +15,7 @@ export const problem = atom<IProblemReadDTO>({
 
 export const CodeSectionType = atom<CodeSection>({
   key: 'CodeSectionType',
-  default: 'code',
+  default: 'edit',
 });
 
 export const isProblemCategoryShown = atom<boolean>({

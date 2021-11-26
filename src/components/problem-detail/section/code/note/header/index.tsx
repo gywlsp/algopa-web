@@ -28,7 +28,7 @@ export default function CodeNoteSectionHeader() {
   const handleBackButtonClick = async () => {
     try {
       const events = await CodeService.eventList(selectedCodeId);
-      setCodeSectionType(events?.length ? 'history' : 'code');
+      setCodeSectionType(events?.length ? 'history' : 'edit');
     } catch (err) {
       console.log(err);
     }
