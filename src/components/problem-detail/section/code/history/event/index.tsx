@@ -1,9 +1,10 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import CodeTextSection from '../code-text';
-import EventDetailSection from './detail';
-import CodeHistoryPlayer from './player';
+const CodeTextSection = dynamic(() => import('../code-text'));
+const EventDetailSection = dynamic(() => import('./detail'));
+const CodeHistoryPlayer = dynamic(() => import('./player'));
 
 export default function CodeHistoryEventSection() {
   return (

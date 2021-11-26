@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import EventDisplay from './event-display';
-import Timeline from './timeline';
-import ControlButtonList from './control-button/list';
-import SpeedSelect from './speed-select';
+const EventDisplay = dynamic(() => import('./event-display'));
+const Timeline = dynamic(() => import('./timeline'));
+const ControlButtonList = dynamic(() => import('./control-button/list'));
+const SpeedSelect = dynamic(() => import('.//speed-select'));
 import { BLUE_GREEN } from 'src/constants/colors';
 
 export default function CodeHistoryPlayer() {

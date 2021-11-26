@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import ProblemDetailHeader from 'src/components/problem-detail/header';
-import ProblemSection from 'src/components/problem-detail/section/problem';
-import CodeSection from 'src/components/problem-detail/section/code';
+const ProblemDetailHeader = dynamic(
+  () => import('src/components/problem-detail/header')
+);
+const ProblemSection = dynamic(
+  () => import('src/components/problem-detail/section/problem')
+);
+const CodeSection = dynamic(
+  () => import('src/components/problem-detail/section/code')
+);
 import { GREY } from 'src/constants/colors';
 
 import { useRecentAuthTokens } from 'src/hooks/api/auth';

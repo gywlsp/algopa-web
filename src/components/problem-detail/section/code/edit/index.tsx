@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import Header from './header';
-import Editor from './editor';
-import RunOutput from './code-run/output';
-import RunInputModal from './code-run/input-modal';
-import SolveCompleteModal from './complete-modal';
+const Header = dynamic(() => import('./header'));
+const Editor = dynamic(() => import('./editor'));
+const RunOutput = dynamic(() => import('./code-run/output'));
+const RunInputModal = dynamic(() => import('./code-run/input-modal'));
+const SolveCompleteModal = dynamic(() => import('./complete-modal'));
 import { GREY } from 'src/constants/colors';
 
 export type CodeEditSectionProps = {

@@ -1,10 +1,12 @@
 import React from 'react';
-import { useCodeNoteContext } from 'src/modules/context/code-note';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import CodeNoteEditor from './editor';
+const CodeNoteEditor = dynamic(() => import('./editor'));
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
+
+import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteContentSection() {
   const {

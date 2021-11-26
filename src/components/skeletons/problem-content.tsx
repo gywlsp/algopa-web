@@ -35,7 +35,7 @@ export default function ProblemContentSkeleton() {
 }
 
 const Wrapper = styled.div`
-  flex: 1;
+  width: 34%;
   height: 100%;
   border-right: 0.1rem solid ${GREY[900]};
   padding: 1.2rem;

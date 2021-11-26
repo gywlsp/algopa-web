@@ -1,9 +1,10 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import Header from './header';
-import IndexListSection from './index-list';
-import EventSection from './event';
+const Header = dynamic(() => import('./header'));
+const IndexListSection = dynamic(() => import('./index-list'));
+const EventSection = dynamic(() => import('./event'));
 import { GREY } from 'src/constants/colors';
 
 import { withCodeHistoryPlayerContext } from 'src/modules/context/code-history-player';

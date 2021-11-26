@@ -1,7 +1,10 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import ProblemContent from 'src/components/problem-detail/section/problem/content';
+const ProblemContent = dynamic(
+  () => import('src/components/problem-detail/section/problem/content')
+);
 import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
 
 import { useProblem } from 'src/hooks/api/problem';

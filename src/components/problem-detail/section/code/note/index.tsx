@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import Header from './header';
-import IndexListSection from './index-list';
-import ContentSection from './content';
+const Header = dynamic(() => import('./header'));
+const IndexListSection = dynamic(() => import('./index-list'));
+const ContentSection = dynamic(() => import('./content'));
 import { GREY } from 'src/constants/colors';
 
 import {

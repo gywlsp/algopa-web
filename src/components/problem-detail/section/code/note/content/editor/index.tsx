@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import StylingButtonList from './styling-button/list';
-import NoteTitleInput from './title-input';
-import Textarea from './textarea';
+const StylingButtonList = dynamic(() => import('./styling-button/list'));
+const NoteTitleInput = dynamic(() => import('./title-input'));
+const Textarea = dynamic(() => import('./textarea'));
 import { GREY } from 'src/constants/colors';
 
 import { useCodeNoteContext } from 'src/modules/context/code-note';
