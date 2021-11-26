@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
+const GlobalNav = dynamic(() => import('./nav'));
 import Logo from 'src/components/common/logo';
-import GlobalNav from './nav';
 
 export default function GlobalHeader() {
   return (

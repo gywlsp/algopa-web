@@ -1,7 +1,8 @@
 import React, { ReactNode, ReactNodeArray } from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import GlobalHeader from './header';
+const GlobalHeader = dynamic(() => import('./header'));
 
 export type GlobalLayoutProps = {
   className?: string;
