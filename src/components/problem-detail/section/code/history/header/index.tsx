@@ -7,13 +7,13 @@ import P from 'src/components/common/p';
 import ChevronLeftIcon from 'src/assets/icons/chevron/left';
 import { GREY, WHITE } from 'src/constants/colors';
 
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 
 export default function CodeHistorySectionHeader() {
-  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+  const setCodeSectionType = useSetRecoilState(CodeSectionType);
 
   const handleBackButtonClick = () => {
-    setRightSectionType('code');
+    setCodeSectionType('code');
   };
 
   return (

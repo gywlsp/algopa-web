@@ -4,12 +4,12 @@ import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/common/button';
 
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 import { BLUE_GREEN } from 'src/constants/colors';
 import { useCodeRunContext } from 'src/modules/context/code-run';
 
 export default function CodeSubmitButton() {
-  const rightSectionType = useRecoilValue(problemPageRightSectionType);
+  const codeSectionType = useRecoilValue(CodeSectionType);
   const {
     action: { onCodeSubmit },
   } = useCodeRunContext();
@@ -21,7 +21,7 @@ export default function CodeSubmitButton() {
     await onCodeSubmit();
   };
 
-  if (rightSectionType !== 'code') {
+  if (codeSectionType !== 'code') {
     return <></>;
   }
 

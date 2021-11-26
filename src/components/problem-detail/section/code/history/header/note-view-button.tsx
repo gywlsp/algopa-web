@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 import { BLUE_GREEN, WHITE } from 'src/constants/colors';
 
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 
 export default function NoteViewButton() {
-  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+  const setCodeSectionType = useSetRecoilState(CodeSectionType);
 
   const handleButtonClick = async () => {
-    setRightSectionType('note');
+    setCodeSectionType('note');
   };
 
   return <Button onClick={handleButtonClick}>풀이 노트</Button>;

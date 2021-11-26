@@ -8,7 +8,7 @@ import {
   codeEvents,
   selectedProblemCodeId,
 } from 'src/modules/atoms/code';
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 import { selectedCodeEventOrder } from 'src/modules/selectors/code';
 import { ICodeHistoryPlayerContext } from './ICodeHistoryPlayerContext';
 
@@ -21,7 +21,7 @@ export const useCodeHistoryPlayerContext = () =>
 export const withCodeHistoryPlayerContext =
   (WrappedComponent: React.FunctionComponent<CodeHistorySectionProps>) =>
   (props: CodeHistorySectionProps) => {
-    const rightSectionType = useRecoilValue(problemPageRightSectionType);
+    const codeSectionType = useRecoilValue(CodeSectionType);
     const codeId = useRecoilValue(selectedProblemCodeId);
     const events = useRecoilValue(codeEvents);
     const selectedEventOrder = useRecoilValue(selectedCodeEventOrder);
@@ -41,7 +41,7 @@ export const withCodeHistoryPlayerContext =
 
     useEffect(() => {
       initPlaying();
-    }, [rightSectionType, codeId]);
+    }, [codeSectionType, codeId]);
 
     useEffect(() => {
       if (isPlaying) {

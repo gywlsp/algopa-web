@@ -20,7 +20,7 @@ import { CodeNoteSectionProps } from 'src/components/problem-detail/section/code
 import { DRAFT_INLINE_STYLES } from 'src/data/note';
 import { ICodeNoteContext } from './ICodeNoteContext';
 import CodeService from 'src/services/api/code';
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import { selectedProblemCode } from 'src/modules/selectors/code';
 import { useNote } from 'src/hooks/api/note';
@@ -34,7 +34,7 @@ export const withCodeNoteContext =
   (props: CodeNoteSectionProps) => {
     const editorRef = useRef(null);
     const decorator = new PrimsDecorator({ prism: Prism });
-    const rightSectionType = useRecoilValue(problemPageRightSectionType);
+    const codeSectionType = useRecoilValue(CodeSectionType);
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const selectedCode = useRecoilValue(selectedProblemCode);
     const { data: note } = useNote(selectedCodeId);
@@ -60,7 +60,7 @@ export const withCodeNoteContext =
 
     useEffect(() => {
       setEditing(false);
-    }, [selectedCodeId, rightSectionType]);
+    }, [selectedCodeId, codeSectionType]);
 
     const initEditor = (title: string, rawContent: RawDraftContentState) => {
       setTitle(title);

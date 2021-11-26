@@ -6,7 +6,7 @@ export type ProblemListRequestParams = {
   problemId?: number;
 } & ListRequestParams;
 
-export type ProblemPageRightSectionType = 'code' | 'history' | 'note';
+export type CodeSection = 'code' | 'history' | 'note';
 
 export type ProblemRecommendationType = 'next' | 'less' | 'wrong';
 

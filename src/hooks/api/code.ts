@@ -9,7 +9,7 @@ import { ICodeReadDTO } from 'src/interfaces/code/ICode';
 import { eventListConfig, listConfig } from 'src/services/api/code/config';
 import CodeService from 'src/services/api/code';
 import { CodeTextChangeEvent } from 'src/types/code';
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 import {
   codeEvents,
   problemCodes,
@@ -28,9 +28,7 @@ import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-pl
 export const useProblemCodes = () => {
   const router = useRouter();
   const [codes, setCodes] = useRecoilState(problemCodes);
-  const resetRightSectionType = useResetRecoilState(
-    problemPageRightSectionType
-  );
+  const resetCodeSectionType = useResetRecoilState(CodeSectionType);
   const [selectedCodeId, setSelectedCodeId] = useRecoilState(
     selectedProblemCodeId
   );
@@ -40,7 +38,7 @@ export const useProblemCodes = () => {
   );
 
   useEffect(() => {
-    resetRightSectionType();
+    resetCodeSectionType();
   }, [router?.query?.id]);
 
   useEffect(() => {

@@ -6,14 +6,14 @@ import P from 'src/components/common/p';
 import Select from 'src/components/common/select';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 import { useProblemCodes, useSelectedCode } from 'src/hooks/api/code';
 import CodeService from 'src/services/api/code';
 
 export default function CodeSelect() {
   const { data: codes } = useProblemCodes();
   const { id: selectedCodeId, select } = useSelectedCode();
-  const rightSectionType = useRecoilValue(problemPageRightSectionType);
+  const codeSectionType = useRecoilValue(CodeSectionType);
   const selectOptions = (codes || [])?.map(({ id, tryCount }) => ({
     key: id,
     label: `try_${tryCount}`,
@@ -25,7 +25,7 @@ export default function CodeSelect() {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { value } = e.target;
-    if (rightSectionType === 'history') {
+    if (codeSectionType === 'history') {
       try {
         const events = await CodeService.eventList(value);
         if (!events?.length) {

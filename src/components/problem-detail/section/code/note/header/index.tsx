@@ -6,14 +6,14 @@ import P from 'src/components/common/p';
 import ChevronLeftIcon from 'src/assets/icons/chevron/left';
 import { GREY, WHITE } from 'src/constants/colors';
 
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { CodeSectionType } from 'src/modules/atoms/problem';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import CodeService from 'src/services/api/code';
 import { useCodeNoteContext } from 'src/modules/context/code-note';
 
 export default function CodeNoteSectionHeader() {
   const selectedCodeId = useRecoilValue(selectedProblemCodeId);
-  const setRightSectionType = useSetRecoilState(problemPageRightSectionType);
+  const setCodeSectionType = useSetRecoilState(CodeSectionType);
   const {
     state: { note, isEditing },
     action: {
@@ -28,7 +28,7 @@ export default function CodeNoteSectionHeader() {
   const handleBackButtonClick = async () => {
     try {
       const events = await CodeService.eventList(selectedCodeId);
-      setRightSectionType(events?.length ? 'history' : 'code');
+      setCodeSectionType(events?.length ? 'history' : 'code');
     } catch (err) {
       console.log(err);
     }

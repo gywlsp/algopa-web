@@ -6,15 +6,10 @@ import Button from 'src/components/common/button';
 import { BLUE_GREEN } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
-import {
-  problem,
-  problemPageRightSectionType,
-} from 'src/modules/atoms/problem';
+import { problem, CodeSectionType } from 'src/modules/atoms/problem';
 
 export default function NewCodeButton() {
-  const resetRightSectionType = useResetRecoilState(
-    problemPageRightSectionType
-  );
+  const resetCodeSectionType = useResetRecoilState(CodeSectionType);
   const problemData = useRecoilValue(problem);
 
   const createNewCode = async () => {
@@ -23,7 +18,7 @@ export default function NewCodeButton() {
     }
     try {
       await CodeService.create(problemData?.id);
-      resetRightSectionType();
+      resetCodeSectionType();
     } catch (err) {
       alert('코드 생성 실패');
     }
