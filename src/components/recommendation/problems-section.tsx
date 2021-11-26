@@ -1,17 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { useRecoilValue } from 'recoil';
 
-import Section from 'src/components/common/section';
-import ProblemCard from 'src/components/common/card/problem';
-import ProblemCardSkeleton from '../skeletons/card/problem';
-import HorizontalScrollable from 'src/components/common/horizontal-scrollable';
-import ProblemCategorySwitch from '../common/category/switch';
+const Section = dynamic(() => import('src/components/common/section'));
+const HorizontalScrollable = dynamic(
+  () => import('src/components/common/horizontal-scrollable')
+);
+const ProblemCard = dynamic(() => import('src/components/common/card/problem'));
+const ProblemCardSkeleton = dynamic(() => import('../skeletons/card/problem'));
+const ProblemCategorySwitch = dynamic(
+  () => import('src/components/common/category/switch')
+);
 import P from 'src/components/common/p';
 
-import { useRecommendedProblemList } from 'src/hooks/api/problem';
 import { ProblemListRequestParams } from 'src/types/problem';
 import { selectedCompany } from 'src/modules/atoms/problem';
+import { useRecommendedProblemList } from 'src/hooks/api/problem';
 
 export type RecommendedProblemsSectionProps = Pick<
   ProblemListRequestParams,
