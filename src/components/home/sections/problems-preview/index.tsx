@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { useRecoilValue } from 'recoil';
 
-import Section from 'src/components/common/section';
-import ProblemCard from 'src/components/common/card/problem';
-import MoreButton from './more-button';
-import ProblemCardSkeleton from 'src/components/skeletons/card/problem';
-import ProblemCategorySwitch from 'src/components/common/category/switch';
+const Section = dynamic(() => import('src/components/common/section'));
+const ProblemCard = dynamic(() => import('src/components/common/card/problem'));
+const MoreButton = dynamic(() => import('./more-button'));
+const ProblemCardSkeleton = dynamic(
+  () => import('src/components/skeletons/card/problem')
+);
+const ProblemCategorySwitch = dynamic(
+  () => import('src/components/common/category/switch')
+);
 
 import { useRecommendedProblemList } from 'src/hooks/api/problem';
 import { useMe } from 'src/hooks/api/user';

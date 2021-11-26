@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { useRecoilValue } from 'recoil';
 
-import RoadmapGraph from 'src/components/home/sections/roadmap/graph';
-import CategoryRadio from './category-radio';
-import ProblemInfoModal from './problem-modal';
-import RoadmapGuideModal from './guide-modal';
-import GuideModalOpenButton from './guide-modal/open-button';
-import Section from 'src/components/common/section';
-import Img from 'src/components/common/img';
+const RoadmapGraph = dynamic(
+  () => import('src/components/home/sections/roadmap/graph')
+);
+const CategoryRadio = dynamic(() => import('./category-radio'));
+const ProblemInfoModal = dynamic(() => import('./problem-modal'));
+const RoadmapGuideModal = dynamic(() => import('./guide-modal'));
+const GuideModalOpenButton = dynamic(() => import('./guide-modal/open-button'));
+const Section = dynamic(() => import('src/components/common/section'));
+const Img = dynamic(() => import('src/components/common/img'));
 import { GREY } from 'src/constants/colors';
 import { COMPANY_IMAGES } from 'src/components/common/company-radio/button';
 

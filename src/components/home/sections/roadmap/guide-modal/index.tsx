@@ -1,7 +1,8 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
 
-import Modal from 'src/components/common/modal';
-import Content from './content';
+const Modal = dynamic(() => import('src/components/common/modal'));
+const Content = dynamic(() => import('./content'));
 
 export type RoadmapGuideModalProps = {
   isOpen: boolean;
