@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import Header from 'src/components/problem-detail/section/history/index-list/header';
+import Header from 'src/components/problem-detail/section/code/history/index-list/header';
 import EventIndexPreviewCard from 'src/components/common/card/index-preview';
 import { GREY } from 'src/constants/colors';
 

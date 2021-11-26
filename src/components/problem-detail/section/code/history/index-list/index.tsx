@@ -16,6 +16,7 @@ export default function CodeHistoryIndexListSection() {
   const {
     action: { onIndexCardClick },
   } = useCodeHistoryPlayerContext();
+
   return (
     <Wrapper>
       <Header />

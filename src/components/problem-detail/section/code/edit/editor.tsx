@@ -3,7 +3,7 @@ import CodeEditor from '@monaco-editor/react';
 
 import { useSelectedCodeEdit } from 'src/hooks/api/code';
 
-export default function CodeEditSection() {
+export default function CodeEditSectionEditor() {
   const { code, text, onChange } = useSelectedCodeEdit();
 
   return (

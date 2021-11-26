@@ -1,35 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
-import Header from './header';
-import EditSection from './edit';
-import OutputSection from './output';
-import InputModal from './modal/input';
-import SolveCompleteModal from './modal/solve-complete';
-import { GREY } from 'src/constants/colors';
+import EditSection from 'src/components/problem-detail/section/code/edit';
+import HistorySection from 'src/components/problem-detail/section/code/history';
+import NoteSection from 'src/components/problem-detail/section/code/note';
 
-export type ProblemCodeSectionProps = {
-  isShown: boolean;
-};
+import { problemPageRightSectionType } from 'src/modules/atoms/problem';
+import { useCodeEvents } from 'src/hooks/api/code';
 
-export default function ProblemCodeSection({
-  isShown,
-}: ProblemCodeSectionProps) {
+export default function CodeSection() {
+  const rightSectionType = useRecoilValue(problemPageRightSectionType);
+  useCodeEvents();
+
   return (
-    <Wrapper isShown={isShown}>
-      <Header />
-      <EditSection />
-      <InputModal />
-      <OutputSection />
-      <SolveCompleteModal />
-    </Wrapper>
+    <>
+      <EditSection isShown={rightSectionType === 'code'} />
+      <HistorySection isShown={rightSectionType === 'history'} />
+      <NoteSection isShown={rightSectionType === 'note'} />
+    </>
   );
 }
-
-const Wrapper = styled.div<ProblemCodeSectionProps>`
-  display: ${({ isShown }) => (isShown ? 'block' : 'none')};
-  position: relative;
-  width: 66%;
-  height: 100%;
-  background-color: ${GREY[850]};
-`;

@@ -7,7 +7,7 @@ import { FAILURE_RED, GREY, SUCCESS_BLUE } from 'src/constants/colors';
 
 import { useCodeRunContext } from 'src/modules/context/code-run';
 
-export default function CodeRunOutputSection() {
+export default function CodeRunOutput() {
   const {
     state: {
       runOutput: { success, result, isSolved = undefined },

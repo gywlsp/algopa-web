@@ -8,7 +8,7 @@ import LanguageSelect from './language-select';
 import CodeRunButton from './button/code-run';
 import CodeHistoryViewButton from './button/history-view';
 
-export default function ProblemDetailCodeSectionHeader() {
+export default function CodeEditSectionHeader() {
   return (
     <Wrapper>
       <Title>코드</Title>

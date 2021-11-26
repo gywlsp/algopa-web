@@ -1,42 +1,27 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
+
 import ProblemDetailHeader from 'src/components/problem-detail/header';
-import ProblemContentSection from 'src/components/problem-detail/section/problem-content';
-import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
-import ProblemCodeSection from 'src/components/problem-detail/section/code';
-import CodeHistorySection from 'src/components/problem-detail/section/history';
-import CodeNoteSection from 'src/components/problem-detail/section/note';
+import ProblemSection from 'src/components/problem-detail/section/problem';
+import CodeSection from 'src/components/problem-detail/section/code';
 import { GREY } from 'src/constants/colors';
 
 import { useRecentAuthTokens } from 'src/hooks/api/auth';
-import { useProblem } from 'src/hooks/api/problem';
-import { problemPageRightSectionType } from 'src/modules/atoms/problem';
-import { useCodeEvents } from 'src/hooks/api/code';
 import { withCodeRunContext } from 'src/modules/context/code-run';
 
 function ProblemDetailPage() {
-  const router = useRouter();
-  const { data } = useProblem(+router.query.id);
-  const rightSectionType = useRecoilValue(problemPageRightSectionType);
   useRecentAuthTokens(true);
-  useCodeEvents();
 
   return (
     <Wrapper>
       <ProblemDetailHeader />
       <ContentWrapper>
-        {data && <ProblemContentSection />}
-        {!data && <ProblemContentSkeleton />}
-        <ProblemCodeSection isShown={rightSectionType === 'code'} />
-        <CodeHistorySection isShown={rightSectionType === 'history'} />
-        <CodeNoteSection isShown={rightSectionType === 'note'} />
+        <ProblemSection />
+        <CodeSection />
       </ContentWrapper>
     </Wrapper>
   );
 }
-
 export default withCodeRunContext(ProblemDetailPage);
 
 const Wrapper = styled.div`

@@ -1,7 +1,7 @@
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { DraggableEventHandler } from 'react-draggable';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { CodeHistorySectionProps } from 'src/components/problem-detail/section/history';
+import { CodeHistorySectionProps } from 'src/components/problem-detail/section/code/history';
 
 import {
   selectedCodeEventId,

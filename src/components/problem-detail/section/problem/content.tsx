@@ -8,7 +8,7 @@ import { GREY } from 'src/constants/colors';
 
 import { isProblemCategoryShown, problem } from 'src/modules/atoms/problem';
 
-export default function ProblemDetailContentSection() {
+export default function ProblemSectionContent() {
   const isCategoryShown = useRecoilValue(isProblemCategoryShown);
   const problemData = useRecoilValue(problem);
 

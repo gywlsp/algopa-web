@@ -15,7 +15,7 @@ Prism.languages.insertBefore('python', 'prolog', {
 import PrimsDecorator from 'draft-js-prism';
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
-import { CodeNoteSectionProps } from 'src/components/problem-detail/section/note';
+import { CodeNoteSectionProps } from 'src/components/problem-detail/section/code/note';
 
 import { DRAFT_INLINE_STYLES } from 'src/data/note';
 import { ICodeNoteContext } from './ICodeNoteContext';
