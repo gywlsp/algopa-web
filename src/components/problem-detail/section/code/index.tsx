@@ -13,7 +13,7 @@ const NoteSection = dynamic(
 );
 
 import { CodeSectionType } from 'src/modules/atoms/problem';
-import { useCodeEvents } from 'src/hooks/api/code';
+import { useCodeEvents } from 'src/hooks/code';
 
 export default function CodeSection() {
   const codeSectionType = useRecoilValue(CodeSectionType);

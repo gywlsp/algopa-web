@@ -23,7 +23,7 @@ import CodeService from 'src/services/api/code';
 import { CodeSectionType } from 'src/modules/atoms/problem';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import { selectedProblemCode } from 'src/modules/selectors/code';
-import { useNote } from 'src/hooks/api/note';
+import { useNote } from 'src/hooks/note';
 
 const CodeNoteContext = createContext<ICodeNoteContext>(undefined);
 

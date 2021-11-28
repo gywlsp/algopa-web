@@ -16,7 +16,7 @@ import P from 'src/components/common/p';
 
 import { ProblemListRequestParams } from 'src/types/problem';
 import { selectedCompany } from 'src/modules/atoms/problem';
-import { useRecommendedProblemList } from 'src/hooks/api/problem';
+import { useRecommendedProblemList } from 'src/hooks/problem';
 
 export type RecommendedProblemsSectionProps = Pick<
   ProblemListRequestParams,

@@ -10,8 +10,8 @@ const ProblemCategorySwitch = dynamic(
 );
 const Section = dynamic(() => import('src/components/common/section'));
 
-import { useAuth } from 'src/hooks/api/auth';
-import { useMe } from 'src/hooks/api/user';
+import { useAuth } from 'src/hooks/auth';
+import { useMe } from 'src/hooks/user';
 
 export default function ProblemRecommendationPage() {
   useAuth({ isLoginRequired: true });

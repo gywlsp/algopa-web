@@ -8,7 +8,7 @@ import ChevronDownIcon from 'src/assets/icons/chevron/down';
 import ChevronUpIcon from 'src/assets/icons/chevron/up';
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { useMe } from 'src/hooks/api/user';
+import { useMe } from 'src/hooks/user';
 
 export default function GlobalNav() {
   const { data: userData } = useMe();

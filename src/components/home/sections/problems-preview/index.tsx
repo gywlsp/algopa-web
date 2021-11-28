@@ -13,8 +13,8 @@ const ProblemCategorySwitch = dynamic(
   () => import('src/components/common/category/switch')
 );
 
-import { useRecommendedProblemList } from 'src/hooks/api/problem';
-import { useMe } from 'src/hooks/api/user';
+import { useRecommendedProblemList } from 'src/hooks/problem';
+import { useMe } from 'src/hooks/user';
 import { selectedCompany } from 'src/modules/atoms/problem';
 
 export default function ProblemsPreviewSection() {

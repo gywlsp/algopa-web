@@ -9,7 +9,7 @@ const ProblemsPreviewSection = dynamic(
   () => import('src/components/home/sections/problems-preview')
 );
 
-import { useAuth } from 'src/hooks/api/auth';
+import { useAuth } from 'src/hooks/auth';
 
 export default function HomePage() {
   useAuth();

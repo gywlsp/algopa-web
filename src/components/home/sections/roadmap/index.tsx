@@ -15,7 +15,7 @@ const Img = dynamic(() => import('src/components/common/img'));
 import { GREY } from 'src/constants/colors';
 import { COMPANY_IMAGES } from 'src/components/common/company-radio/button';
 
-import { useRoadmap } from 'src/hooks/api/roadmap';
+import { useRoadmap } from 'src/hooks/roadmap';
 import { selectedCompany } from 'src/modules/atoms/problem';
 
 export default function RoadmapSection() {

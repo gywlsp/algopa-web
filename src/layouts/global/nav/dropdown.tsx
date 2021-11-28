@@ -5,7 +5,7 @@ import { useRouter } from 'next/dist/client/router';
 import Button from 'src/components/common/button';
 
 import { removeAuthCookie } from 'src/lib/utils/auth';
-import { useAuthTokens } from 'src/hooks/api/auth';
+import { useAuthTokens } from 'src/hooks/auth';
 
 export default function GlobalNavDropdown() {
   const router = useRouter();

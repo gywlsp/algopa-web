@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import CodeEditor, { OnMount } from '@monaco-editor/react';
 
 import { selectedProblemCode } from 'src/modules/selectors/code';
-import { useCodeEventHighlight } from 'src/hooks/api/code';
+import { useCodeEventHighlight } from 'src/hooks/code';
 
 export default function CodeHistoryCodeTextSection() {
   const code = useRecoilValue(selectedProblemCode);

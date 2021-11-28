@@ -7,7 +7,7 @@ import Select from 'src/components/common/select';
 import { BLUE_GREEN } from 'src/constants/colors';
 
 import { CodeSectionType } from 'src/modules/atoms/problem';
-import { useProblemCodes, useSelectedCode } from 'src/hooks/api/code';
+import { useProblemCodes, useSelectedCode } from 'src/hooks/code';
 import CodeService from 'src/services/api/code';
 
 export default function CodeSelect() {

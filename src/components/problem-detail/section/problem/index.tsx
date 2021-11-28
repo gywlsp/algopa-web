@@ -7,7 +7,7 @@ const ProblemContent = dynamic(
 );
 import ProblemContentSkeleton from 'src/components/skeletons/problem-content';
 
-import { useProblem } from 'src/hooks/api/problem';
+import { useProblem } from 'src/hooks/problem';
 
 export default function ProblemSection() {
   const router = useRouter();

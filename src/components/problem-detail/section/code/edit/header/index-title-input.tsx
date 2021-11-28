@@ -5,7 +5,7 @@ import CheckIcon from 'src/assets/icons/check';
 import { GREY } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
-import { useSelectedCodeEdit } from 'src/hooks/api/code';
+import { useSelectedCodeEdit } from 'src/hooks/code';
 
 export default function IndexTitleInput() {
   const { code, lastEventId } = useSelectedCodeEdit();
