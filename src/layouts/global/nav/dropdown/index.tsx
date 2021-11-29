@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/dist/client/router';
 
@@ -11,12 +11,12 @@ export default function GlobalNavDropdown() {
   const router = useRouter();
   const { removeAuthTokens } = useAuthTokens();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     removeAuthCookie();
     removeAuthTokens();
     router.reload();
     alert('로그아웃되었습니다.');
-  };
+  }, []);
 
   return (
     <Wrapper>
