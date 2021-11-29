@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Color } from 'vis-network';
 
@@ -10,7 +11,7 @@ export type RoadmapCategoryRadioButtonProps = {
   selectNode: (nodeId: string) => void;
 };
 
-export default function RoadmapCategoryRadioButton({
+function RoadmapCategoryRadioButton({
   categoryNode,
   isSelected,
   selectNode,
@@ -51,6 +52,8 @@ export default function RoadmapCategoryRadioButton({
     </Wrapper>
   );
 }
+
+export default React.memo(RoadmapCategoryRadioButton);
 
 const Wrapper = styled.button`
   color: ${BLUE_GREEN[900]};

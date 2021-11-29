@@ -11,7 +11,7 @@ export type RoadmapProblemInfoModalProps = {
   onClose: () => void;
 } & RoadmapProblemNode;
 
-export default function RoadmapProblemInfoModal({
+function RoadmapProblemInfoModal({
   isOpen,
   onClose,
   ...problemNodeData
@@ -33,6 +33,8 @@ export default function RoadmapProblemInfoModal({
     </Modal>
   );
 }
+
+export default React.memo(RoadmapProblemInfoModal);
 
 const StyledProblemCard = styled(ProblemCard)`
   border: none;

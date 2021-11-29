@@ -16,6 +16,6 @@ export default function CompanyRadio() {
   );
 }
 
-const Wrapper = styled.li`
+const Wrapper = styled.div`
   margin: 1.2rem 1.6rem 0.8rem;
 `;

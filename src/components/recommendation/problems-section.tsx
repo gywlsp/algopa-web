@@ -29,7 +29,7 @@ const SECTION_TITLE = {
   less: '이런 유형의 문제를 많이 풀지 않았어요 🧐',
 };
 
-export default function RecommendedProblemsSection({
+function RecommendedProblemsSection({
   type = 'next',
   problemId,
 }: RecommendedProblemsSectionProps) {
@@ -67,6 +67,8 @@ export default function RecommendedProblemsSection({
     </Section>
   );
 }
+
+export default React.memo(RecommendedProblemsSection);
 
 const StyledProblemCard = styled(ProblemCard)`
   width: 23.2rem;

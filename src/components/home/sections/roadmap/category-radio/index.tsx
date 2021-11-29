@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import RadioButton from './button';
@@ -10,7 +11,7 @@ export type RoadmapCategoryRadioProps = {
   selectNode: (nodeId: string) => void;
 };
 
-export default function RoadmapCategoryRadio({
+function RoadmapCategoryRadio({
   categoryNodes,
   selectedId,
   selectNode,
@@ -28,6 +29,8 @@ export default function RoadmapCategoryRadio({
     </Wrapper>
   );
 }
+
+export default React.memo(RoadmapCategoryRadio);
 
 const Wrapper = styled.div`
   display: flex;

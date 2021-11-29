@@ -9,10 +9,7 @@ export type GlobalLayoutProps = {
   children?: ReactNode | ReactNodeArray;
 };
 
-export default function GlobalLayout({
-  children,
-  className,
-}: GlobalLayoutProps) {
+function GlobalLayout({ children, className }: GlobalLayoutProps) {
   return (
     <>
       <GlobalHeader />
@@ -20,6 +17,8 @@ export default function GlobalLayout({
     </>
   );
 }
+
+export default React.memo(GlobalLayout);
 
 const ContentWrapper = styled.div`
   width: 100%;

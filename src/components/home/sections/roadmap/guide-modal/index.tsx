@@ -9,10 +9,7 @@ export type RoadmapGuideModalProps = {
   onClose: () => void;
 };
 
-export default function RoadmapGuideModal({
-  isOpen,
-  onClose,
-}: RoadmapGuideModalProps) {
+function RoadmapGuideModal({ isOpen, onClose }: RoadmapGuideModalProps) {
   return (
     <Modal
       title="로드맵 이용 가이드"
@@ -26,3 +23,5 @@ export default function RoadmapGuideModal({
     </Modal>
   );
 }
+
+export default React.memo(RoadmapGuideModal);

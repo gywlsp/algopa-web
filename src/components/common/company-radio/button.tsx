@@ -1,9 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 
 import Img from 'src/components/common/img';
 
 import { GREY, BLUE_GREEN } from 'src/constants/colors';
+
 import { Company } from 'src/types/problem';
 import { selectedCompany } from 'src/modules/atoms/problem';
 
@@ -17,9 +19,7 @@ export const COMPANY_IMAGES = {
   samsung: 'samsung.png',
 };
 
-export default function CompanyRadioButton({
-  company: _company,
-}: CompanyRadioButtonProps) {
+function CompanyRadioButton({ company: _company }: CompanyRadioButtonProps) {
   const [company, setCompany] = useRecoilState(selectedCompany);
   const isSelected = company === _company;
 
@@ -37,6 +37,8 @@ export default function CompanyRadioButton({
     </Wrapper>
   );
 }
+
+export default React.memo(CompanyRadioButton);
 
 const Wrapper = styled.button`
   color: ${BLUE_GREEN[900]};

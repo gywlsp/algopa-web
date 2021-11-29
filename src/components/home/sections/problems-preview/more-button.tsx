@@ -11,7 +11,7 @@ export type MoreButtonProps = {
   isLoggedIn: boolean;
 };
 
-export default function MoreButton({ isLoggedIn }: MoreButtonProps) {
+function MoreButton({ isLoggedIn }: MoreButtonProps) {
   const router = useRouter();
 
   const handleLogin = (e) => {
@@ -35,6 +35,8 @@ export default function MoreButton({ isLoggedIn }: MoreButtonProps) {
     </Wrapper>
   );
 }
+
+export default React.memo(MoreButton);
 
 const StyledP = styled(P)`
   margin-bottom: 1.2rem;

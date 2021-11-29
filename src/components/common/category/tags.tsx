@@ -11,6 +11,7 @@ import { isProblemCategoryShown } from 'src/modules/atoms/problem';
 
 export type ProblemCategoryTagsProps = Pick<IProblem, 'categories'>;
 
+function ProblemCategoryTags({ categories }: ProblemCategoryTagsProps) {
   const isCategoryShown = useRecoilValue(isProblemCategoryShown);
 
   return (
@@ -20,6 +21,8 @@ export type ProblemCategoryTagsProps = Pick<IProblem, 'categories'>;
     </HorizontalScrollable>
   );
 }
+
+export default React.memo(ProblemCategoryTags);
 
 const Tag = styled(P).attrs({
   level: 2,
