@@ -6,10 +6,9 @@ import ProblemCategorySwitch from 'src/components/common/category/switch';
 import ProblemCategoryTags from 'src/components/common/category/tags';
 import { GREY } from 'src/constants/colors';
 
-import { isProblemCategoryShown, problem } from 'src/modules/atoms/problem';
+import { problem } from 'src/modules/atoms/problem';
 
 export default function ProblemSectionContent() {
-  const isCategoryShown = useRecoilValue(isProblemCategoryShown);
   const problemData = useRecoilValue(problem);
 
   return (
@@ -19,9 +18,7 @@ export default function ProblemSectionContent() {
         dangerouslySetInnerHTML={{ __html: problemData?.contentHTML }}
       />
       <CategorySwitch />
-      {isCategoryShown && (
-        <ProblemCategoryTags categories={problemData?.categories} />
-      )}
+      <ProblemCategoryTags categories={problemData?.categories} />
     </Wrapper>
   );
 }

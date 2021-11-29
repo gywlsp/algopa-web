@@ -1,7 +1,6 @@
 import React, { ReactNode, ReactNodeArray } from 'react';
 import Link from '../link';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import Img from '../img';
 import P from '../p';
@@ -10,7 +9,6 @@ import { BLUE_GREEN, GREY, WHITE } from 'src/constants/colors';
 
 import { IProblem } from 'src/interfaces/problem/IProblem';
 import { Theme } from 'src/types';
-import { isProblemCategoryShown } from 'src/modules/atoms/problem';
 
 export type ProblemCardProps = {
   index?: number;
@@ -22,7 +20,6 @@ export type ProblemCardProps = {
 } & Partial<IProblem>;
 
 function ProblemCard(props: ProblemCardProps) {
-  const isCategoryShown = useRecoilValue(isProblemCategoryShown);
   const {
     index,
     id,
@@ -51,7 +48,7 @@ function ProblemCard(props: ProblemCardProps) {
       </ImgWrapper>
       <StyledP theme={theme}>{id}</StyledP>
       <StyledP theme={theme}>{title}</StyledP>
-      {isCategoryShown && <ProblemCategoryTags categories={categories} />}
+      <ProblemCategoryTags categories={categories} />
     </ContentWrapper>
   );
 }

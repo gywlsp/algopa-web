@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import HorizontalScrollable from '../horizontal-scrollable';
 import P from '../p';
 import { BLUE_GREEN } from 'src/constants/colors';
 
 import { IProblem } from 'src/interfaces/problem/IProblem';
+import { isProblemCategoryShown } from 'src/modules/atoms/problem';
 
 export type ProblemCategoryTagsProps = Pick<IProblem, 'categories'>;
 
-export default function ProblemCategoryTags({
-  categories,
-}: ProblemCategoryTagsProps) {
+  const isCategoryShown = useRecoilValue(isProblemCategoryShown);
+
   return (
     <HorizontalScrollable>
-      {categories?.map((category) => (
-        <Tag key={category}>#{category}</Tag>
-      ))}
+      {isCategoryShown &&
+        categories?.map((category) => <Tag key={category}>#{category}</Tag>)}
     </HorizontalScrollable>
   );
 }
