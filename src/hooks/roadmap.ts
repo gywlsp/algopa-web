@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import useRequest from '.';
 
@@ -18,13 +18,18 @@ const useRoadmapGraph = () => {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [isProblemInfoModalOpen, setProblemInfoModalOpen] = useState(false);
 
-  const { nodes, categoryNodes, problemNodes } = getNodes(data);
-  const edges = data?.edges;
-  const selectedCategoryNodeId = categoryNodes?.find(
-    ({ id }) => id === selectedNodeId
-  )?.nodeId;
-  const selectedProblemNode = problemNodes?.find(
-    ({ id }) => id === selectedNodeId
+  const { nodes, categoryNodes, problemNodes } = useMemo(
+    () => getNodes(data),
+    [data]
+  );
+  const edges = useMemo(() => data?.edges, [data]);
+  const selectedCategoryNodeId = useMemo(
+    () => categoryNodes?.find(({ id }) => id === selectedNodeId)?.nodeId,
+    [categoryNodes, selectedNodeId]
+  );
+  const selectedProblemNode = useMemo(
+    () => problemNodes?.find(({ id }) => id === selectedNodeId),
+    [problemNodes, selectedNodeId]
   );
 
   useEffect(() => {
@@ -46,56 +51,73 @@ const useRoadmapGraph = () => {
     };
   }, [company]);
 
-  const focusFirstNode = (network = graph?.current) => {
-    network?.moveTo({ scale: 0.7 });
-    network?.focus(nodes[0]?.id, {
-      scale: 1,
-      animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
-    });
-  };
+  const focusFirstNode = useCallback(
+    (network = graph?.current) => {
+      network?.moveTo({ scale: 0.7 });
+      network?.focus(nodes[0]?.id, {
+        scale: 1,
+        animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
+      });
+    },
+    [nodes[0]?.id, graph?.current]
+  );
 
-  const initGraph = (network) => {
-    console.log('ho');
-    focusFirstNode(network);
-    graph.current = network;
-  };
+  const initGraph = useCallback(
+    (network) => {
+      focusFirstNode(network);
+      graph.current = network;
+    },
+    [graph, focusFirstNode]
+  );
 
-  const selectNode = (nodeId: string) => {
-    setSelectedNodeId(nodeId);
-    graph?.current?.selectNodes([nodeId]);
-    graph?.current?.focus(nodeId, {
-      scale: 1,
-      animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
-    });
-  };
+  const selectNode = useCallback(
+    (nodeId: string) => {
+      setSelectedNodeId(nodeId);
+      graph?.current?.selectNodes([nodeId]);
+      graph?.current?.focus(nodeId, {
+        scale: 1,
+        animation: { duration: 1000, easingFunction: 'easeInOutQuad' },
+      });
+    },
+    [graph?.current]
+  );
 
-  const handleNodeClick = ({ nodes }) => {
+  const handleNodeClick = useCallback(({ nodes }) => {
     selectNode(nodes[0]);
-  };
+  }, []);
 
-  const handleNodeDoubleClick = ({ nodes }) => {
-    if (!selectedProblemNode || !nodes?.length) {
-      return;
-    }
-    if (selectedNodeId !== nodes[0]) {
-      setSelectedNodeId(nodes[0]);
-    }
-    setProblemInfoModalOpen(true);
-  };
+  const handleNodeDoubleClick = useCallback(
+    ({ nodes }) => {
+      if (!selectedProblemNode || !nodes?.length) {
+        return;
+      }
+      if (selectedNodeId !== nodes[0]) {
+        setSelectedNodeId(nodes[0]);
+      }
+      setProblemInfoModalOpen(true);
+    },
+    [selectedProblemNode, selectedNodeId]
+  );
 
-  const closeProblemInfoModal = () => {
+  const closeProblemInfoModal = useCallback(() => {
     setProblemInfoModalOpen(false);
-  };
+  }, []);
 
-  const graphData = {
-    nodes,
-    edges,
-  };
+  const graphData = useMemo(
+    () => ({
+      nodes,
+      edges,
+    }),
+    [nodes, edges]
+  );
 
-  const events = {
-    selectNode: handleNodeClick,
-    doubleClick: handleNodeDoubleClick,
-  };
+  const events = useMemo(
+    () => ({
+      selectNode: handleNodeClick,
+      doubleClick: handleNodeDoubleClick,
+    }),
+    [handleNodeClick, handleNodeDoubleClick]
+  );
 
   return {
     isDataFetched: !!data,
@@ -115,13 +137,13 @@ export const useRoadmap = () => {
   const graph = useRoadmapGraph();
   const [isGuideModalOpen, setGuideModalOpen] = useState(false);
 
-  const openGuideModal = () => {
+  const openGuideModal = useCallback(() => {
     setGuideModalOpen(true);
-  };
+  }, []);
 
-  const closeGuideModal = () => {
+  const closeGuideModal = useCallback(() => {
     setGuideModalOpen(false);
-  };
+  }, []);
 
   return {
     ...graph,
