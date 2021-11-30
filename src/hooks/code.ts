@@ -142,20 +142,11 @@ export const useCodeEvents = () => {
     const orderedEvents = data?.map((v, i) => ({ ...v, order: i + 1 }));
     if (!isEqual(orderedEvents, events)) {
       setEvents(orderedEvents);
-      if (orderedEvents?.length && codeSectionType === 'history') {
-        alert('해당 코드의 풀이 내역이 없습니다.');
-      }
     }
     if (data && data[0]?.id !== selectedEventId) {
       setSelectedEventId(data[0]?.id);
     }
-  }, [data]);
-
-  useEffect(() => {
-    if (codeSectionType === 'history' && !events?.length) {
-      alert('해당 코드의 풀이 내역이 없습니다.');
-    }
-  }, [codeSectionType]);
+  }, [data, codeSectionType]);
 };
 
 export const useCodeEventHighlight = () => {
