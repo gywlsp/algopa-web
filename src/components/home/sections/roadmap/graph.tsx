@@ -27,7 +27,7 @@ export type RoadmapGraphProps = {
   };
 };
 
-function RoadmapGraph({
+export default function Roadmap({
   initGraph,
   isFetched,
   graphData,
@@ -46,8 +46,6 @@ function RoadmapGraph({
     </GraphWrapper>
   );
 }
-
-export default React.memo(RoadmapGraph);
 
 const GraphWrapper = styled.div`
   height: calc(100vh - 10rem);
