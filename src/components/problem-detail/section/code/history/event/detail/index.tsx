@@ -9,14 +9,14 @@ import { GREY } from 'src/constants/colors';
 import { useEventIndexEdit } from 'src/hooks/code';
 
 export default function EventDetailSection() {
-  const { index, isEditing, onStart, onCancel, onSubmit, onChange } =
+  const { hasIndex, index, isEditing, onStart, onCancel, onSubmit, onChange } =
     useEventIndexEdit();
 
   return (
     <Wrapper>
       <Header
         isEditing={isEditing}
-        hasIndex={index !== undefined}
+        hasIndex={hasIndex}
         onStart={onStart}
         onSubmit={onSubmit}
         onCancel={onCancel}

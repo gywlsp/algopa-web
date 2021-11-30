@@ -142,6 +142,9 @@ export const useCodeEvents = () => {
     const orderedEvents = data?.map((v, i) => ({ ...v, order: i + 1 }));
     if (!isEqual(orderedEvents, events)) {
       setEvents(orderedEvents);
+      if (orderedEvents?.length && codeSectionType === 'history') {
+        alert('해당 코드의 풀이 내역이 없습니다.');
+      }
     }
     if (data && data[0]?.id !== selectedEventId) {
       setSelectedEventId(data[0]?.id);
@@ -152,7 +155,7 @@ export const useCodeEvents = () => {
     if (codeSectionType === 'history' && !events?.length) {
       alert('해당 코드의 풀이 내역이 없습니다.');
     }
-  }, [codeSectionType, events?.length]);
+  }, [codeSectionType]);
 };
 
 export const useCodeEventHighlight = () => {
@@ -257,6 +260,8 @@ export const useEventIndexEdit = () => {
     setIndex(e.target.value);
   }, []);
 
+  const hasIndex = selectedEvent?.index !== undefined;
+
   const handleSubmit = useCallback(async () => {
     try {
       await CodeService.createEventIndex({
@@ -264,7 +269,6 @@ export const useEventIndexEdit = () => {
         eventId: selectedEvent?.id,
         index,
       });
-      const hasIndex = selectedEvent?.index !== undefined;
       alert(hasIndex ? '인덱스가 수정되었습니다.' : '인덱스가 생성되었습니다.');
       handleEditCancel();
       initPlaying();
@@ -275,6 +279,7 @@ export const useEventIndexEdit = () => {
 
   return {
     index,
+    hasIndex,
     isEditing,
     onStart: handleEditStart,
     onCancel: handleEditCancel,
