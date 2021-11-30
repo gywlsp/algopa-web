@@ -1,21 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-import RecommendedProblemsSection from 'src/components/recommendation/problems-section';
-import P from 'src/components/common/p';
-import Modal from 'src/components/common/modal';
+const RecommendedProblemsSection = dynamic(
+  () => import('src/components/recommendation/problems-section')
+);
+const P = dynamic(() => import('src/components/common/p'));
+const Modal = dynamic(() => import('src/components/common/modal'));
 import { BLUE_GREEN } from 'src/constants/colors';
 
-import { ICode } from 'src/interfaces/code/ICode';
-import { CodeRunOutput } from 'src/types/code';
 import { useCodeRunContext } from 'src/modules/context/code-run';
-
-export type CodeSolveCompleteModalProps = Pick<ICode, 'id' | 'text'> & {
-  isOpen: boolean;
-  onClose: () => void;
-  setRunOutput: React.Dispatch<React.SetStateAction<CodeRunOutput>>;
-};
 
 export default function CodeSolveCompleteModal() {
   const router = useRouter();

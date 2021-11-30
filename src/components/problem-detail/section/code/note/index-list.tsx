@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
@@ -17,11 +17,16 @@ export default function CodeNoteIndexListSection() {
     action: { insertEventIndexData },
   } = useCodeNoteContext();
 
-  const handleIndexCardClick = (index: string, modifiedText: string) => () => {
-    if (confirm('에디터에 해당 인덱스 정보(코드, 메모)를 추가하시겠습니까?')) {
-      insertEventIndexData(index, modifiedText);
-    }
-  };
+  const handleIndexCardClick = useCallback(
+    (index: string, modifiedText: string) => () => {
+      if (
+        confirm('에디터에 해당 인덱스 정보(코드, 메모)를 추가하시겠습니까?')
+      ) {
+        insertEventIndexData(index, modifiedText);
+      }
+    },
+    [insertEventIndexData]
+  );
 
   return (
     <Wrapper>

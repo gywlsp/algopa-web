@@ -24,6 +24,6 @@ export interface ICodeHistoryPlayerContext {
     onDragStart: DraggableEventHandler;
     onDrag: DraggableEventHandler;
     onDragStop: DraggableEventHandler;
-    onIndexCardClick: (eventOrder: number) => void;
+    selectIndexCard: (eventOrder: number) => void;
   };
 }

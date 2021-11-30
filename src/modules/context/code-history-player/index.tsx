@@ -126,7 +126,7 @@ export const withCodeHistoryPlayerContext =
       togglePlaying('start');
     };
 
-    const handleIndexCardClick = (eventOrder: number) => {
+    const selectIndexCard = (eventOrder: number) => {
       togglePlaying('stop');
       handleSelectedEventChange({ order: eventOrder });
     };
@@ -150,7 +150,7 @@ export const withCodeHistoryPlayerContext =
         onDragStart: handleDragStart,
         onDrag: handleDrag,
         onDragStop: handleDragStop,
-        onIndexCardClick: handleIndexCardClick,
+        selectIndexCard: selectIndexCard,
       },
     };
 

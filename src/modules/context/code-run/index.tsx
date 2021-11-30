@@ -1,4 +1,10 @@
-import { useState, useContext, createContext, useEffect } from 'react';
+import {
+  useState,
+  useCallback,
+  useContext,
+  createContext,
+  useEffect,
+} from 'react';
 import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
 
@@ -48,21 +54,24 @@ export const withCodeRunContext =
       setCompleteModalOpen(false);
     }, [router?.query?.id]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setInput(e.target.value);
-    };
+    const handleInputChange = useCallback(
+      (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInput(e.target.value);
+      },
+      []
+    );
 
-    const openInputModal = () => {
+    const openInputModal = useCallback(() => {
       setInputModalOpen(true);
-    };
+    }, []);
 
-    const closeInputModal = () => {
+    const closeInputModal = useCallback(() => {
       setInputModalOpen(false);
-    };
+    }, []);
 
-    const closeCompleteModal = () => {
+    const closeCompleteModal = useCallback(() => {
       setCompleteModalOpen(false);
-    };
+    }, []);
 
     const handleCodeRun = async () => {
       try {

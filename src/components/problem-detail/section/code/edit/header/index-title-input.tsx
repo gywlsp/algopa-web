@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import CheckIcon from 'src/assets/icons/check';
 import { GREY } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
-import { useSelectedCodeEdit } from 'src/hooks/code';
+import {
+  selectedCodeLastEventId,
+  selectedProblemCodeId,
+} from 'src/modules/atoms/code';
 
 export default function IndexTitleInput() {
-  const { code, lastEventId } = useSelectedCodeEdit();
+  const codeId = useRecoilValue(selectedProblemCodeId);
+  const lastEventId = useRecoilValue(selectedCodeLastEventId);
   const [indexTitle, setIndexTitle] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIndexTitle(e.target.value);
-  };
+  }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     if (!lastEventId) {
       alert('코드 변경 내역이 없습니다.');
       return;
     }
     try {
       await CodeService.createEventIndex({
-        codeId: code?.id,
+        codeId,
         eventId: lastEventId,
         index: indexTitle,
       });
@@ -31,7 +36,7 @@ export default function IndexTitleInput() {
     } catch (err) {
       alert('인덱스 생성에 실패하였습니다.');
     }
-  };
+  }, [codeId, lastEventId, indexTitle]);
 
   return (
     <>

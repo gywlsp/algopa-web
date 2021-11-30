@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
-import { selectedCodeEvent } from 'src/modules/selectors/code';
-
 export type EventDetailSectionHeaderProps = {
   isEditing: boolean;
+  hasIndex: boolean;
   onStart: () => void;
   onCancel: () => void;
   onSubmit: () => Promise<void>;
@@ -16,13 +14,11 @@ export type EventDetailSectionHeaderProps = {
 
 export default function EventDetailSectionHeader({
   isEditing,
+  hasIndex,
   onStart,
   onCancel,
   onSubmit,
 }: EventDetailSectionHeaderProps) {
-  const codeEvent = useRecoilValue(selectedCodeEvent);
-  const hasIndex = codeEvent?.index !== undefined;
-
   return (
     <Wrapper>
       <Title>이벤트 상세</Title>

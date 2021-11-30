@@ -1,8 +1,9 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import Header from './header';
-import Content from './content';
+const Header = dynamic(() => import('./header'));
+const Content = dynamic(() => import('./content'));
 import { GREY } from 'src/constants/colors';
 
 import { useEventIndexEdit } from 'src/hooks/code';
@@ -15,6 +16,7 @@ export default function EventDetailSection() {
     <Wrapper>
       <Header
         isEditing={isEditing}
+        hasIndex={index !== undefined}
         onStart={onStart}
         onSubmit={onSubmit}
         onCancel={onCancel}

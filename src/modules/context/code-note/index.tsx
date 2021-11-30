@@ -1,19 +1,11 @@
 import {
-  convertFromRaw,
-  convertToRaw,
-  EditorState,
-  Modifier,
-  RawDraftContentState,
-  RichUtils,
-} from 'draft-js';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-python';
-Prism.languages.python = Prism.languages.extend('python', {});
-Prism.languages.insertBefore('python', 'prolog', {
-  comment: { pattern: /##[^\n]*/, alias: 'comment' },
-});
-import PrimsDecorator from 'draft-js-prism';
-import { useState, useContext, createContext, useEffect, useRef } from 'react';
+  useState,
+  useContext,
+  createContext,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { useRecoilValue } from 'recoil';
 import { CodeNoteSectionProps } from 'src/components/problem-detail/section/code/note';
 
@@ -24,6 +16,21 @@ import { CodeSectionType } from 'src/modules/atoms/problem';
 import { selectedProblemCodeId } from 'src/modules/atoms/code';
 import { selectedProblemCode } from 'src/modules/selectors/code';
 import { useNote } from 'src/hooks/note';
+import {
+  convertFromRaw,
+  convertToRaw,
+  EditorState,
+  Modifier,
+  RawDraftContentState,
+  RichUtils,
+} from 'draft-js';
+import PrimsDecorator from 'draft-js-prism';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-python';
+Prism.languages.python = Prism.languages.extend('python', {});
+Prism.languages.insertBefore('python', 'prolog', {
+  comment: { pattern: /##[^\n]*/, alias: 'comment' },
+});
 
 const CodeNoteContext = createContext<ICodeNoteContext>(undefined);
 
@@ -85,25 +92,28 @@ export const withCodeNoteContext =
       return { content, selection, blockKey, block };
     };
 
-    const handleEditStart = () => {
+    const handleEditStart = useCallback(() => {
       if (note?.tempSaved && confirm('임시저장된 내용을 불러오시겠습니까?')) {
         setNoteType('tempSaved');
       } else if (note?.submitted) {
         setNoteType('submitted');
       }
       setEditing(true);
-    };
+    }, [note]);
 
-    const handleEditCancel = () => {
+    const handleEditCancel = useCallback(() => {
       setEditing(false);
       setNoteType('submitted');
-    };
+    }, []);
 
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTitle(e.target.value);
-    };
+    const handleTitleChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
+      },
+      []
+    );
 
-    const handleNoteDelete = async () => {
+    const handleNoteDelete = useCallback(async () => {
       if (!confirm('풀이 노트를 삭제하시겠습니까?')) {
         return;
       }
@@ -113,11 +123,14 @@ export const withCodeNoteContext =
       } catch (err) {
         alert('풀이 노트 삭제에 실패하였습니다.');
       }
-    };
+    }, [selectedCodeId]);
 
-    const handleEditorStateChange = (newEditorState: EditorState) => {
-      setEditorState(newEditorState);
-    };
+    const handleEditorStateChange = useCallback(
+      (newEditorState: EditorState) => {
+        setEditorState(newEditorState);
+      },
+      []
+    );
 
     const handleTab = (_editorState = editorState) => {
       const tabCharacter = '        ';
@@ -155,7 +168,7 @@ export const withCodeNoteContext =
       return newEditorState;
     };
 
-    const handleEditSave = async () => {
+    const handleEditSave = useCallback(async () => {
       if (!title && !rawContent) {
         alert('제목이나 내용을 입력해주세요.');
         return;
@@ -171,7 +184,7 @@ export const withCodeNoteContext =
       } catch (err) {
         alert('풀이 노트 변경 내역 임시저장에 실패하였습니다.');
       }
-    };
+    }, [title, rawContent, selectedCodeId]);
 
     const handleEditSubmit = async () => {
       if (!title) {

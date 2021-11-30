@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -9,9 +9,9 @@ import { CodeSectionType } from 'src/modules/atoms/problem';
 export default function NoteViewButton() {
   const setCodeSectionType = useSetRecoilState(CodeSectionType);
 
-  const handleButtonClick = async () => {
+  const handleButtonClick = useCallback(async () => {
     setCodeSectionType('note');
-  };
+  }, []);
 
   return <Button onClick={handleButtonClick}>풀이 노트</Button>;
 }

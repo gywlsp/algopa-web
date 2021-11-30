@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import P from 'src/components/common/p';
@@ -14,31 +15,33 @@ export type EventIndexPreviewCardProps = {
   onClick: () => void;
 };
 
-export default function EventIndexPreviewCard({
+function EventIndexPreviewCard({
   order,
   codeId,
   eventId,
   index,
   onClick,
 }: EventIndexPreviewCardProps) {
-  const handleDeleteButtonClick: MouseEventHandler<HTMLButtonElement> = async (
-    e
-  ) => {
-    e.stopPropagation();
-    if (!confirm('인덱스를 삭제하시겠습니까?')) {
-      return;
-    }
-    try {
-      await CodeService.createEventIndex({
-        codeId,
-        eventId,
-        index: null,
-      });
-      alert('인덱스가 삭제되었습니다');
-    } catch (err) {
-      alert('인덱스 삭제에 실패하였습니다.');
-    }
-  };
+  const handleDeleteButtonClick: MouseEventHandler<HTMLButtonElement> =
+    useCallback(
+      async (e) => {
+        e.stopPropagation();
+        if (!confirm('인덱스를 삭제하시겠습니까?')) {
+          return;
+        }
+        try {
+          await CodeService.createEventIndex({
+            codeId,
+            eventId,
+            index: null,
+          });
+          alert('인덱스가 삭제되었습니다');
+        } catch (err) {
+          alert('인덱스 삭제에 실패하였습니다.');
+        }
+      },
+      [codeId, eventId]
+    );
 
   return (
     <Wrapper onClick={onClick}>
@@ -48,6 +51,8 @@ export default function EventIndexPreviewCard({
     </Wrapper>
   );
 }
+
+export default React.memo(EventIndexPreviewCard);
 
 const Wrapper = styled.button`
   position: relative;

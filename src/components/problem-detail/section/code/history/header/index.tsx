@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
+import dynamic from 'next/dynamic';
 
-import NoteViewButton from './note-view-button';
-import P from 'src/components/common/p';
+const NoteViewButton = dynamic(() => import('./note-view-button'));
+const P = dynamic(() => import('src/components/common/p'));
 import ChevronLeftIcon from 'src/assets/icons/chevron/left';
 import { GREY, WHITE } from 'src/constants/colors';
 
@@ -12,9 +13,9 @@ import { CodeSectionType } from 'src/modules/atoms/problem';
 export default function CodeHistorySectionHeader() {
   const setCodeSectionType = useSetRecoilState(CodeSectionType);
 
-  const handleBackButtonClick = () => {
+  const handleBackButtonClick = useCallback(() => {
     setCodeSectionType('edit');
-  };
+  }, []);
 
   return (
     <Wrapper>

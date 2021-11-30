@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -11,13 +11,13 @@ export default function CodeHistoryViewButton() {
   const events = useRecoilValue(codeEvents);
   const setCodeSectionType = useSetRecoilState(CodeSectionType);
 
-  const handleButtonClick = async () => {
-    if (!events || !events.length) {
+  const handleButtonClick = useCallback(async () => {
+    if (!events?.length) {
       alert('풀이 내역이 없습니다.');
       return;
     }
     setCodeSectionType('history');
-  };
+  }, [events]);
 
   return <Button onClick={handleButtonClick}>풀이 내역</Button>;
 }

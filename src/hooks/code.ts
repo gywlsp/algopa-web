@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useEffect, useRef, useState } from 'react';
-import { OnChange } from '@monaco-editor/react';
+import { OnChange, OnMount } from '@monaco-editor/react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { isEqual, debounce } from 'lodash';
 import { useRouter } from 'next/router';
@@ -90,7 +90,6 @@ export const useSelectedCodeEdit = () => {
   const [text, setText] = useRecoilState(selectedProblemCodeText);
   const [lastEventId, setLastEventId] = useRecoilState(selectedCodeLastEventId);
   const [events, setEvents] = useState([]);
-
   useEffect(() => {
     if (code) {
       setText(code.text);
@@ -111,30 +110,26 @@ export const useSelectedCodeEdit = () => {
     []
   );
 
-  const handleTextChange: OnChange = (v, e) => {
-    setText(v);
-    sendEvents(
-      code?.id,
-      events.concat({
+  const handleTextChange: OnChange = useCallback(
+    (v, e) => {
+      const updatedEvents = events.concat({
         ...e,
         modifiedText: v,
         timestamp: new Date(),
-      })
-    );
-    setEvents(
-      events.concat({
-        ...e,
-        modifiedText: v,
-        timestamp: new Date(),
-      })
-    );
-  };
+      });
+      setText(v);
+      setEvents(updatedEvents);
+      sendEvents(code?.id, updatedEvents);
+    },
+    [events, code?.id]
+  );
 
   return { code, text, lastEventId, onChange: handleTextChange };
 };
 
 export const useCodeEvents = () => {
   const codeId = useRecoilValue(selectedProblemCodeId);
+  const codeSectionType = useRecoilValue(CodeSectionType);
   const { data } = useRequest<CodeTextChangeEvent[]>(
     eventListConfig(codeId),
     VALIDATE_DISABLE_OPTIONS
@@ -153,7 +148,11 @@ export const useCodeEvents = () => {
     }
   }, [data]);
 
-  return { data: events };
+  useEffect(() => {
+    if (codeSectionType === 'history' && !events?.length) {
+      alert('해당 코드의 풀이 내역이 없습니다.');
+    }
+  }, [codeSectionType, events?.length]);
 };
 
 export const useCodeEventHighlight = () => {
@@ -215,14 +214,24 @@ export const useCodeEventHighlight = () => {
     );
   };
 
-  return { editorRef, text: codeEvent?.modifiedText, highlight };
+  const handleEditorDidMount: OnMount = useCallback(
+    (editor, _) => {
+      editorRef.current = editor;
+      highlight();
+    },
+    [editorRef, highlight]
+  );
+
+  return {
+    text: codeEvent?.modifiedText,
+    onEditorDidMount: handleEditorDidMount,
+  };
 };
 
 export const useEventIndexEdit = () => {
   const codeId = useRecoilValue(selectedProblemCodeId);
   const selectedEvent = useRecoilValue(selectedCodeEvent);
   const [index, setIndex] = useState('');
-  const hasIndex = selectedEvent?.index !== undefined;
   const [isEditing, setEditing] = useState(false);
   const {
     action: { initPlaying },
@@ -235,33 +244,34 @@ export const useEventIndexEdit = () => {
     setIndex(selectedEvent?.index || '');
   }, [selectedEvent]);
 
-  const handleEditStart = () => {
+  const handleEditStart = useCallback(() => {
     setEditing(true);
-  };
+  }, []);
 
-  const handleEditCancel = () => {
+  const handleEditCancel = useCallback(() => {
     setIndex(selectedEvent?.index || '');
     setEditing(false);
-  };
+  }, [selectedEvent?.index]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIndex(e.target.value);
-  };
+  }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     try {
       await CodeService.createEventIndex({
         codeId,
         eventId: selectedEvent?.id,
         index,
       });
+      const hasIndex = selectedEvent?.index !== undefined;
       alert(hasIndex ? '인덱스가 수정되었습니다.' : '인덱스가 생성되었습니다.');
       handleEditCancel();
       initPlaying();
     } catch (err) {
       alert('인덱스 생성에 실패하였습니다.');
     }
-  };
+  }, [codeId, selectedEvent?.id, index, handleEditCancel, initPlaying]);
 
   return {
     index,

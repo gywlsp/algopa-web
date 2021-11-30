@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import P from 'src/components/common/p';
 import { GREY } from 'src/constants/colors';
 
-export default function IndexListSectionHeader() {
+function IndexListSectionHeader() {
   return (
     <Wrapper>
       <Title>인덱스 목록</Title>
     </Wrapper>
   );
 }
+
+export default React.memo(IndexListSectionHeader, () => true);
 
 const Wrapper = styled.header`
   display: flex;

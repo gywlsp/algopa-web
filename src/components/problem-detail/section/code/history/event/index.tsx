@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-const CodeTextSection = dynamic(() => import('../code-text'));
+const CodeTextSection = dynamic(() => import('./code-text'));
 const EventDetailSection = dynamic(() => import('./detail'));
 const CodeHistoryPlayer = dynamic(() => import('./player'));
 

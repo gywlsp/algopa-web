@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 
-import P from 'src/components/common/p';
+const IndexTitleInput = dynamic(() => import('./index-title-input'));
+const LanguageSelect = dynamic(() => import('./language-select'));
+const CodeRunButton = dynamic(() => import('./button/code-run'));
+const CodeHistoryViewButton = dynamic(() => import('./button/history-view'));
+const P = dynamic(() => import('src/components/common/p'));
 import { GREY } from 'src/constants/colors';
-import IndexTitleInput from './index-title-input';
-import LanguageSelect from './language-select';
-import CodeRunButton from './button/code-run';
-import CodeHistoryViewButton from './button/history-view';
 
 export default function CodeEditSectionHeader() {
   return (
