@@ -77,7 +77,7 @@ export const withCodeRunContext =
       setCodeRunLoading({ status: false, guideText: '' });
     };
 
-    const handleCodeSubmit = async () => {
+    const submitCode = async () => {
       try {
         setCodeRunLoading({ status: true, guideText: '코드 채점 중 ...' });
         const data = await CodeService.submit(codeId, { text });
@@ -102,7 +102,7 @@ export const withCodeRunContext =
         closeCompleteModal,
         onInputChange: handleInputChange,
         onCodeRun: handleCodeRun,
-        onCodeSubmit: handleCodeSubmit,
+        submitCode,
       },
     };
 

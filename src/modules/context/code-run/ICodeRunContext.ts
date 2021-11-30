@@ -17,6 +17,6 @@ export interface ICodeRunContext {
     closeCompleteModal: () => void;
     onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onCodeRun: () => Promise<void>;
-    onCodeSubmit: () => Promise<void>;
+    submitCode: () => Promise<void>;
   };
 }

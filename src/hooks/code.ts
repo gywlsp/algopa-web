@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useMemo, useEffect, useRef, useState } from 'react';
 import { OnChange } from '@monaco-editor/react';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { isEqual, debounce } from 'lodash';
@@ -27,44 +27,62 @@ import { useCodeHistoryPlayerContext } from 'src/modules/context/code-history-pl
 
 export const useProblemCodes = () => {
   const router = useRouter();
-  const [codes, setCodes] = useRecoilState(problemCodes);
-  const resetCodeSectionType = useResetRecoilState(CodeSectionType);
-  const [selectedCodeId, setSelectedCodeId] = useRecoilState(
-    selectedProblemCodeId
-  );
   const { data } = useRequest<ICodeReadDTO[]>(
     listConfig(+router?.query?.id),
     VALIDATE_DISABLE_OPTIONS
   );
+  const [codes, setCodes] = useRecoilState(problemCodes);
+  const [selectedCodeId, setSelectedCodeId] = useRecoilState(
+    selectedProblemCodeId
+  );
+  const resetCodeSectionType = useResetRecoilState(CodeSectionType);
 
   useEffect(() => {
     resetCodeSectionType();
   }, [router?.query?.id]);
 
   useEffect(() => {
-    if (!isEqual(data, codes)) {
-      setCodes(data);
+    if (isEqual(data, codes)) {
+      return;
+    }
+    setCodes(data);
+    if (data?.length && data[0].id !== selectedCodeId) {
+      setSelectedCodeId(data[0].id);
     }
   }, [data]);
-
-  useEffect(() => {
-    if (data?.length && data[0]?.id !== selectedCodeId) {
-      setSelectedCodeId(data[0]?.id);
-    }
-  }, [data?.length]);
 
   return { data: codes };
 };
 
-export const useSelectedCode = () => {
+export const useCodeSelect = () => {
   const [selectedCodeId, setSelectedCodeId] = useRecoilState(
     selectedProblemCodeId
   );
-  const selectedCode = useRecoilValue(selectedProblemCode);
-  const selectCode = (id: string) => {
+  const { data: codes } = useProblemCodes();
+
+  const options = useMemo(
+    () =>
+      (codes || [])?.map(({ id, tryCount }) => ({
+        key: id,
+        label: `try_${tryCount}`,
+        value: id,
+        selected: id === selectedCodeId,
+      })),
+    [codes]
+  );
+
+  const selectCode = useCallback((id: string) => {
     setSelectedCodeId(id);
-  };
-  return { id: selectedCodeId, data: selectedCode, select: selectCode };
+  }, []);
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const { value } = e.target;
+      selectCode(value);
+    },
+    [selectCode]
+  );
+  return { options, onChange: handleChange, value: selectedCodeId };
 };
 
 export const useSelectedCodeEdit = () => {

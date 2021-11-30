@@ -43,7 +43,7 @@ export default function ProblemCategorySwitch({
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.label`
   display: flex;
   align-items: center;
 `;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
@@ -6,20 +6,21 @@ import Button from 'src/components/common/button';
 
 import { CodeSectionType } from 'src/modules/atoms/problem';
 import { BLUE_GREEN } from 'src/constants/colors';
+
 import { useCodeRunContext } from 'src/modules/context/code-run';
 
 export default function CodeSubmitButton() {
   const codeSectionType = useRecoilValue(CodeSectionType);
   const {
-    action: { onCodeSubmit },
+    action: { submitCode },
   } = useCodeRunContext();
 
-  const submitCode = async () => {
+  const handleClick = useCallback(async () => {
     if (!confirm('코드를 제출하고 채점하시겠습니까?')) {
       return;
     }
-    await onCodeSubmit();
-  };
+    await submitCode();
+  }, [submitCode]);
 
   if (codeSectionType !== 'edit') {
     return <></>;
@@ -27,7 +28,7 @@ export default function CodeSubmitButton() {
 
   return (
     <StyledButton
-      onClick={submitCode}
+      onClick={handleClick}
       size="small"
       type="primary"
       title="채점하기"

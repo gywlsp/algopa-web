@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/common/button';
 import { BLUE_GREEN } from 'src/constants/colors';
 
 import CodeService from 'src/services/api/code';
-import { problem, CodeSectionType } from 'src/modules/atoms/problem';
+import { problem } from 'src/modules/atoms/problem';
 
-export default function NewCodeButton() {
-  const resetCodeSectionType = useResetRecoilState(CodeSectionType);
+export default function CodeCreateButton() {
   const problemData = useRecoilValue(problem);
 
-  const createNewCode = async () => {
+  const createNewCode = useCallback(async () => {
     if (!confirm('문제를 새로 푸시겠습니까?')) {
       return;
     }
     try {
       await CodeService.create(problemData?.id);
-      resetCodeSectionType();
     } catch (err) {
       alert('코드 생성 실패');
     }
-  };
+  }, [problemData?.id]);
 
   return (
     <StyledButton
