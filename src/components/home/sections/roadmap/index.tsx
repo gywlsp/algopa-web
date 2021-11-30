@@ -43,7 +43,7 @@ export default function RoadmapSection() {
         <>
           <CompanyImg
             src={`/images/${COMPANY_IMAGES[company]}`}
-            alt={company}
+            alt={company || 'default'}
           />
           <GuideModalOpenButton onClick={openGuideModal} />
         </>

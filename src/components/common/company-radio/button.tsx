@@ -31,7 +31,7 @@ function CompanyRadioButton({ company: _company }: CompanyRadioButtonProps) {
     <Wrapper onClick={handleButtonClick}>
       <StyledImg
         src={`/images/${COMPANY_IMAGES[_company]}`}
-        alt={_company}
+        alt={_company || 'default'}
         isSelected={isSelected}
       />
     </Wrapper>
