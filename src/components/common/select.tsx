@@ -19,7 +19,7 @@ export type SelectProps = {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export default function Select({
+function Select({
   size = 'medium',
   className,
   value,
@@ -41,6 +41,9 @@ export default function Select({
     </Wrapper>
   );
 }
+
+export default React.memo(Select);
+
 const Wrapper = styled.select<any>`
   font-size: ${({ size }) => (size === 'medium' ? '1.4rem' : '1.2rem')};
   color: ${BLUE_GREEN[800]};
