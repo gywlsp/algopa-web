@@ -39,6 +39,8 @@
 
 ## UI 💄
 
+- [데모 영상](https://youtu.be/uDUErcbDnqM)
+
 - **홈 화면**
   ![UI](https://user-images.githubusercontent.com/47051596/140641475-0484b02f-66ff-410a-bbe3-b4f943209eaf.png)
 
