@@ -37,7 +37,9 @@
 
 ## 웹사이트 성능 ⚡️
 
-<img width="340" style="margin-bottom: 12px" alt="개선후" src="https://user-images.githubusercontent.com/47051596/144544697-601f2a50-c3da-470f-934d-cc8a21944e7c.png">
+<img width="340" alt="개선후" src="https://user-images.githubusercontent.com/47051596/144544697-601f2a50-c3da-470f-934d-cc8a21944e7c.png">
+
+<br />
 
 ## 기술 스택 🛠
 
@@ -53,6 +55,8 @@
   - Draft.js
   - PrismJS
   - vis-network
+
+<br />
 
 ## 프로젝트 참여자 역할 👨‍💻👩‍💻
 
@@ -75,3 +79,22 @@
   - 그래프 DB 설계
   - 문제 추천 엔진 개발
   - 문제 서버 API 설계 및 개발
+
+<br />
+
+## 프로젝트 지원 🍯
+
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/48302738/129100511-222df9db-5a14-4a65-84ed-7895997c5771.png" width="20%" height="20%">
+</div>
+
+2021년도 과학기술정보통신부의 재원으로 정보통신기획평가원의 지원을 받아 수행된 프로젝트입니다.(IITP-2021-SW마에스트로과정). This work was supported by the Institute of Information & Communications Technology Planning & Evaluation(IITP) grant funded by the Ministry of Science and ICT(MSIT) (IITP-2021-SW Maestro training course).
+
+<p style="font-weight: 500;" align="center">Copyright © 2021. (Team. LIMO) All rights reserved.</p>
+
+<br />
+
+### 비고
+
+<p style="color: darkgrey;">기획한 기능을 구현하기 위해, 백준 문제를 임시로 사용했습니다.</p>
