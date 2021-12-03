@@ -1,14 +1,6 @@
-# Algopa
+# 개인 맞춤 코딩테스트 학습 서비스 - 알고파
 
 <img src="https://user-images.githubusercontent.com/47051596/140640554-4c79d5a8-55a0-4576-bb0d-a1e93d9dd9a8.png" style = "margin: 15px"/>
-
-- [서비스 링크](https://www.algopa.io/)
-
-<br />
-
-## 프로젝트 목표 👊🏻
-
-- 개발자 취업 준비생들이 효율적으로 코딩테스트를 준비할 수 있게 돕자!
 
 <br/>
 
@@ -19,7 +11,7 @@
 
 <br />
 
-## 서비스 기능 소개 ✨
+## 서비스 기능 소개 🌟
 
 - [영상](https://youtu.be/rzRRqRK5rVo)
 
@@ -37,39 +29,15 @@
 
 <br />
 
-## UI 💄
+## 서비스 화면 💄
 
 - [데모 영상](https://youtu.be/uDUErcbDnqM)
 
-- **홈 화면**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641475-0484b02f-66ff-410a-bbe3-b4f943209eaf.png)
-
-- **코딩테스트 준비 로드맵**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641360-97479ac8-8cac-4d88-a374-6f2e0df0c410.png)
-
-- **로드맵 이용 가이드 모달**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641387-81ca9480-d482-461d-a5db-70ff1baa6350.png)
-
-- **로드맵 문제 정보 모달**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641440-a6feab95-c6be-4442-aa3d-f3d0d7db3f84.png)
-
-- **문제 추천 상세 화면**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641504-d13d81f8-87a7-42f3-8901-2980b763d72e.png)
-  ![UI](https://user-images.githubusercontent.com/47051596/140641581-c6cfa72b-e253-4a18-a490-821f27016ae5.png)
-
-- **문제 풀이 화면**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641653-ed33a4d6-c19d-4720-986b-fea4c21be2a7.png)
-
-- **풀이 내역 화면**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641713-bb70fb84-6f09-42aa-b091-281b008d9416.png)
-
-- **풀이 노트 뷰 화면**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641754-d22e3b39-4b8b-4048-b844-0f0e024d35a1.png)
-
-- **풀이 노트 에딧 화면**
-  ![UI](https://user-images.githubusercontent.com/47051596/140641823-9424a211-80c9-415a-b8a7-a90d78d01589.png)
-
 <br />
+
+## 웹사이트 성능 ⚡️
+
+<img width="340" style="margin-bottom: 12px" alt="개선후" src="https://user-images.githubusercontent.com/47051596/144544697-601f2a50-c3da-470f-934d-cc8a21944e7c.png">
 
 ## 기술 스택 🛠
 
