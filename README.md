@@ -35,12 +35,6 @@
 
 <br />
 
-## 웹사이트 성능 ⚡️
-
-<img width="340" alt="개선후" src="https://user-images.githubusercontent.com/47051596/144544697-601f2a50-c3da-470f-934d-cc8a21944e7c.png">
-
-<br />
-
 ## 기술 스택 🛠
 
 - 언어
@@ -55,6 +49,18 @@
   - Draft.js
   - PrismJS
   - vis-network
+
+<br />
+
+## 웹사이트 성능 ⚡️
+
+<img width="340" alt="성능개선후" src="https://user-images.githubusercontent.com/47051596/144544697-601f2a50-c3da-470f-934d-cc8a21944e7c.png">
+
+<br />
+
+## 번들 사이즈 🔍
+
+<img width="400" alt="번들사이즈개선후" src="https://user-images.githubusercontent.com/47051596/144699030-3c1485af-c5dd-4abd-a1ca-75bfb669d68e.png">
 
 <br />
 
