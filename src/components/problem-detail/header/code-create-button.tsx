@@ -11,20 +11,25 @@ import { problem } from 'src/modules/atoms/problem';
 export default function CodeCreateButton() {
   const problemData = useRecoilValue(problem);
 
-  const createNewCode = useCallback(async () => {
-    if (!confirm('문제를 새로 푸시겠습니까?')) {
-      return;
-    }
+  const confirmCodeCreate = () => {
+    return confirm('문제를 새로 푸시겠습니까?');
+  };
+
+  const createCode = async () => {
     try {
       await CodeService.create(problemData?.id);
     } catch (err) {
       alert('코드 생성 실패');
     }
+  };
+
+  const handleButtonClick = useCallback(async () => {
+    confirmCodeCreate() && createCode();
   }, [problemData?.id]);
 
   return (
     <StyledButton
-      onClick={createNewCode}
+      onClick={handleButtonClick}
       size="small"
       type="primary"
       title="새로 풀기"
