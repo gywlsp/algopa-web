@@ -22,25 +22,30 @@ function EventIndexPreviewCard({
   index,
   onClick,
 }: EventIndexPreviewCardProps) {
+  const confirmIndexDelete = () => {
+    return !confirm('인덱스를 삭제하시겠습니까?');
+  };
+
+  const deleteIndex = async () => {
+    try {
+      await CodeService.createEventIndex({
+        codeId,
+        eventId,
+        index: null,
+      });
+      alert('인덱스가 삭제되었습니다');
+    } catch (err) {
+      alert('인덱스 삭제에 실패하였습니다.');
+    }
+  };
+
   const handleDeleteButtonClick: MouseEventHandler<HTMLButtonElement> =
     useCallback(
       async (e) => {
         e.stopPropagation();
-        if (!confirm('인덱스를 삭제하시겠습니까?')) {
-          return;
-        }
-        try {
-          await CodeService.createEventIndex({
-            codeId,
-            eventId,
-            index: null,
-          });
-          alert('인덱스가 삭제되었습니다');
-        } catch (err) {
-          alert('인덱스 삭제에 실패하였습니다.');
-        }
+        confirmIndexDelete() && deleteIndex();
       },
-      [codeId, eventId]
+      [codeId, eventId, confirmIndexDelete, deleteIndex]
     );
 
   return (
