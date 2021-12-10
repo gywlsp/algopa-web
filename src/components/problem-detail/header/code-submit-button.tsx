@@ -15,12 +15,13 @@ export default function CodeSubmitButton() {
     action: { submitCode },
   } = useCodeRunContext();
 
+  const confirmCodeSubmit = () => {
+    return confirm('코드를 제출하고 채점하시겠습니까?');
+  };
+
   const handleClick = useCallback(async () => {
-    if (!confirm('코드를 제출하고 채점하시겠습니까?')) {
-      return;
-    }
-    await submitCode();
-  }, [submitCode]);
+    confirmCodeSubmit() && (await submitCode());
+  }, [confirmCodeSubmit, submitCode]);
 
   if (codeSectionType !== 'edit') {
     return <></>;
