@@ -18,24 +18,28 @@ const LANGUAGE_OPTIONS = [
 export default function LanguageSelect() {
   const code = useRecoilValue(selectedProblemCode);
 
-  const handleSelectedCodeChange = useCallback(
+  const confirmLanguageChange = () => {
+    return confirm(
+      '언어를 변경하면 해당 파일의 코드 변경 내역이 초기화됩니다.\n언어를 변경하시겠습니까?'
+    );
+  };
+
+  const changeCodeLanguage = async (language: CodeLanguage) => {
+    try {
+      await CodeService.update(code?.id, {
+        language,
+      });
+    } catch (err) {
+      alert('코드 언어 변경 실패');
+    }
+  };
+
+  const handleSelectChange = useCallback(
     async (e: React.ChangeEvent<HTMLSelectElement>) => {
-      if (
-        !confirm(
-          '언어를 변경하면 해당 파일의 코드 변경 내역이 초기화됩니다.\n언어를 변경하시겠습니까?'
-        )
-      ) {
-        return;
-      }
-      try {
-        await CodeService.update(code?.id, {
-          language: e.target.value as CodeLanguage,
-        });
-      } catch (err) {
-        alert('코드 언어 변경 실패');
-      }
+      confirmLanguageChange() &&
+        (await changeCodeLanguage(e.target.value as CodeLanguage));
     },
-    [code?.id]
+    [confirmLanguageChange, changeCodeLanguage]
   );
 
   return (
@@ -44,7 +48,7 @@ export default function LanguageSelect() {
       <StyledSelect
         size="small"
         options={LANGUAGE_OPTIONS}
-        onChange={handleSelectedCodeChange}
+        onChange={handleSelectChange}
         value={code?.language}
       />
     </>
