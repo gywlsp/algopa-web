@@ -23,7 +23,7 @@ function EventIndexPreviewCard({
   onClick,
 }: EventIndexPreviewCardProps) {
   const confirmIndexDelete = () => {
-    return !confirm('인덱스를 삭제하시겠습니까?');
+    return confirm('인덱스를 삭제하시겠습니까?');
   };
 
   const deleteIndex = async () => {
