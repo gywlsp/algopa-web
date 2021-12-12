@@ -17,15 +17,15 @@ export default function CodeNoteIndexListSection() {
     action: { insertEventIndexData },
   } = useCodeNoteContext();
 
+  const confirmIndexInsert = () => {
+    return confirm('에디터에 해당 인덱스 정보(코드, 메모)를 추가하시겠습니까?');
+  };
+
   const handleIndexCardClick = useCallback(
     (index: string, modifiedText: string) => () => {
-      if (
-        confirm('에디터에 해당 인덱스 정보(코드, 메모)를 추가하시겠습니까?')
-      ) {
-        insertEventIndexData(index, modifiedText);
-      }
+      confirmIndexInsert() && insertEventIndexData(index, modifiedText);
     },
-    [insertEventIndexData]
+    [confirmIndexInsert, insertEventIndexData]
   );
 
   return (
