@@ -85,7 +85,7 @@ export const useCodeSelect = () => {
   return { options, onChange: handleChange, value: selectedCodeId };
 };
 
-export const useSelectedCodeEdit = () => {
+export const useCodeEdit = () => {
   const code = useRecoilValue(selectedProblemCode);
   const [text, setText] = useRecoilState(selectedProblemCodeText);
   const [lastEventId, setLastEventId] = useRecoilState(selectedCodeLastEventId);
