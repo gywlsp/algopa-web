@@ -168,9 +168,20 @@ export const withCodeNoteContext =
       return newEditorState;
     };
 
+    const isNoteValid = () => {
+      if (!title) {
+        alert('제목을 입력해주세요.');
+        return false;
+      }
+      if (!rawContent) {
+        alert('내용을 입력해주세요.');
+        return false;
+      }
+      return true;
+    };
+
     const handleEditSave = useCallback(async () => {
-      if (!title && !rawContent) {
-        alert('제목이나 내용을 입력해주세요.');
+      if (!isNoteValid()) {
         return;
       }
       try {
@@ -187,12 +198,7 @@ export const withCodeNoteContext =
     }, [title, rawContent, selectedCodeId]);
 
     const handleEditSubmit = async () => {
-      if (!title) {
-        alert('제목을 입력해주세요.');
-        return;
-      }
-      if (!rawContent) {
-        alert('내용을 입력해주세요.');
+      if (!isNoteValid()) {
         return;
       }
       try {
