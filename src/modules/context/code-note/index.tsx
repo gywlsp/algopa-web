@@ -40,13 +40,13 @@ export const withCodeNoteContext =
   (WrappedComponent: React.FunctionComponent<any>) =>
   (props: CodeNoteSectionProps) => {
     const editorRef = useRef(null);
-    const decorator = new PrimsDecorator({ prism: Prism });
+    const codeHighlighter = new PrimsDecorator({ prism: Prism });
     const codeSectionType = useRecoilValue(CodeSectionType);
     const selectedCodeId = useRecoilValue(selectedProblemCodeId);
     const selectedCode = useRecoilValue(selectedProblemCode);
     const { data: note } = useNote(selectedCodeId);
     const [editorState, setEditorState] = useState(() =>
-      EditorState.createEmpty(decorator)
+      EditorState.createEmpty(codeHighlighter)
     );
     const [isEditing, setEditing] = useState(false);
     const [noteType, setNoteType] = useState<'submitted' | 'tempSaved'>(
@@ -54,7 +54,7 @@ export const withCodeNoteContext =
     );
     const [title, setTitle] = useState('');
     const content = editorState?.getCurrentContent();
-    const rawContent = content ? convertToRaw(content) : null;
+    const rawContent = content && convertToRaw(content);
 
     useEffect(() => {
       if (note && note[noteType]) {
@@ -76,12 +76,12 @@ export const withCodeNoteContext =
 
     const resetEditor = () => {
       setTitle('');
-      setEditorState(EditorState.createEmpty(decorator));
+      setEditorState(EditorState.createEmpty(codeHighlighter));
     };
 
     const convertToEditorState = (rawContent: RawDraftContentState) => {
       const content = convertFromRaw(rawContent);
-      return EditorState.createWithContent(content, decorator);
+      return EditorState.createWithContent(content, codeHighlighter);
     };
 
     const getEditorData = (_editorState = editorState) => {
@@ -227,7 +227,7 @@ export const withCodeNoteContext =
       const newContent = Modifier.insertText(content, selection, text);
       const newEditorState = EditorState.createWithContent(
         newContent,
-        decorator
+        codeHighlighter
       );
       const newSelection = selection.merge({
         anchorOffset: prevAnchorOffset + text.length,
