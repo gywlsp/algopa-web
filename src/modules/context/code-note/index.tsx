@@ -141,7 +141,7 @@ export const withCodeNoteContext =
       );
     };
 
-    const getSyntaxAddedEditorState = (_editorState = editorState) => {
+    const addCodeSyntax = (_editorState = editorState) => {
       const { content, selection, block } = getEditorData(_editorState);
       const newData = block.getData().merge({ syntax: selectedCode?.language });
       const newContent = Modifier.setBlockData(content, selection, newData);
@@ -159,9 +159,7 @@ export const withCodeNoteContext =
         ? RichUtils.toggleInlineStyle
         : RichUtils.toggleBlockType;
       const newEditorState = toggleStyle(
-        value === 'code-block'
-          ? getSyntaxAddedEditorState(_editorState)
-          : _editorState,
+        value === 'code-block' ? addCodeSyntax(_editorState) : _editorState,
         value
       );
       handleEditorStateChange(newEditorState);
