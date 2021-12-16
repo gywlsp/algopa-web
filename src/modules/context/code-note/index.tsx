@@ -217,38 +217,34 @@ export const withCodeNoteContext =
       editorRef?.current?.focus();
     };
 
-    const insertText = ({ editorState, text }) => {
+    const insertCodeBlock = ({ editorState, data }) => {
       const { content, selection } = getEditorData(editorState);
       const prevAnchorOffset = selection.getAnchorOffset();
       const prevFocusOffset = selection.getFocusOffset();
 
-      const newContent = Modifier.insertText(content, selection, text);
       const newEditorState = EditorState.createWithContent(
-        newContent,
+        Modifier.insertText(content, selection, data),
         codeHighlighter
       );
       const newSelection = selection.merge({
-        anchorOffset: prevAnchorOffset + text.length,
-        focusOffset: prevFocusOffset + text.length,
+        anchorOffset: prevAnchorOffset + data.length,
+        focusOffset: prevFocusOffset + data.length,
       });
-      const newSelectedEditorState = EditorState.forceSelection(
-        newEditorState,
-        newSelection
+      const newSelectedEditorState = RichUtils.insertSoftNewline(
+        EditorState.forceSelection(newEditorState, newSelection)
       );
-      return newSelectedEditorState;
+      toggleEditorStyle('code-block', newSelectedEditorState);
     };
 
-    const insertEventIndexData = (index: string, modifiedText: string) => {
-      const dataInsertedEditorState = insertText({
+    const insertEventIndexData = (index: string, codeText: string) => {
+      const indexData = `${
+        selectedCode?.language === 'python' ? '#' : '//'
+      } ${index}\n${codeText}`;
+
+      insertCodeBlock({
         editorState,
-        text: `${
-          selectedCode?.language === 'python' ? '#' : '//'
-        } ${index}\n${modifiedText}`,
+        data: indexData,
       });
-      const newEditorState = RichUtils.insertSoftNewline(
-        dataInsertedEditorState
-      );
-      toggleEditorStyle('code-block', newEditorState);
     };
 
     const codeNoteStore = {
