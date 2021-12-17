@@ -63,7 +63,7 @@ export const withCodeNoteContext =
       } else {
         resetEditor();
       }
-    }, [JSON.stringify(note && note[noteType]), isEditing]);
+    }, [JSON.stringify(note && note[noteType])]);
 
     useEffect(() => {
       setEditing(false);
