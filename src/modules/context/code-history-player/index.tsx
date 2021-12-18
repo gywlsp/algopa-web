@@ -1,4 +1,11 @@
-import { useState, useContext, createContext, useEffect, useRef } from 'react';
+import {
+  useState,
+  useContext,
+  createContext,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { DraggableEventHandler } from 'react-draggable';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { CodeHistorySectionProps } from 'src/components/problem-detail/section/code/history';
@@ -126,10 +133,13 @@ export const withCodeHistoryPlayerContext =
       togglePlaying('start');
     };
 
-    const selectIndexCard = (eventOrder: number) => {
-      togglePlaying('stop');
-      handleSelectedEventChange({ order: eventOrder });
-    };
+    const handleIndexCardClick = useCallback(
+      (eventOrder: number) => () => {
+        togglePlaying('stop');
+        handleSelectedEventChange({ order: eventOrder });
+      },
+      [togglePlaying, handleSelectedEventChange]
+    );
 
     const codeHistoryPlayerStore = {
       state: {
@@ -150,7 +160,7 @@ export const withCodeHistoryPlayerContext =
         onDragStart: handleDragStart,
         onDrag: handleDrag,
         onDragStop: handleDragStop,
-        selectIndexCard: selectIndexCard,
+        onIndexCardClick: handleIndexCardClick,
       },
     };
 

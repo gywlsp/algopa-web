@@ -14,15 +14,8 @@ export default function CodeHistoryIndexListSection() {
   const codeId = useRecoilValue(selectedProblemCodeId);
   const indexedEvents = useRecoilValue(selectedCodeIndexedEvents);
   const {
-    action: { selectIndexCard },
+    action: { onIndexCardClick },
   } = useCodeHistoryPlayerContext();
-
-  const handleIndexCardClick = useCallback(
-    (order: number) => () => {
-      selectIndexCard(order);
-    },
-    [selectIndexCard]
-  );
 
   return (
     <Wrapper>
@@ -35,7 +28,7 @@ export default function CodeHistoryIndexListSection() {
             eventId={id}
             order={order}
             index={index}
-            onClick={handleIndexCardClick(order)}
+            onClick={onIndexCardClick(order)}
           />
         ))}
       </CardsWrapper>
