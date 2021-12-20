@@ -12,6 +12,11 @@ export const useLoginRedirect = () => {
   const router = useRouter();
   const setAuthTokens = useSetRecoilState(authTokens);
 
+  const setAuth = (authTokens: AuthTokens) => {
+    setAuthTokens(authTokens);
+    setAuthCookie(authTokens);
+  };
+
   useEffect(() => {
     const login = async () => {
       if (!router?.query?.code) {
@@ -24,8 +29,7 @@ export const useLoginRedirect = () => {
           provider,
           code as string
         );
-        setAuthTokens({ accessToken, refreshToken });
-        setAuthCookie({ accessToken, refreshToken });
+        setAuth({ accessToken, refreshToken });
         alert('로그인 성공!');
         router.push('/');
       } catch (err) {
