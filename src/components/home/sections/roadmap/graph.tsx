@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Graph: any = dynamic(() => import('react-graph-vis'), {
   ssr: false,
 });
+import { Network, Node } from 'vis-network';
 
 import { GREY, WHITE } from 'src/constants/colors';
 
@@ -20,10 +21,10 @@ export type RoadmapGraphProps = {
     nodes: (RoadmapCategoryNode | RoadmapProblemNode)[];
     edges: RoadmapEdgeDTO[];
   };
-  initGraph: (network: any) => void;
+  initGraph: (network: Network) => void;
   events: {
-    selectNode: ({ nodes }: { nodes: any }) => void;
-    doubleClick: ({ nodes }: { nodes: any }) => void;
+    selectNode: ({ nodes }: { nodes: Node[] }) => void;
+    doubleClick: ({ nodes }: { nodes: Node[] }) => void;
   };
 };
 
